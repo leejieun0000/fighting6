@@ -27,7 +27,7 @@ class _MySwitchState extends State<MySwitch> {
         body: Center(
             child: Column(//가운데에 열을 만듦
                 children: <Widget>[
-          Switch(
+                  Switch(
             value: swtichvalue, // 스위치가 on off일 때마다 그 값이 value에 저장
             onChanged: (bool value) {
               //상태 변경이 이루어지면 setState() 발생
