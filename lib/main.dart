@@ -16,13 +16,14 @@ class _MySwitchState extends State<MySwitch> {
   var swtichvalue = false;
   var textSwitch = '';
   var textButton = '';
+
   List<String> drop = ['Hello', 'Flutter', 'BasicProjectLab'];
   String selectedDrop = 'Hello';
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text("Hello")),
+        appBar: AppBar(title: const Text("Hello~~~!!!")),
         body: Center(
             child: Column(//가운데에 열을 만듦
                 children: <Widget>[
