@@ -24,6 +24,7 @@ class _MySwitchState extends State<MySwitch> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text("jieun")),
+
         body: Center(
             child: Column(//가운데에 열을 만듦
                 children: <Widget>[
