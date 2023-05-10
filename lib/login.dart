@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           backgroundColor: Color(0xffFFE072),
+          centerTitle: true,
         )
       ),
       home: LoginWidget(),

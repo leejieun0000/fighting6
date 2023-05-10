@@ -10,11 +10,11 @@ class MyHome extends StatefulWidget{
 }
 
 class _MyHomeState extends State<MyHome>{
-  int _bottomSelectedIndex = 1;
+  int _currentTabIndex = 1;
 
   void _tabSelect(int tabIndex){
     setState(() {
-      _bottomSelectedIndex = tabIndex;
+      _currentTabIndex = tabIndex;
     });
   }
 
@@ -31,24 +31,24 @@ class _MyHomeState extends State<MyHome>{
         title: Text(
           '자취생 도우미',
         ),
-        // automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            onPressed: (){},
-            icon: Icon(Icons.search),
-          ),
-          IconButton(
-            onPressed: (){},
-            icon: Icon(Icons.list),
-          ),
-          IconButton(
-            onPressed: (){},
-            icon: Icon(Icons.notifications),
-          ),
-        ],
+        automaticallyImplyLeading: false,
+        // actions: [
+        //   IconButton(
+        //     onPressed: (){},
+        //     icon: Icon(Icons.search),
+        //   ),
+        //   IconButton(
+        //     onPressed: (){},
+        //     icon: Icon(Icons.list),
+        //   ),
+        //   IconButton(
+        //     onPressed: (){},
+        //     icon: Icon(Icons.notifications),
+        //   ),
+        // ],
       ),
       body: IndexedStack(
-        index: _bottomSelectedIndex,
+        index: _currentTabIndex,
         children: [
           Container(
             color: Colors.accents[0],
@@ -57,16 +57,13 @@ class _MyHomeState extends State<MyHome>{
           Container(
             color: Colors.white,
           ),
-          Container(
-            color: Colors.accents[10],
-          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _bottomSelectedIndex,
+        currentIndex: _currentTabIndex,
         onTap: (index){
           setState(() {
-            _bottomSelectedIndex = index;
+            _currentTabIndex = index;
           });
         },
         items: [
