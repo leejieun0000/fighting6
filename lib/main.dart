@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
+/*
 void main() {
   runApp(const MySwitch());
-}
+}*/
 
 class MySwitch extends StatefulWidget {
   const MySwitch({Key? key}) : super(key: key);
