@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project1/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,6 +37,7 @@ class _JoinWidgetState extends State<JoinWidget> {
         title: const Text('회원가입',
           style: TextStyle(color: Colors.black),
         ),
+        automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: const Color(0xffFFE072),
       ),
@@ -237,10 +239,10 @@ class _JoinWidgetState extends State<JoinWidget> {
               padding: const EdgeInsets.only(right: 5.0),
               child: ElevatedButton(
                 onPressed: (){
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => const CheckBoxs()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginWidget()),
+                  );
                 },
                 child: const Text('완료'),
                 style: ElevatedButton.styleFrom(

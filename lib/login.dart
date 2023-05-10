@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project1/home.dart';
+import 'package:project1/join.dart';
 import 'package:project1/main.dart';
 
 void main() {
@@ -35,6 +36,8 @@ class _LoginWidgetState extends State<LoginWidget> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            SizedBox(height: 100,
+            ),
             Container(
               width: 300,
               height: 300,
@@ -121,6 +124,10 @@ class _LoginWidgetState extends State<LoginWidget> {
               child:TextButton(
                 child: Text("회원가입"),
                 onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const JoinWidget()),
+                  );
                 },
                 style: TextButton.styleFrom(
                   primary: Colors.black,
