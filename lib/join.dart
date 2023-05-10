@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project1/home.dart';
+import 'package:project1/main.dart';
 
 void main() {
   runApp(MyApp());
@@ -237,10 +239,10 @@ class _JoinWidgetState extends State<JoinWidget> {
               padding: const EdgeInsets.only(right: 5.0),
               child: ElevatedButton(
                 onPressed: (){
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => const CheckBoxs()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyHome()),
+                  );
                 },
                 child: const Text('완료'),
                 style: ElevatedButton.styleFrom(
