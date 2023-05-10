@@ -38,8 +38,7 @@ class _MySwitchState extends State<MySwitch> {
       ),
       home: Scaffold(
 
-        appBar: AppBar(title: const Text("plz go to home why no resolve")),
-
+        appBar: AppBar(title: const Text("jieun")),
 
         body: Center(
             child: Column(//가운데에 열을 만듦
