@@ -45,7 +45,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               ),
                 child:Center(
                   child:Image(
-                    image:AssetImage("image/loginpicture.png"),
+                    image:AssetImage("images/loginpicture.png"),
                     width: 270,
                     height: 270,
                   ),

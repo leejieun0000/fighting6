@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-/*
+
 void main() {
   runApp(const MyWidget());
 }
-*/
+
 
 class MyWidget extends StatefulWidget {
   const MyWidget({super.key});
@@ -71,7 +71,7 @@ class _MyWidget extends State<MyWidget> {
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                 ),
                 Image.asset(
-                  'image/flutter.png',
+                  'images/flutter.png',
                   width: 250.0,
                   height: 250.0,
                 ),
