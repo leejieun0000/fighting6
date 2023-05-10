@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project1/home.dart';
+import 'package:project1/main.dart';
 
 void main() {
   runApp(MyApp());
@@ -101,10 +103,10 @@ class _LoginWidgetState extends State<LoginWidget> {
               padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 10.0),
               child: ElevatedButton(
                 onPressed: (){
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => const CheckBoxs()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyHome()),
+                  );
                 },
                 child: const Text('로그인'),
                 style: ElevatedButton.styleFrom(
