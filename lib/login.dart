@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project1/home.dart';
 import 'package:project1/join.dart';
-import 'package:project1/main.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,9 +11,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'login',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xffFFE072),
+        )
+      ),
       home: LoginWidget(),
     );
   }
@@ -57,7 +61,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             const Padding(
               padding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 20.0),
               child: TextField(
-                obscureText: true,
+                // obscureText: true,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
