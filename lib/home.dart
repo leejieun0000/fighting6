@@ -30,8 +30,8 @@ class _MyHomeState extends State<MyHome>{
       appBar: AppBar (
         title: Text(
           '자취생 도우미',
-          style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
+        // automaticallyImplyLeading: false,
         actions: [
           IconButton(
             onPressed: (){},
