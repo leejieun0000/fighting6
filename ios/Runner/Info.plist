@@ -49,3 +49,6 @@
 	<true/>
 </dict>
 </plist>
+<key>NSPhotoLibraryUsageDescription<\key>
+<String>사진 라이브러리 사용에 필요합니다.<\string>
+<key>UILaunchStoryboardName<\key>
