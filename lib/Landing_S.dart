@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      title: 'landing_setting',
-      debugShowCheckedModeBanner: false,
-      home: LandingSetting(),
-    );
-  }
-}
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(
+//       localizationsDelegates: const [
+//         GlobalMaterialLocalizations.delegate,
+//         GlobalWidgetsLocalizations.delegate,
+//         GlobalCupertinoLocalizations.delegate,
+//       ],
+//       title: 'landing_setting',
+//       debugShowCheckedModeBanner: false,
+//       home: LandingSetting(),
+//     );
+//   }
+// }
 
 class LandingSetting extends StatefulWidget {
   const LandingSetting({Key? key}) : super(key: key);

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:project1/login.dart';
 
-void main() {
-  runApp(MyApp());
-}
+// void main() {
+//   runApp(MyApp());
+// }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'join',
-      debugShowCheckedModeBanner: false,
-      home: JoinWidget(),
-    );
-  }
-}
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(
+//       title: 'join',
+//       debugShowCheckedModeBanner: false,
+//       home: JoinWidget(),
+//     );
+//   }
+// }
 
 class JoinWidget extends StatefulWidget {
   const JoinWidget({Key? key}) : super(key: key);
@@ -39,7 +39,7 @@ class _JoinWidgetState extends State<JoinWidget> {
         ),
         automaticallyImplyLeading: false,
         centerTitle: true,
-        backgroundColor: const Color(0xffFFE072),
+        // backgroundColor: const Color(0xffFFE072),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -116,7 +116,6 @@ class _JoinWidgetState extends State<JoinWidget> {
             const Padding(
               padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
               child: TextField(
-                obscureText: true,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -172,7 +171,6 @@ class _JoinWidgetState extends State<JoinWidget> {
             const Padding(
               padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
               child: TextField(
-                obscureText: true,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -195,7 +193,6 @@ class _JoinWidgetState extends State<JoinWidget> {
             const Padding(
               padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
               child: TextField(
-                obscureText: true,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
