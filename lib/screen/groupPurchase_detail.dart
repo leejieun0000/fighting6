@@ -22,7 +22,7 @@ class _MyWidget extends State<MyWidget> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.white,
+            // backgroundColor: Colors.white,
             elevation: 0.0,
             iconTheme: IconThemeData(color: Colors.black),
             leading: IconButton(
@@ -32,33 +32,40 @@ class _MyWidget extends State<MyWidget> {
               },
             ),
             actions: [
-              PopupMenuButton<Text>(
-                  icon: Icon(Icons.menu),
-                  shape: RoundedRectangleBorder(
-                    /*side: const BorderSide(width: 1, color: Colors.yellow),*/
-                    borderRadius: BorderRadius.circular(20),
+              Container(
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    cardColor: Color(0xffFFE072),
                   ),
+                  child: PopupMenuButton<Text>(
+                      icon: Icon(Icons.menu),
+                      shape: RoundedRectangleBorder(
+                        /*side: const BorderSide(width: 1, color: Colors.yellow),*/
+                        borderRadius: BorderRadius.circular(20),
+                      ),
 
-                  itemBuilder: (context) {
-                    return [
-                      PopupMenuItem(
-                        child: Text(
-                          "삭제",
-                        ),
-                        onTap: () {
-                          print("삭제 버튼이 눌렸습니다.");
-                        },
-                      ),
-                      PopupMenuItem(
-                        child: Text(
-                          "마감",
-                        ),
-                        onTap: () {
-                          print("마감 버튼이 눌렸습니다.");
-                        },
-                      ),
-                    ];
-                  })
+                      itemBuilder: (context) {
+                        return [
+                          PopupMenuItem(
+                            child: Text(
+                              "삭제",
+                            ),
+                            onTap: () {
+                              print("삭제 버튼이 눌렸습니다.");
+                            },
+                          ),
+                          PopupMenuItem(
+                            child: Text(
+                              "마감",
+                            ),
+                            onTap: () {
+                              print("마감 버튼이 눌렸습니다.");
+                            },
+                          ),
+                        ];
+                      }),
+                ),
+              ),
             ],
           ),
           body: Container(
@@ -96,25 +103,7 @@ class _MyWidget extends State<MyWidget> {
               ],
             ),
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.notifications,
-                  ),
-                  label: "notice"),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                  ),
-                  label: "home"),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.person,
-                  ),
-                  label: "person"),
-            ],
-          ),
-        ));
+        ),
+    );
   }
 }
