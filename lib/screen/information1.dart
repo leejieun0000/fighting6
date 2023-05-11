@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 
-// void main() {
-//   runApp(const MyWidget());
-// }
-
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
+class Information extends StatefulWidget {
+  const Information({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _MyWidget();
+    return _Information();
   }
 }
 
-class _MyWidget extends State<MyWidget> {
+class _Information extends State<Information> {
   Widget _getDataTable(){
     return DataTable(
-
       horizontalMargin: 12.0,// 가로 여백 설정
       columnSpacing: 28.0, //열 간격
       //dividerThickness: 2, 구분선 두께
@@ -41,57 +36,66 @@ class _MyWidget extends State<MyWidget> {
               DataCell(Text('2023.00.00')),
             ]
         ),
+        DataRow(
+            cells: [
+              DataCell(Text('청년 매입 임대 주택 리모델링')),
+              DataCell(Text('2023.00.00')),
+            ]
+        ),
+        DataRow(
+            cells: [
+              DataCell(Text('대학생 아르바이트')),
+              DataCell(Text('2023.00.00')),
+            ]
+        ),
+        DataRow(
+            cells: [
+              DataCell(Text('대전형 임대주택 공급사업')),
+              DataCell(Text('2023.00.00')),
+            ]
+        ),
+        DataRow(
+            cells: [
+              DataCell(Text('청년 월세 특별 지원')),
+              DataCell(Text('2023.00.00')),
+            ]
+        ),
+        DataRow(
+            cells: [
+              DataCell(Text('청년 주택 임차 보증금 이자 지원')),
+              DataCell(Text('2023.00.00')),
+            ]
+        ),
       ],);
   }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: const Color(0xffFFE072),
-            title: Text('자취 지원 정보',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-            centerTitle: true,
-            elevation: 0.0,
-            iconTheme: IconThemeData(color: Colors.black),
-            leading: IconButton(
-              icon: Icon(Icons.navigate_before),
-              onPressed: () {
-                print("navigate");
-              },
-            ),
-          ),
-          body: Align(
-            alignment: Alignment.topCenter,
-            child : Container(
-                margin: EdgeInsets.all(30),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: SingleChildScrollView(
-                    child: _getDataTable(),
-                  ),
-                )
-            ),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.notifications,
-                  ),
-                  label: "notice"),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                  ),
-                  label: "home"),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.person,
-                  ),
-                  label: "person"),
-            ],
-          ),
-        ));
+    return Scaffold(
+      appBar: AppBar(
+        // backgroundColor: const Color(0xffFFE072),
+        title: Text('자취 지원 정보',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+        centerTitle: true,
+        elevation: 0.0,
+        iconTheme: IconThemeData(color: Colors.black),
+        leading: IconButton(
+          icon: Icon(Icons.navigate_before),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: Align(
+        alignment: Alignment.topCenter,
+        child : Container(
+            margin: EdgeInsets.all(30),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: SingleChildScrollView(
+                child: _getDataTable(),
+              ),
+            )
+        ),
+      ),
+    );
   }
 }

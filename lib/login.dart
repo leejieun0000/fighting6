@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project1/home.dart';
-import 'package:project1/main.dart';
+import 'package:project1/join.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,9 +11,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'login',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xffFFE072),
+          centerTitle: true,
+        )
+      ),
       home: LoginWidget(),
     );
   }
@@ -35,6 +41,8 @@ class _LoginWidgetState extends State<LoginWidget> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            SizedBox(height: 100,
+            ),
             Container(
               width: 300,
               height: 300,
@@ -54,7 +62,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             const Padding(
               padding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 20.0),
               child: TextField(
-                obscureText: true,
+                // obscureText: true,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -121,6 +129,10 @@ class _LoginWidgetState extends State<LoginWidget> {
               child:TextButton(
                 child: Text("회원가입"),
                 onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const JoinWidget()),
+                  );
                 },
                 style: TextButton.styleFrom(
                   primary: Colors.black,

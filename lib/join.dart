@@ -1,21 +1,5 @@
 import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'join',
-      debugShowCheckedModeBanner: false,
-      home: JoinWidget(),
-    );
-  }
-}
+import 'package:project1/login.dart';
 
 class JoinWidget extends StatefulWidget {
   const JoinWidget({Key? key}) : super(key: key);
@@ -36,8 +20,9 @@ class _JoinWidgetState extends State<JoinWidget> {
         title: const Text('회원가입',
           style: TextStyle(color: Colors.black),
         ),
+        automaticallyImplyLeading: false,
         centerTitle: true,
-        backgroundColor: const Color(0xffFFE072),
+        // backgroundColor: const Color(0xffFFE072),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -114,7 +99,6 @@ class _JoinWidgetState extends State<JoinWidget> {
             const Padding(
               padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
               child: TextField(
-                obscureText: true,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -170,7 +154,6 @@ class _JoinWidgetState extends State<JoinWidget> {
             const Padding(
               padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
               child: TextField(
-                obscureText: true,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -193,7 +176,6 @@ class _JoinWidgetState extends State<JoinWidget> {
             const Padding(
               padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
               child: TextField(
-                obscureText: true,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -237,10 +219,10 @@ class _JoinWidgetState extends State<JoinWidget> {
               padding: const EdgeInsets.only(right: 5.0),
               child: ElevatedButton(
                 onPressed: (){
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => const CheckBoxs()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginWidget()),
+                  );
                 },
                 child: const Text('완료'),
                 style: ElevatedButton.styleFrom(

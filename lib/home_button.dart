@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project1/LB_page.dart';
 import 'package:project1/Landing_S.dart';
-import 'package:project1/main.dart';
+import 'package:project1/screen/groupPurchase_detail.dart';
+import 'package:project1/screen/information1.dart';
+import 'package:project1/screen/information2.dart';
 
 class HomeButton extends StatelessWidget {
   const HomeButton({Key? key}) : super(key: key);
@@ -113,7 +115,7 @@ class HomeButton extends StatelessWidget {
                   onTap: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const MySwitch()),
+                      MaterialPageRoute(builder: (context) => const MyWidget()),
                     );
                   },
                   child: Image.asset("images/cart.png",
@@ -131,7 +133,7 @@ class HomeButton extends StatelessWidget {
                       onPressed: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const MySwitch()),
+                          MaterialPageRoute(builder: (context) => const MyWidget()),
                         );
                       },
                       child: Text(
@@ -166,7 +168,7 @@ class HomeButton extends StatelessWidget {
                   onTap: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const MySwitch()),
+                      MaterialPageRoute(builder: (context) => const Information()),
                     );
                   },
                   child: Image.asset("images/house.png",
@@ -184,7 +186,7 @@ class HomeButton extends StatelessWidget {
                       onPressed: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const MySwitch()),
+                          MaterialPageRoute(builder: (context) => const Information2()),
                         );
                       },
                       child: Text(
