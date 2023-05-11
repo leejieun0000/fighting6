@@ -103,10 +103,72 @@ class _Gonggu extends State<Gonggu> {
                             child: Row(
                               children: [
                                 Image.asset(
-                                  "images/emart.png",
+                                  "images/gogi.png",
                                   width: 110,
                                   height: 90,
                                   fit: BoxFit.cover,
+                                ),
+                                const SizedBox(width: 20),
+                                const Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 20),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '고기 먹으러 같이 가실 분 구합니다.',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(right: 10),
+                                            child: Text('예정일: 04/18/2023'),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            height: 150,
+                            padding: const EdgeInsets.all(10),
+                            decoration: const BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(color: Colors.grey, width: 1, style: BorderStyle.solid),
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 110,
+                                  height: 90,
+                                  child:
+                                  Container(
+                                    width: 110,
+                                    height: 90,
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xff60597B),
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
+                                        image: const AssetImage('images/emart.png'
+                                        ),
+                                      ),
+                                    ),
+                                    child: const Text('마감',
+                                        style: TextStyle(fontSize: 20),
+                                        textAlign: TextAlign.center), //가운데 정렬이 안 먹힘... ^^
+                                  ),
+
                                 ),
                                 const SizedBox(width: 20),
                                 const Expanded(
@@ -181,8 +243,7 @@ class _Gonggu extends State<Gonggu> {
                                 ),
                               ],
                             ),
-                          )
-                          ,
+                          ),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.9,
                             height: 150,
@@ -234,19 +295,24 @@ class _Gonggu extends State<Gonggu> {
                 ),
 
 
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: Image.asset(
-                              "images/pen.png",
-                              width: 70,
-                            ),
-                          ),
-                       )
-                    ],
+                Container(
+                  margin: EdgeInsets.all(20),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Image.asset(
+                      "images/pen.png",
+                      width: 70,
+
+                    ),
+                  ),
                 )
+
+
+
+              ],
+            )
         )
+
     );
   }
 }
