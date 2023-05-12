@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project1/LB_page.dart';
 import 'package:project1/home_button.dart';
+import 'package:project1/navigators/LandingNavigator.dart';
 
 class MyHome extends StatefulWidget{
   const MyHome({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class MyHome extends StatefulWidget{
 }
 
 class _MyHomeState extends State<MyHome>{
-  int _currentTabIndex = 1;
+  int _currentTabIndex = 0;
 
   void _tabSelect(int tabIndex){
     setState(() {
@@ -18,47 +19,31 @@ class _MyHomeState extends State<MyHome>{
     });
   }
 
-  // List<Widget> _tapNavigatorBuilder(){
-  //   return [
-  //
-  //   ];
-  // }
+  List<Widget> _tapNavigatorBuilder(){
+    return [
+      LandingNavigator(tabIndex: _currentTabIndex),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
+    final TabNavigationBuilder = _tapNavigatorBuilder();
     return Scaffold(
-      appBar: AppBar (
-        title: Text(
-          '자취생 도우미',
-        ),
-        automaticallyImplyLeading: false,
-        // actions: [
-        //   IconButton(
-        //     onPressed: (){},
-        //     icon: Icon(Icons.search),
-        //   ),
-        //   IconButton(
-        //     onPressed: (){},
-        //     icon: Icon(Icons.list),
-        //   ),
-        //   IconButton(
-        //     onPressed: (){},
-        //     icon: Icon(Icons.notifications),
-        //   ),
-        // ],
+      body: Center (
+        child: TabNavigationBuilder.elementAt(_currentTabIndex),
       ),
-      body: IndexedStack(
-        index: _currentTabIndex,
-        children: [
-          Container(
-            color: Colors.accents[0],
-          ),
-          HomeButton(),
-          Container(
-            color: Colors.white,
-          ),
-        ],
-      ),
+      // IndexedStack(
+      //   index: _currentTabIndex,
+      //   children: [
+      //     Container(
+      //       color: Colors.accents[0],
+      //     ),
+      //     HomeButton(),
+      //     Container(
+      //       color: Colors.white,
+      //     ),
+      //   ],
+      // ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentTabIndex,
         onTap: (index){

@@ -20,7 +20,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 // }
 
 class LandingSetting extends StatefulWidget {
-  const LandingSetting({Key? key}) : super(key: key);
+  const LandingSetting({super.key, required this.tabIndex});
+  final int tabIndex;
 
   @override
   _LandingSettingState createState() => _LandingSettingState();
