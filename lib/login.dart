@@ -3,11 +3,11 @@ import 'package:project1/home.dart';
 import 'package:project1/join.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(login());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class login extends StatelessWidget {
+  const login({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
