@@ -3,19 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  runApp(borrowing());
+  runApp(GongguMagam());
 }
 
-class borrowing extends StatefulWidget {
-  const borrowing({Key? key}) : super(key: key);
+class GongguMagam extends StatefulWidget {
+  const GongguMagam({Key? key}) : super(key: key);
 
   @override
-  _borrowing createState() => _borrowing();
+  _Gonggu createState() => _Gonggu();
 }
-
-
-class _borrowing extends State<borrowing> {
-
+class _Gonggu extends State<GongguMagam> {
   final List<String> _valueList_1 = [
     '궁동',
     '죽동',
@@ -32,23 +29,26 @@ class _borrowing extends State<borrowing> {
 
   final List<Map<String, String>> _valueList_2 = [
     {
-      'imagePath': 'images/ganjang.png',
-      'title': '간장 한 번만 빌려주세요.',
-      'date': '반납일',
+      'imagePath': 'images/gogi.png',
+      'title': '고기 먹으러 같이 가실 분 구합니다.',
+      'date':'예정일: 04/18/2023',
     },
     {
-      'imagePath': 'images/hanger.png',
-      'title': '옷걸이 2개만 나눔해주실 천사 찾습니다.',
-      'date': '반납일',
+      'imagePath': 'images/emart.png',
+      'title': '트레이더스 공구 하실 분 구합니다.',
+      'date': '예정일: 04/17/2023',
     },
     {
-      'imagePath': 'images/bug.png',
-      'title': '집에 바퀴가 나왔는데 못 잡겠어요.. 도와주세요..',
-      'date': '반납일',
+      'imagePath': 'images/bokeumbop.png',
+      'title': '냉동 볶음밥 공구 하실 분 구합니다.',
+      'date': '예정일: 04/13/2023',
+    },
+    {
+      'imagePath': 'images/chicken.png',
+      'title': 'OO아파트 치킨 같이 시키실 분~!',
+      'date': '예정일: 04/12/2023',
     }
-
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class _borrowing extends State<borrowing> {
         appBar: AppBar(
           backgroundColor: const Color(0xffFFE072),
           title: Text(
-            '빌려주기/쓰기',
+            '공동구매',
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -78,7 +78,6 @@ class _borrowing extends State<borrowing> {
         ),
         body: Column(
           children: [
-
             Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
@@ -112,47 +111,6 @@ class _borrowing extends State<borrowing> {
                 )
 
             ),
-
-            Row(
-              children: [
-                Container(
-                  width: 130,
-                  height: 50,
-                  alignment: const Alignment(0.0, 0.0),
-                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 5.0, 10.0),
-                  child: ElevatedButton(
-                    onPressed: (){
-
-                    },
-                    child: const Text('빌려주기'),
-                    style: ElevatedButton.styleFrom(
-                      onPrimary: Colors.grey,
-                      backgroundColor: Color(0xffFFE072),
-                      minimumSize: Size(300, 40),
-                    ),
-                  ),
-                ),
-
-                Container(
-                  width: 130,
-                  height: 50,
-                  alignment: const Alignment(0.0, 0.0),
-                  padding: const EdgeInsets.fromLTRB(5.0, 0.0, 20.0, 10.0),
-                  child: ElevatedButton(
-                    onPressed: (){
-
-                    },
-                    child: const Text('빌려쓰기'),
-                    style: ElevatedButton.styleFrom(
-                      onPrimary: Colors.black,
-                      backgroundColor: Color(0xffFFE072),
-                      minimumSize: Size(300, 40),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
             Divider(
               color: Colors.black,  // 원하는 색상을 설정합니다.
               thickness: 1,  // 원하는 두께를 설정합니다.
@@ -175,11 +133,38 @@ class _borrowing extends State<borrowing> {
                     height: 100,
                     child: Row(
                       children: [
-                        Image.asset(
-                          item['imagePath']!, // 이미지 경로를 동적으로 설정합니다.
+                        Container(
                           width: 110,
                           height: 90,
-                          fit: BoxFit.cover,
+                          child: Stack(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    colorFilter: item['imagePath'] == 'images/emart.png'
+                                        ? ColorFilter.mode(
+                                      Colors.black.withOpacity(0.2),
+                                      BlendMode.dstATop,
+                                    )
+                                        : null,
+                                    image: AssetImage(item['imagePath']!),
+                                  ),
+                                ),
+                              ),
+                              if (item['imagePath'] != null && item['imagePath'] == 'images/emart.png')
+                                Center(
+                                  child: Text(
+                                    '마감',
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
                         SizedBox(width: 20),
                         Expanded(
@@ -206,7 +191,7 @@ class _borrowing extends State<borrowing> {
                         ),
                       ],
                     ),
-                  );
+                    );
                 },
                 itemCount: _valueList_2.length, // 항목 수를 동적으로 설정합니다.
               ),
@@ -216,14 +201,9 @@ class _borrowing extends State<borrowing> {
               margin: EdgeInsets.all(20),
               child: Align(
                 alignment: Alignment.bottomRight,
-                child: IconButton(
-                  iconSize: 50,
-                  onPressed: (){
-
-                  },
-                  icon: Image.asset(
-                    "images/pen.png",
-                  ),
+                child: Image.asset(
+                  "images/pen.png",
+                  width: 70,
                 ),
               ),
             ),
@@ -233,3 +213,6 @@ class _borrowing extends State<borrowing> {
     );
   }
 }
+
+
+

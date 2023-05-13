@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
 // void main() {
-//   runApp(const MyWidget());
+//   runApp(const GongguDetail());
 // }
-//
-//
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
+
+
+class GongguDetail extends StatefulWidget {
+  const GongguDetail({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _MyWidget();
+    return _GongguDetail();
   }
 }
 
-class _MyWidget extends State<MyWidget> {
+class _GongguDetail extends State<GongguDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -2,21 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
-
-
-class writing extends StatelessWidget {
-  const writing({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'writing',
-      debugShowCheckedModeBanner: false,
-      home: writingWidget(),
-    );
-  }
-}
-
 class writingWidget extends StatefulWidget {
   const writingWidget({Key? key}) : super(key: key);
 
@@ -40,17 +25,29 @@ class _writingWidgetState extends State<writingWidget> {
           style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
         ),
         actions: [
-          ElevatedButton(
-            onPressed: (){
-            },
-            child: const Text('저장',style: TextStyle(color: Colors.black)),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: MaterialButton(
+              minWidth: 60,
+              color: Colors.white,
+              onPressed: () {
+                //저장하기~
+              },
+              child: Text('저장'),
+              shape: RoundedRectangleBorder( // 테두리를 둥글게 만들기 위한 설정
+                borderRadius: BorderRadius.circular(20),
+              ),
             ),
           ),
         ],
         centerTitle: true,
-        backgroundColor: const Color(0xffFFE072),
+        iconTheme: IconThemeData(color: Colors.black),
+        leading: IconButton(
+          icon: Icon(Icons.navigate_before),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
 
       body: ListView(

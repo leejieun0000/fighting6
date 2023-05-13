@@ -3,18 +3,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  runApp(Gonggu());
+  runApp(lending());
 }
 
-class Gonggu extends StatefulWidget {
-  const Gonggu({Key? key}) : super(key: key);
+class lending extends StatefulWidget {
+  const lending({Key? key}) : super(key: key);
 
   @override
-  _Gonggu createState() => _Gonggu();
+  _lending createState() => _lending();
 }
 
 
-class _Gonggu extends State<Gonggu> {
+class _lending extends State<lending> {
 
   final List<String> _valueList_1 = [
     '궁동',
@@ -32,19 +32,19 @@ class _Gonggu extends State<Gonggu> {
 
   final List<Map<String, String>> _valueList_2 = [
     {
-      'imagePath': 'images/emart.png',
-      'title': '트레이더스 공구 하실 분 구합니다.',
-      'date': '예정일: 04/17/2023',
+      'imagePath': 'images/driver.png',
+      'title': '드라이버 빌려드립니다',
+      'date': '반납일',
     },
     {
-      'imagePath': 'images/bokeumbop.png',
-      'title': '냉동 볶음밥 공구 하실 분 구합니다.',
-      'date': '예정일: 04/13/2023',
+      'imagePath': 'images/grape.png',
+      'title': '선물 받았는데 너무 많아서 포도 나눔합니다.',
+      'date': '반납일',
     },
     {
-      'imagePath': 'images/chicken.png',
-      'title': 'OO아파트 치킨 같이 시키실 분~!',
-      'date': '예정일: 04/12/2023',
+      'imagePath': 'images/bug.png',
+      'title': '벌레 잡아드립니다.',
+      'date': '반납일',
     }
 
   ];
@@ -55,9 +55,8 @@ class _Gonggu extends State<Gonggu> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color(0xffFFE072),
           title: Text(
-            '공동구매',
+            '빌려주기/쓰기',
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -78,6 +77,7 @@ class _Gonggu extends State<Gonggu> {
         ),
         body: Column(
           children: [
+
             Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
@@ -111,6 +111,47 @@ class _Gonggu extends State<Gonggu> {
                 )
 
             ),
+
+            Row(
+              children: [
+                Container(
+                  width: 130,
+                  height: 50,
+                  alignment: const Alignment(0.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 5.0, 10.0),
+                  child: ElevatedButton(
+                    onPressed: (){
+
+                    },
+                    child: const Text('빌려주기'),
+                    style: ElevatedButton.styleFrom(
+                      onPrimary: Colors.black,
+                      backgroundColor: Color(0xffFFE072),
+                      minimumSize: Size(300, 40),
+                    ),
+                  ),
+                ),
+
+                Container(
+                  width: 130,
+                  height: 50,
+                  alignment: const Alignment(0.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(5.0, 0.0, 20.0, 10.0),
+                  child: ElevatedButton(
+                    onPressed: (){
+
+                    },
+                    child: const Text('빌려쓰기'),
+                    style: ElevatedButton.styleFrom(
+                      onPrimary: Colors.grey,
+                      backgroundColor: Color(0xffFFE072),
+                      minimumSize: Size(300, 40),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
             Divider(
               color: Colors.black,  // 원하는 색상을 설정합니다.
               thickness: 1,  // 원하는 두께를 설정합니다.
@@ -179,9 +220,9 @@ class _Gonggu extends State<Gonggu> {
                   onPressed: (){
 
                   },
-                  icon: Image.asset(
-                    "images/pen.png",
-                  ),
+                    icon: Image.asset(
+                      "images/pen.png",
+                 ),
                 ),
               ),
             ),

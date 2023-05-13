@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Information extends StatefulWidget {
-  const Information({super.key});
+  const Information({super.key, required this.tabIndex});
+  final int tabIndex;
 
   @override
   State<StatefulWidget> createState() {
@@ -12,10 +13,13 @@ class Information extends StatefulWidget {
 class _Information extends State<Information> {
   Widget _getDataTable(){
     return DataTable(
-      horizontalMargin: 12.0,// 가로 여백 설정
+      //horizontalMargin: 12.0,// 가로 여백 설정
       columnSpacing: 28.0, //열 간격
       //dividerThickness: 2, 구분선 두께
-      headingRowColor: MaterialStateColor.resolveWith((states) {return const Color(0xffFFF0A4);},),
+      headingRowColor: MaterialStateColor.resolveWith((states) {
+        return const Color(0xffFFF0A4);
+        },
+      ),
       columns: [
         DataColumn(label: Text('제목',style: TextStyle(
           //fontStyle: FontStyle.~,
@@ -72,8 +76,9 @@ class _Information extends State<Information> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: const Color(0xffFFE072),
-        title: Text('자취 지원 정보',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+        title: Text('자취 지원 정보',
+          style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         elevation: 0.0,
         iconTheme: IconThemeData(color: Colors.black),
