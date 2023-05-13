@@ -4,27 +4,27 @@ import 'package:image_picker/image_picker.dart';
 
 
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class writing extends StatelessWidget {
+  const writing({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'writing',
       debugShowCheckedModeBanner: false,
-      home: JoinWidget(),
+      home: writingWidget(),
     );
   }
 }
 
-class JoinWidget extends StatefulWidget {
-  const JoinWidget({Key? key}) : super(key: key);
+class writingWidget extends StatefulWidget {
+  const writingWidget({Key? key}) : super(key: key);
 
   @override
-  _JoinWidgetState createState() => _JoinWidgetState();
+  _writingWidgetState createState() => _writingWidgetState();
 }
 
-class _JoinWidgetState extends State<JoinWidget> {
+class _writingWidgetState extends State<writingWidget> {
   bool _isLending = false;
   bool _isBorrowing = false;
 

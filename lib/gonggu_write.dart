@@ -4,29 +4,29 @@ import 'package:image_picker/image_picker.dart';
 
 
 void main() {
-  runApp(MyApp());
+  runApp(Gonggu());
 }
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Gonggu extends StatelessWidget {
+  const Gonggu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'gonggu_writing',
       debugShowCheckedModeBanner: false,
-      home: JoinWidget(),
+      home: GongWidget(),
     );
   }
 }
 
-class JoinWidget extends StatefulWidget {
-  const JoinWidget({Key? key}) : super(key: key);
+class GongWidget extends StatefulWidget {
+  const GongWidget({Key? key}) : super(key: key);
 
   @override
-  _JoinWidgetState createState() => _JoinWidgetState();
+  _GongWidgetState createState() => _GongWidgetState();
 }
 
-class _JoinWidgetState extends State<JoinWidget> {
+class _GongWidgetState extends State<GongWidget> {
   bool _isLending = false;
   bool _isBorrowing = false;
 
