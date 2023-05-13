@@ -79,13 +79,14 @@ class _MyWidget extends State<MyWidget> {
               width: 380,
               height: 250,
               child:
-              /*Image.asset(
-                          'image/emart.png',
+              Image.asset(
+                          'images/emart.png',
                           fit: BoxFit.fill,
                           width: 380,
                           height: 250,
-                        ),*/
-              Container(
+                        ),
+              //마감 버튼 눌렀을 때
+              /*Container(
                 width: 380,
                 height: 250,
                 decoration: BoxDecoration(
@@ -93,14 +94,14 @@ class _MyWidget extends State<MyWidget> {
                   image: new DecorationImage(
                     fit: BoxFit.cover,
                     colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.2), BlendMode.dstATop),
-                    image: AssetImage('image/emart.png'
+                    image: AssetImage('images/emart.png'
                     ),
                   ),
                 ),
                 child: Text('마감',
                     style: TextStyle(fontSize: 40),
                     textAlign: TextAlign.center), //가운데 정렬이 안 먹힘... ^^
-              ),
+              ),*/
 
             ),
             Padding(padding: EdgeInsets.all(10)),
