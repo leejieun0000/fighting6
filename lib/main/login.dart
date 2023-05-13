@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project1/home.dart';
-import 'package:project1/join.dart';
+import 'package:project1/main/home.dart';
+import 'package:project1/main/join.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(login());
@@ -18,8 +19,24 @@ class login extends StatelessWidget {
         appBarTheme: AppBarTheme(
           backgroundColor: Color(0xffFFE072),
           centerTitle: true,
-        )
+        ),
+        textTheme: TextTheme(
+          headline1: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        // datePickerTheme: DatePickerThemeData(
+        //
+        // ),
       ),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('ko', 'KR'),
+      ],
       home: LoginWidget(),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project1/LB_page.dart';
-import 'package:project1/home_button.dart';
-import 'package:project1/navigators/LandingNavigator.dart';
+import 'package:project1/main/alarm.dart';
+import 'package:project1/navigators/HomeButtonNavigator.dart';
+import 'package:project1/main/user_setting.dart';
 
 class MyHome extends StatefulWidget{
   const MyHome({Key? key}) : super(key: key);
@@ -11,40 +11,34 @@ class MyHome extends StatefulWidget{
 }
 
 class _MyHomeState extends State<MyHome>{
-  int _currentTabIndex = 0;
-
-  void _tabSelect(int tabIndex){
-    setState(() {
-      _currentTabIndex = tabIndex;
-    });
-  }
-
-  List<Widget> _tapNavigatorBuilder(){
-    return [
-      LandingNavigator(tabIndex: _currentTabIndex),
-    ];
-  }
+  int _currentTabIndex = 1;
+  final screens = [
+    Alarm(tabIndex: 0),
+    HomeButtonNavigator(tabIndex: 1),
+    UserSetting(tabIndex: 2),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    final TabNavigationBuilder = _tapNavigatorBuilder();
     return Scaffold(
-      body: Center (
-        child: TabNavigationBuilder.elementAt(_currentTabIndex),
-      ),
-      // IndexedStack(
-      //   index: _currentTabIndex,
-      //   children: [
-      //     Container(
-      //       color: Colors.accents[0],
-      //     ),
-      //     HomeButton(),
-      //     Container(
-      //       color: Colors.white,
-      //     ),
-      //   ],
-      // ),
+      body: screens[_currentTabIndex],
+      // Stack(
+      //     children: [
+      //   Offstage(
+      //     offstage: _currentTabIndex != 0,
+      //     child: Alarm(tabIndex: 0),
+      //   ),
+      //   Offstage(
+      //     offstage: _currentTabIndex != 1,
+      //     child: HomeButtonNavigator(tabIndex: 1),
+      //   ),
+      //   Offstage(
+      //     offstage: _currentTabIndex != 2,
+      //     child: UserSetting(tabIndex: 2),
+      //   ),
+      // ]),
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Color(0xffFFE072),
         currentIndex: _currentTabIndex,
         onTap: (index){
           setState(() {

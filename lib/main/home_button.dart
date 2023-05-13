@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project1/LB_page.dart';
-import 'package:project1/Landing_S.dart';
-import 'package:project1/screen/groupPurchase_detail.dart';
-import 'package:project1/screen/information1.dart';
-import 'package:project1/screen/information2.dart';
 
 class HomeButton extends StatelessWidget {
   const HomeButton({super.key, required this.tabIndex});
@@ -15,6 +10,9 @@ class HomeButton extends StatelessWidget {
       appBar: AppBar (
       title: Text(
         '자취생 도우미',
+        style: TextStyle(
+            color: Colors.black,fontWeight: FontWeight.bold
+        ),
       ),
         automaticallyImplyLeading: false
       ),
@@ -68,10 +66,7 @@ class HomeButton extends StatelessWidget {
                   margin: EdgeInsets.only(left: 20),
                   child: InkWell(
                     onTap: (){
-                      Navigator.pushNamed(context, '/LandingSetting'
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => const LandingSetting()),
+                      Navigator.pushNamed(context, '/Borrowing'
                       );
                     },
                     child: Image.asset("images/human.png",
@@ -87,7 +82,7 @@ class HomeButton extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: (){
-                          Navigator.pushNamed(context, '/LandingSetting'
+                          Navigator.pushNamed(context, '/Borrowing'
                           );
                         },
                         child: Text(
@@ -120,9 +115,7 @@ class HomeButton extends StatelessWidget {
                   margin: EdgeInsets.only(left: 30),
                   child: InkWell(
                     onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const MyWidget()),
+                      Navigator.pushNamed(context, '/Gonggu'
                       );
                     },
                     child: Image.asset("images/cart.png",
@@ -138,9 +131,7 @@ class HomeButton extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const MyWidget()),
+                          Navigator.pushNamed(context, '/Gonggu'
                           );
                         },
                         child: Text(
@@ -173,9 +164,7 @@ class HomeButton extends StatelessWidget {
                   margin: EdgeInsets.only(left: 40),
                   child: InkWell(
                     onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Information()),
+                      Navigator.pushNamed(context, '/Information'
                       );
                     },
                     child: Image.asset("images/house.png",
@@ -191,9 +180,7 @@ class HomeButton extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const Information2()),
+                          Navigator.pushNamed(context, '/Information'
                           );
                         },
                         child: Text(
