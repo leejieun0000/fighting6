@@ -1,4 +1,4 @@
-package com.fighting.helper
+package com.example.project1
 
 import io.flutter.embedding.android.FlutterActivity
 
