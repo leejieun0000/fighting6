@@ -148,7 +148,7 @@ class _Gonggu extends State<NewGonggu> {
                         itemHeight: 40,
                         //itemWidth: 200,
                         itemPadding: const EdgeInsets.only(left: 14, right: 14),
-                        dropdownMaxHeight: 200,
+                        dropdownMaxHeight: 180,
                         dropdownPadding: null,
                         /*dropdownBorderRadius: BorderRadius.circular(14),
                                   dropdownBorder: null,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:project1/land_borrow/lending.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 /*void main() {
   runApp(Information());
@@ -50,7 +51,8 @@ class Borrowing extends StatefulWidget {
 
 class _borrowing extends State<Borrowing> {
 
-  final List<String> _valueList_1 = [
+  String? selectedValue;
+  List<String> items = [
     '궁동',
     '죽동',
     '봉명동',
@@ -62,7 +64,6 @@ class _borrowing extends State<Borrowing> {
     '둔산동',
     '은행동'
   ];
-  String _selectedValue_1 = '궁동';
 
   final List<Map<String, String>> _valueList_2 = [
     {
@@ -112,41 +113,89 @@ class _borrowing extends State<Borrowing> {
       ),
       body: Column(
         children: [
-
           Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Container(
-                    width: 120,
-                    height: 80,
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: DropdownButton(
+                padding: EdgeInsets.only(left: 20),
+                child: Container(
+                  width: 120,
+                  height: 80,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton2(
                         isExpanded: true,
-                        value: _selectedValue_1,
-                        items: _valueList_1.map((value) {
-                          return DropdownMenuItem(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: const TextStyle(fontSize: 30,
-                                  fontWeight: FontWeight.w900),
+                        hint: const Row(
+                          children: [
+                            SizedBox(
+                              width: 5,
                             ),
-                          );
-                        }).toList(),
+                            Expanded(
+                              child: Text(
+                                '궁동',
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        items: items
+                            .map((item) =>
+                            DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ))
+                            .toList(),
+                        value: selectedValue,
                         onChanged: (value) {
                           setState(() {
-                            _selectedValue_1 = value!;
+                            selectedValue = value as String;
                           });
                         },
+                        icon: const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                        ),
+                        iconSize: 14,
+                        iconEnabledColor: Colors.black,
+                        iconDisabledColor: Colors.grey,
+                        buttonHeight: 50,
+                        buttonWidth: 160,
+                        buttonPadding: const EdgeInsets.only(left: 14, right: 14),
+                        buttonDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          color: Colors.white,
+                        ),
+                        itemHeight: 40,
+                        //itemWidth: 200,
+                        itemPadding: const EdgeInsets.only(left: 14, right: 14),
+                        dropdownMaxHeight: 200,
+                        dropdownPadding: null,
+                        /*dropdownBorderRadius: BorderRadius.circular(14),
+                                  dropdownBorder: null,
+                                  dropdownColor: Colors.redAccent,
+                                  elevation: 8,*/
+                        scrollbarRadius: const Radius.circular(40),
+                        scrollbarThickness: 6,
+                        scrollbarAlwaysShow: true,
+                        offset: const Offset(0, 0),
                       ),
                     ),
-                  )
+                  ),
+                ),
               )
-
           ),
-
           Row(
             children: [
               Container(
