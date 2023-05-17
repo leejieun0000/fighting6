@@ -42,7 +42,7 @@ class _Information2 extends State<Information2> {
         leading: IconButton(
           icon: Icon(Icons.navigate_before),
           onPressed: () {
-            print("navigate");
+            Navigator.pop(context);
           },
         ),
       ),
