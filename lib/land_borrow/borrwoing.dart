@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:project1/land_borrow/lending.dart';
 
 class Borrowing extends StatefulWidget {
   const Borrowing({super.key, required this.tabIndex});
@@ -118,11 +119,12 @@ class _borrowing extends State<Borrowing> {
                 padding: const EdgeInsets.fromLTRB(20.0, 0.0, 5.0, 10.0),
                 child: ElevatedButton(
                   onPressed: (){
-
+                    Navigator.pushNamed(context, '/lending'
+                    );
                   },
                   child: const Text('빌려주기'),
                   style: ElevatedButton.styleFrom(
-                    onPrimary: Colors.grey,
+                    onPrimary: Colors.black,
                     backgroundColor: Color(0xffFFE072),
                     minimumSize: Size(300, 40),
                   ),
@@ -136,11 +138,10 @@ class _borrowing extends State<Borrowing> {
                 padding: const EdgeInsets.fromLTRB(5.0, 0.0, 20.0, 10.0),
                 child: ElevatedButton(
                   onPressed: (){
-
                   },
                   child: const Text('빌려쓰기'),
                   style: ElevatedButton.styleFrom(
-                    onPrimary: Colors.black,
+                    onPrimary: Colors.black54,
                     backgroundColor: Color(0xffFFE072),
                     minimumSize: Size(300, 40),
                   ),
