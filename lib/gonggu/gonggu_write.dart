@@ -181,7 +181,7 @@ class _GongWidgetState extends State<GongguWrite> {
             SizedBox(
               width: 320,
               height: 50,
-              child: OutlinedButton(
+              child:OutlinedButton(
                 onPressed: () async {
                   final selectedDate = await showDatePicker(
                     context: context,
@@ -189,6 +189,23 @@ class _GongWidgetState extends State<GongguWrite> {
                     firstDate: DateTime(1900),
                     lastDate: DateTime(2100),
                     initialEntryMode: DatePickerEntryMode.calendarOnly,
+                    builder: (BuildContext context, Widget? child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
+                            primary: Color(0xffFFE072), // header background color
+                            onPrimary: Colors.black, // header text color
+                            onSurface: Colors.black, // body text color
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.black, // button text color
+                            ),
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
                   );
                   if (selectedDate != null) {
                     setState(() {

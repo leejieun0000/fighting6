@@ -36,7 +36,7 @@ class _LandingSettingState extends State<LandingSetting> {
   Widget build(BuildContext context) {
     final start = dateTimeRange.start;
     final end = dateTimeRange.end;
-
+    DateTime date = DateTime.now();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xffFFE072),
@@ -136,29 +136,48 @@ class _LandingSettingState extends State<LandingSetting> {
                     width: 320,
                     height: 50,
                     child: OutlinedButton(
-                        onPressed: () async {
-                          DateTimeRange? BorrowDate = await showDateRangePicker(
-                            context: context,
-                            initialDateRange: dateTimeRange,
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime(2100),
-                            initialEntryMode: DatePickerEntryMode.calendarOnly,
-                          );
-                          if (BorrowDate != null){
-                            setState(() {
-                              dateTimeRange = BorrowDate;
-                            });
-                          }
-                        },
+                      onPressed: () async {
+                        final selectedDate = await showDatePicker(
+                          context: context,
+                          initialDate: date,
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2100),
+                          initialEntryMode: DatePickerEntryMode.calendarOnly,
+                          builder: (BuildContext context, Widget? child) {
+                            return Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: ColorScheme.light(
+                                  primary: Color(0xffFFE072), // header background color
+                                  onPrimary: Colors.black, // header text color
+                                  onSurface: Colors.black, // body text color
+                                ),
+                                textButtonTheme: TextButtonThemeData(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: Colors.black, // button text color
+                                  ),
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
+                        );
+                        if (selectedDate != null) {
+                          setState(() {
+                            date = selectedDate;
+                          });
+                        }
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '${start.year.toString()}-${start.month.toString().padLeft(2, '0')}-${start.day.toString().padLeft(2, '0')}',
+                            "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
                             style: TextStyle(fontSize: 18, color: Colors.black,),
                             textAlign: TextAlign.left,
                           ),
-                          Icon(Icons.date_range),
+                          Icon(Icons.date_range,
+                            color: Color(0xffFFE072),
+                          ),
                         ],
                       ),
                     ),
@@ -174,17 +193,33 @@ class _LandingSettingState extends State<LandingSetting> {
                     height: 50,
                     child: OutlinedButton(
                       onPressed: () async {
-                        DateTimeRange? BorrowDate = await showDateRangePicker(
+                        final selectedDate = await showDatePicker(
                           context: context,
-                          initialDateRange: dateTimeRange,
+                          initialDate: date,
                           firstDate: DateTime(1900),
                           lastDate: DateTime(2100),
                           initialEntryMode: DatePickerEntryMode.calendarOnly,
-                          // locale: const Locale('ko', 'KR'),
+                          builder: (BuildContext context, Widget? child) {
+                            return Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: ColorScheme.light(
+                                  primary: Color(0xffFFE072), // header background color
+                                  onPrimary: Colors.black, // header text color
+                                  onSurface: Colors.black, // body text color
+                                ),
+                                textButtonTheme: TextButtonThemeData(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: Colors.black, // button text color
+                                  ),
+                                ),
+                              ),
+                              child: child!,
+                            );
+                          },
                         );
-                        if (BorrowDate != null){
+                        if (selectedDate != null) {
                           setState(() {
-                            dateTimeRange = BorrowDate;
+                            date = selectedDate;
                           });
                         }
                       },
@@ -192,11 +227,13 @@ class _LandingSettingState extends State<LandingSetting> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "${end.year.toString()}-${end.month.toString().padLeft(2, '0')}-${end.day.toString().padLeft(2, '0')}",
+                            "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
                             style: TextStyle(fontSize: 18, color: Colors.black,),
                             textAlign: TextAlign.left,
                           ),
-                          Icon(Icons.date_range),
+                          Icon(Icons.date_range,
+                            color: Color(0xffFFE072),
+                          ),
                         ],
                       ),
                     ),
