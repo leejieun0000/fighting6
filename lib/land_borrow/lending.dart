@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 void main() {
   runApp(lending());
@@ -16,7 +17,8 @@ class lending extends StatefulWidget {
 
 class _lending extends State<lending> {
 
-  final List<String> _valueList_1 = [
+  String? selectedValue;
+  List<String> items = [
     '궁동',
     '죽동',
     '봉명동',
@@ -28,7 +30,6 @@ class _lending extends State<lending> {
     '둔산동',
     '은행동'
   ];
-  String _selectedValue_1 = '궁동';
 
   final List<Map<String, String>> _valueList_2 = [
     {
@@ -75,6 +76,107 @@ class _lending extends State<lending> {
             );
           },
         ),
+
+        body: Column(
+          children: [Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Container(
+                  width: 120,
+                  height: 80,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton2(
+                        isExpanded: true,
+                        hint: const Row(
+                          children: [
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: Text(
+                                '궁동',
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        items: items
+                            .map((item) =>
+                            DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ))
+                            .toList(),
+                        value: selectedValue,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedValue = value as String;
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                        ),
+                        iconSize: 14,
+                        iconEnabledColor: Colors.black,
+                        iconDisabledColor: Colors.grey,
+                        buttonHeight: 50,
+                        buttonWidth: 160,
+                        buttonPadding: const EdgeInsets.only(left: 14, right: 14),
+                        buttonDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          color: Colors.white,
+                        ),
+                        itemHeight: 40,
+                        //itemWidth: 200,
+                        itemPadding: const EdgeInsets.only(left: 14, right: 14),
+                        dropdownMaxHeight: 200,
+                        dropdownPadding: null,
+                        /*dropdownBorderRadius: BorderRadius.circular(14),
+                                  dropdownBorder: null,
+                                  dropdownColor: Colors.redAccent,
+                                  elevation: 8,*/
+                        scrollbarRadius: const Radius.circular(40),
+                        scrollbarThickness: 6,
+                        scrollbarAlwaysShow: true,
+                        offset: const Offset(0, 0),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+          ),
+            Row(
+              children: [
+                Container(
+                  width: 130,
+                  height: 50,
+                  alignment: const Alignment(0.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 5.0, 10.0),
+                  child: ElevatedButton(
+                    onPressed: (){
+                    },
+                    child: const Text('빌려주기'),
+                    style: ElevatedButton.styleFrom(
+                      onPrimary:  Colors.black,
+                      backgroundColor: Color(0xffFFE072),
+                      minimumSize: Size(300, 40),
+                    ),
       ),
       body: Column(
         children: [
