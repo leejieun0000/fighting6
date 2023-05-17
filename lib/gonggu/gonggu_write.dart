@@ -193,7 +193,7 @@ class _GongWidgetState extends State<GongguWrite> {
                       return Theme(
                         data: Theme.of(context).copyWith(
                           colorScheme: ColorScheme.light(
-                            primary: Color(0xffFFE072), // header background color
+                            primary: Color(0xffEDDFBC), // header background color
                             onPrimary: Colors.black, // header text color
                             onSurface: Colors.black, // body text color
                           ),
@@ -222,7 +222,7 @@ class _GongWidgetState extends State<GongguWrite> {
                       textAlign: TextAlign.left,
                     ),
                     Icon(Icons.date_range,
-                      color: Color(0xffFFE072),
+                      color: Color(0xffEDDFBC),
                     ),
                   ],
                 ),
