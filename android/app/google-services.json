@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "91198812212",
+    "project_id": "my-basic-fighting",
+    "storage_bucket": "my-basic-fighting.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91198812212:android:b54c2a4366f6fdcf961a61",
+        "android_client_info": {
+          "package_name": "com.example.project1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91198812212-76umlts3teiu9ou4434egrppm756ivav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXh0NUZlTAtHVP7TtsvRwYhE-Ndv3BS98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91198812212-76umlts3teiu9ou4434egrppm756ivav.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

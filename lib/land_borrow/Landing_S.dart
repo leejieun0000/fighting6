@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(Information());
+}
+
+class Information extends StatelessWidget {
+  const Information({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'login',
+      debugShowCheckedModeBanner: false,
+      home: LandingSetting(),
+    );
+  }
+}
+
 class LandingSetting extends StatefulWidget {
-  const LandingSetting({super.key, required this.tabIndex});
-  final int tabIndex;
+  //const LandingSetting({super.key, required this.tabIndex});
+  //final int tabIndex;
+  const LandingSetting({super.key});
 
   @override
   _LandingSettingState createState() => _LandingSettingState();
@@ -21,6 +39,7 @@ class _LandingSettingState extends State<LandingSetting> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xffFFE072),
         title: const Text('대여중',
           style: TextStyle(color: Colors.black),
         ),

@@ -1,7 +1,24 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(Information());
+}
+
+class Information extends StatelessWidget {
+  const Information({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'login',
+      debugShowCheckedModeBanner: false,
+      home: Information2(),
+    );
+  }
+}
+
 class Information2 extends StatefulWidget {
-  const Information2({super.key});
+  const Information2({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -14,7 +31,7 @@ class _Information2 extends State<Information2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: const Color(0xffFFE072),
+        backgroundColor: const Color(0xffFFE072),
         title: Text(
           '자취 지원 정보',
           style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),

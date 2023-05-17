@@ -55,6 +55,7 @@ class _lending extends State<lending> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
+          backgroundColor: const Color(0xffFFE072),
           title: Text(
             '빌려주기/쓰기',
             style: TextStyle(
