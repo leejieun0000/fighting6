@@ -86,7 +86,8 @@ class _borrowing extends State<Borrowing> {
             child: Icon(Icons.navigate_before),
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushNamed(context, '/'
+            );
           },
         ),
       ),
@@ -141,7 +142,7 @@ class _borrowing extends State<Borrowing> {
                   },
                   child: const Text('빌려주기'),
                   style: ElevatedButton.styleFrom(
-                    onPrimary: Colors.black,
+                    onPrimary: Colors.black54,
                     backgroundColor: Color(0xffFFE072),
                     minimumSize: Size(300, 40),
                   ),
@@ -158,7 +159,7 @@ class _borrowing extends State<Borrowing> {
                   },
                   child: const Text('빌려쓰기'),
                   style: ElevatedButton.styleFrom(
-                    onPrimary: Colors.black54,
+                    onPrimary: Colors.black,
                     backgroundColor: Color(0xffFFE072),
                     minimumSize: Size(300, 40),
                   ),
