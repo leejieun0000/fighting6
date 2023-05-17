@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project1/main/login.dart';
+import 'package:project1/main.dart';
 
 class JoinWidget extends StatefulWidget {
   const JoinWidget({Key? key}) : super(key: key);
