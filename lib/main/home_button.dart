@@ -66,7 +66,7 @@ class HomeButton extends StatelessWidget {
                   margin: EdgeInsets.only(left: 20),
                   child: InkWell(
                     onTap: (){
-                      Navigator.pushNamed(context, '/Borrowing'
+                      Navigator.pushNamed(context, '/lending'
                       );
                     },
                     child: Image.asset("images/human.png",
@@ -82,7 +82,7 @@ class HomeButton extends StatelessWidget {
                     children: [
                       TextButton(
                         onPressed: (){
-                          Navigator.pushNamed(context, '/Borrowing'
+                          Navigator.pushNamed(context, '/lending'
                           );
                         },
                         child: Text(

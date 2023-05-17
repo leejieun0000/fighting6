@@ -55,6 +55,7 @@ class _lending extends State<lending> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
+          backgroundColor: const Color(0xffFFE072),
           title: Text(
             '빌려주기/쓰기',
             style: TextStyle(
@@ -71,7 +72,7 @@ class _lending extends State<lending> {
               child: Icon(Icons.navigate_before),
             ),
             onPressed: () {
-              print("navigate");
+              Navigator.pop(context);
             },
           ),
         ),
@@ -121,11 +122,10 @@ class _lending extends State<lending> {
                   padding: const EdgeInsets.fromLTRB(20.0, 0.0, 5.0, 10.0),
                   child: ElevatedButton(
                     onPressed: (){
-
                     },
                     child: const Text('빌려주기'),
                     style: ElevatedButton.styleFrom(
-                      onPrimary: Colors.black,
+                      onPrimary:  Colors.black54,
                       backgroundColor: Color(0xffFFE072),
                       minimumSize: Size(300, 40),
                     ),
@@ -139,11 +139,12 @@ class _lending extends State<lending> {
                   padding: const EdgeInsets.fromLTRB(5.0, 0.0, 20.0, 10.0),
                   child: ElevatedButton(
                     onPressed: (){
-
+                      Navigator.pushNamed(context, '/Borrowing'
+                      );
                     },
                     child: const Text('빌려쓰기'),
                     style: ElevatedButton.styleFrom(
-                      onPrimary: Colors.grey,
+                      onPrimary: Colors.black,
                       backgroundColor: Color(0xffFFE072),
                       minimumSize: Size(300, 40),
                     ),
