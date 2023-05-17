@@ -50,19 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAyvS-Rpm5T5DKgw3ARd0bJTh676g7MBIg',
-    appId: '1:91198812212:web:0edd71955e1a6e26961a61',
-    messagingSenderId: '91198812212',
-    projectId: 'my-basic-fighting',
-    authDomain: 'my-basic-fighting.firebaseapp.com',
-    storageBucket: 'my-basic-fighting.appspot.com',
+    apiKey: 'AIzaSyAoCrdkymXkPIdOdjVHTuLd7UsTo7Uo1t0',
+    appId: '1:381955923532:web:5ac9c4a70179c858565ee9',
+    messagingSenderId: '381955923532',
+    projectId: 'fightinghelper',
+    authDomain: 'fightinghelper.firebaseapp.com',
+    storageBucket: 'fightinghelper.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBXh0NUZlTAtHVP7TtsvRwYhE-Ndv3BS98',
-    appId: '1:91198812212:android:b54c2a4366f6fdcf961a61',
-    messagingSenderId: '91198812212',
-    projectId: 'my-basic-fighting',
-    storageBucket: 'my-basic-fighting.appspot.com',
+    apiKey: 'AIzaSyCh8tNWJzUC2SX7yEBA-JrUkOENOLwac_o',
+    appId: '1:381955923532:android:18bd24f5cf62b9ba565ee9',
+    messagingSenderId: '381955923532',
+    projectId: 'fightinghelper',
+    storageBucket: 'fightinghelper.appspot.com',
   );
 }

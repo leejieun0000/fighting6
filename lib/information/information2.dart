@@ -21,9 +21,7 @@ class Information2 extends StatefulWidget {
   const Information2({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return _Information2();
-  }
+  _Information2 createState() => _Information2();
 }
 
 class _Information2 extends State<Information2> {

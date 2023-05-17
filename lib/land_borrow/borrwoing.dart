@@ -20,6 +20,24 @@ class Information extends StatelessWidget {
   }
 }*/
 
+// void main() {
+//   runApp(Information());
+// }
+//
+// class Information extends StatelessWidget {
+//   const Information({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(
+//       title: 'login',
+//       debugShowCheckedModeBanner: false,
+//       home: Borrowing(),
+//     );
+//   }
+// }
+
+
 class Borrowing extends StatefulWidget {
   const Borrowing({super.key, required this.tabIndex});
   final int tabIndex;
