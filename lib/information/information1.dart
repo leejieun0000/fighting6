@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project1/information/information2.dart';
 
 class Information extends StatefulWidget {
   const Information({super.key, required this.tabIndex});
@@ -18,7 +19,7 @@ class _Information extends State<Information> {
       //dividerThickness: 2, 구분선 두께
       headingRowColor: MaterialStateColor.resolveWith((states) {
         return const Color(0xffFFF0A4);
-        },
+      },
       ),
       columns: [
         DataColumn(label: Text('제목',style: TextStyle(
@@ -30,7 +31,14 @@ class _Information extends State<Information> {
       rows: [
         DataRow(
             cells: [
-              DataCell(Text('대전 청년 월세 지원')),
+              DataCell(Text('대전 청년 월세 지원'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Information2()),
+                    );
+
+                  }),
               DataCell(Text('2023.00.00')),
             ]
         ),
