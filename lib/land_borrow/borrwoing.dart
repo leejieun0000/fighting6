@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:project1/land_borrow/lending.dart';
 
-void main() {
+/*void main() {
   runApp(Information());
 }
 
@@ -18,12 +18,12 @@ class Information extends StatelessWidget {
       home: Borrowing(),
     );
   }
-}
+}*/
 
 class Borrowing extends StatefulWidget {
-  // const Borrowing({super.key, required this.tabIndex});
-  // final int tabIndex;
-  const Borrowing({super.key});
+  const Borrowing({super.key, required this.tabIndex});
+  final int tabIndex;
+  //const Borrowing({super.key});
 
   @override
   _borrowing createState() => _borrowing();

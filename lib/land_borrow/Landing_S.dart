@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() {
+/*void main() {
   runApp(Information());
 }
 
@@ -15,12 +15,12 @@ class Information extends StatelessWidget {
       home: LandingSetting(),
     );
   }
-}
+}*/
 
 class LandingSetting extends StatefulWidget {
-  //const LandingSetting({super.key, required this.tabIndex});
-  //final int tabIndex;
-  const LandingSetting({super.key});
+  const LandingSetting({super.key, required this.tabIndex});
+  final int tabIndex;
+  //const LandingSetting({super.key});
 
   @override
   _LandingSettingState createState() => _LandingSettingState();
