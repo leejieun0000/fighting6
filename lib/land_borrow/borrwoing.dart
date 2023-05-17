@@ -2,6 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
+// void main() {
+//   runApp(Information());
+// }
+//
+// class Information extends StatelessWidget {
+//   const Information({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(
+//       title: 'login',
+//       debugShowCheckedModeBanner: false,
+//       home: Borrowing(),
+//     );
+//   }
+// }
+
 class Borrowing extends StatefulWidget {
   const Borrowing({super.key, required this.tabIndex});
   final int tabIndex;
