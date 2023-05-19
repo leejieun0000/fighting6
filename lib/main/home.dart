@@ -45,17 +45,17 @@ class _MyHomeState extends State<MyHome>{
             _currentTabIndex = index;
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
+              icon: Icon(Icons.notifications_none),
               label: '알림'
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-          label: 'home'
+              label: 'home'
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.manage_accounts),
+            icon: Icon(Icons.person_outline),
             label: '설정'
           ),
         ],
