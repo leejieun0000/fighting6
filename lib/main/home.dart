@@ -38,7 +38,8 @@ class _MyHomeState extends State<MyHome>{
       //   ),
       // ]),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Color(0xffFFE072),
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey[500],
         currentIndex: _currentTabIndex,
         onTap: (index){
           setState(() {
@@ -47,16 +48,22 @@ class _MyHomeState extends State<MyHome>{
         },
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.notifications_none),
-              label: '알림'
+              /*icon: Icon(Icons.notifications_none),
+              label: '알림'*/
+              icon: Icon(Icons.notifications,size: 30),
+              label: ''
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-              label: 'home'
+              /*icon: Icon(Icons.home),
+              label: 'home'*/
+              icon: Icon(Icons.home,size: 30),
+              label: ''
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: '설정'
+            /*icon: Icon(Icons.person_outline),
+            label: '설정'*/
+              icon: Icon(Icons.person,size: 30,),
+              label: ''
           ),
         ],
       ),

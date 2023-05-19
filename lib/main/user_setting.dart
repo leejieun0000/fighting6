@@ -47,7 +47,7 @@ class _UserSetting extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xffFBF8F6), // 버튼의 배경색
                   onPrimary: Colors.black, // 버튼의 텍스트 / 아이콘 색
-                  side: BorderSide(color: Color(0xffBEBAB3), width: 3),
+                  side: BorderSide(color: Color(0xffBEBAB3), width: 2),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10), // 모서리를 둥글게
                   ),// 버튼의 테두리 색
@@ -77,7 +77,7 @@ class _UserSetting extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 primary: Color(0xffFBF8F6), // 버튼의 배경색
                 onPrimary: Colors.black, // 버튼의 텍스트 / 아이콘 색
-                side: BorderSide(color: Color(0xffBEBAB3), width: 3),
+                side: BorderSide(color: Color(0xffBEBAB3), width: 2),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10), // 모서리를 둥글게
                 ),// 버튼의 테두리 색
@@ -107,7 +107,7 @@ class _UserSetting extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 primary: Color(0xffFBF8F6), // 버튼의 배경색
                 onPrimary: Colors.black, // 버튼의 텍스트 / 아이콘 색
-                side: BorderSide(color: Color(0xffBEBAB3), width: 3),
+                side: BorderSide(color: Color(0xffBEBAB3), width: 2),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10), // 모서리를 둥글게
                 ),// 버튼의 테두리 색

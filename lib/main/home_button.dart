@@ -137,7 +137,7 @@ class _HomeButtonState extends State<HomeButton> {
             ),
           ),
           Container(
-            height: 7,
+            height: 8,
             width: 300,
             decoration: BoxDecoration(
               color: Color(0xffFFF5EE),
@@ -155,7 +155,7 @@ class _HomeButtonState extends State<HomeButton> {
                       MediaQuery.of(context).size.width * _indicatorPosition.clamp(0, 0.65),
                   bottom: 0,
                   child: Container(
-                    height: 7,
+                    height: 8,
                     width: MediaQuery.of(context).size.width * 0.3,
                     decoration: BoxDecoration(
                       color: Colors.yellow,
@@ -169,154 +169,163 @@ class _HomeButtonState extends State<HomeButton> {
               ],
             ),
           ),
-
           Container(
             height: 150,
-            margin: EdgeInsets.fromLTRB(20, 20 , 20, 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(35),
-              border: Border.all(color: Color(0xffBEBAB3), width: 3),
-              color: Color(0xfff8f2ee),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 40),
-                  child: InkWell(
-                    onTap: (){
-                      Navigator.pushNamed(context, '/lending'
-                      );
-                    },
-                    child: Image.asset("images/landing.png",
+            margin: EdgeInsets.fromLTRB(20, 20, 20, 10),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xfff8f2ee), // 버튼의 배경색
+                onPrimary: Colors.black, // 버튼의 텍스트 / 아이콘 색
+                side: BorderSide(color: Color(0xffBEBAB3), width: 3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(35), // 모서리를 둥글게
+                ), // 버튼의 테두리 색
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/lending');
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(left: 35),
+                    child: Image(
+                      image: AssetImage("images/landing.png"),
+                      width: 70,
                       height: 70,
-                      width: 70,),
+                    ),
                   ),
-                ),
-                Container(
-                  height: 150,
-                  width: 210,
-                  margin: EdgeInsets.only(top: 40, left: 10),
-                  child: Column(
-                    children: [
-                      TextButton(
-                        onPressed: (){
-                          Navigator.pushNamed(context, '/lending'
-                          );
-                        },
-                        child: Text(
+                  SizedBox(width: 20),
+                  Container(
+                    height: 150,
+                    width: 210,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
                           '빌려 주기/쓰기',
-                          style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.bold,),
+                          textAlign: TextAlign.center,
                         ),
-                      ),
-                      Text(
-                        '자취생 이웃과 필요한 것들을 공유해요',
-                        style: TextStyle(fontSize: 13, color: Colors.black,),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                        Text(
+                          '자취생 이웃과 필요한 것들을 공유해요',
+                          style: TextStyle(fontSize: 13, color: Colors.black),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  Spacer(), // 아이콘과 텍스트 사이의 간격을 조절하기 위해 Spacer 추가
+                ],
+              ),
             ),
           ),
           Container(
             height: 150,
             margin: EdgeInsets.fromLTRB(20, 5, 20, 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(35),
-              border: Border.all(color: Color(0xffBEBAB3), width: 3),
-              color: Color(0xfff8f2ee),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 40),
-                  child: InkWell(
-                    onTap: (){
-                      Navigator.pushNamed(context, '/Gonggu'
-                      );
-                    },
-                    child: Image.asset("images/shopping.png",
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xfff8f2ee), // 버튼의 배경색
+                onPrimary: Colors.black, // 버튼의 텍스트 / 아이콘 색
+                side: BorderSide(color: Color(0xffBEBAB3), width: 3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(35), // 모서리를 둥글게
+                ), // 버튼의 테두리 색
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/Gonggu');
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(left: 35),
+                    child: Image(
+                      image: AssetImage("images/shopping.png"),
+                      width: 70,
                       height: 70,
-                      width: 70,),
+                    ),
                   ),
-                ),
-                Container(
-                  height: 150,
-                  width: 210,
-                  margin: EdgeInsets.only(top: 40, left: 20),
-                  child: Column(
-                    children: [
-                      TextButton(
-                        onPressed: (){
-                          Navigator.pushNamed(context, '/Gonggu'
-                          );
-                        },
-                        child: Text(
+                  SizedBox(width: 20),
+                  Container(
+                    height: 150,
+                    width: 210,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
                           '공동 구매',
-                          style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.bold,),
+                          textAlign: TextAlign.center,
                         ),
-                      ),
-                      Text(
-                        '필요한 물건을 함께 구매해요',
-                        style: TextStyle(fontSize: 13, color: Colors.black,),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                        Text(
+                          '필요한 물건을 함께 구매해요',
+                          style: TextStyle(fontSize: 13, color: Colors.black),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  Spacer(), // 아이콘과 텍스트 사이의 간격을 조절하기 위해 Spacer 추가
+                ],
+              ),
             ),
           ),
           Container(
             height: 150,
             margin: EdgeInsets.fromLTRB(20, 5, 20, 10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(35),
-              border: Border.all(color: Color(0xffBEBAB3), width: 3),
-              color: Color(0xfff8f2ee),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 40),
-                  child: InkWell(
-                    onTap: (){
-                      Navigator.pushNamed(context, '/Information'
-                      );
-                    },
-                    child: Image.asset("images/house.png",
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xfff8f2ee), // 버튼의 배경색
+                onPrimary: Colors.black, // 버튼의 텍스트 / 아이콘 색
+                side: BorderSide(color: Color(0xffBEBAB3), width: 3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(35), // 모서리를 둥글게
+                ), // 버튼의 테두리 색
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/Information');
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(left: 35),
+                    child: Image(
+                      image: AssetImage("images/landing.png"),
+                      width: 70,
                       height: 70,
-                      width: 70,),
+                    ),
                   ),
-                ),
-                Container(
-                  height: 150,
-                  width: 210,
-                  margin: EdgeInsets.only(top: 40, left: 20),
-                  child: Column(
-                    children: [
-                      TextButton(
-                        onPressed: (){
-                          Navigator.pushNamed(context, '/Information'
-                          );
-                        },
-                        child: Text(
+                  SizedBox(width: 20),
+                  Container(
+                    height: 150,
+                    width: 210,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
                           '자취 지원 정보',
-                          style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.bold,),
+                          textAlign: TextAlign.center,
                         ),
-                      ),
-                      Text(
-                        '자취생에게 유용한 정보를 드려요',
-                        style: TextStyle(fontSize: 13, color: Colors.black,),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                        Text(
+                          '자취생에게 유용한 정보를 드려요',
+                          style: TextStyle(fontSize: 13, color: Colors.black),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  Spacer(), // 아이콘과 텍스트 사이의 간격을 조절하기 위해 Spacer 추가
+                ],
+              ),
             ),
           ),
+
         ],
       ),
     );

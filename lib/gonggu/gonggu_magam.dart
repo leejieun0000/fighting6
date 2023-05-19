@@ -117,7 +117,7 @@ class _Gonggu extends State<GongguMagam> {
                                   item,
                                   style: const TextStyle(
                                     fontSize: 25,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
                                   overflow: TextOverflow.ellipsis,
