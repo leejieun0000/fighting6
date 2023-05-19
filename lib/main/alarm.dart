@@ -24,14 +24,28 @@ class _Alarm extends State<Alarm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar (
-          title: const Text(
-            '알림 ',
-            style: TextStyle(
-                color: Colors.black,fontWeight: FontWeight.bold
-            ),
+      appBar: AppBar(
+        title: Text(
+          '알림',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
           ),
-          automaticallyImplyLeading: false
+        ),
+        centerTitle: true,
+        elevation: 0.0,
+        iconTheme: IconThemeData(color: Colors.black),
+        leading: IconButton(
+          icon: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(Icons.navigate_before),
+          ),
+          onPressed: () {
+            Navigator.pop(
+                context
+            );
+          },
+        ),
       ),
       body: ListView.separated(
         separatorBuilder: (context, index) {
