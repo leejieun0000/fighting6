@@ -9,9 +9,6 @@ class JoinWidget extends StatefulWidget {
 }
 
 class _JoinWidgetState extends State<JoinWidget> {
-  bool _isCheckMan = false;
-  bool _isCheckWeman = false;
-  bool _isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +19,6 @@ class _JoinWidgetState extends State<JoinWidget> {
         ),
         automaticallyImplyLeading: false,
         centerTitle: true,
-        // backgroundColor: const Color(0xffFFE072),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -50,52 +46,7 @@ class _JoinWidgetState extends State<JoinWidget> {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 25.0),
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 1.0,),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 1.0,),
-                  ),
-                  labelText: '비밀번호',
-                  hintText: '비밀번호',
-                  labelStyle: TextStyle(color: Colors.grey),
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(17.0),
-                ),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 25.0),
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 1.0,),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 1.0,),
-                  ),
-                  labelText: '비밀번호 확인',
-                  hintText: '비밀번호 확인',
-                  labelStyle: TextStyle(color: Colors.grey),
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(17.0),
-                ),
-              ),
-            ),
+
             const Padding(
               padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
               child: TextField(
@@ -118,39 +69,7 @@ class _JoinWidgetState extends State<JoinWidget> {
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(30.0, 5.0, 0.0, 5.0),
-              child: Row(
-                children: [
-                  Checkbox(
-                    activeColor: Color(0xffFFE072),
-                    checkColor: Colors.white,
-                    value: _isCheckMan,
-                    onChanged: (value) {
-                      setState(() {
-                        _isCheckMan = value!;
-                        _isCheckWeman = !value;
-                      });
-                    },
-                  ),
-                  const Text("남성",
-                    style: TextStyle(color: Colors.black),),
-                  Checkbox(
-                    activeColor: Color(0xffFFE072),
-                    checkColor: Colors.white,
-                    value: _isCheckWeman,
-                    onChanged: (value) {
-                      setState(() {
-                        _isCheckWeman = value!;
-                        _isCheckMan = !value;
-                      });
-                    },
-                  ),
-                  const Text("여성",
-                    style: TextStyle(color: Colors.black),),
-                ],
-              ),
-            ),
+
             const Padding(
               padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
               child: TextField(
@@ -195,25 +114,7 @@ class _JoinWidgetState extends State<JoinWidget> {
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(30.0, 5.0, 0.0, 5.0),
-              child: Row(
-                children: [
-                  Checkbox(
-                    activeColor: Color(0xffFFE072),
-                    checkColor: Colors.white,
-                    value: _isChecked,
-                    onChanged: (value) {
-                      setState(() {
-                        _isChecked = value!;
-                      });
-                    },
-                  ),
-                  const Text("개인정보 이용에 동의합니다.",
-                    style: TextStyle(color: Colors.black),),
-                ],
-              ),
-            ),
+
             Container(
               alignment: const Alignment(0.8, 0.0),
               padding: const EdgeInsets.only(right: 5.0),

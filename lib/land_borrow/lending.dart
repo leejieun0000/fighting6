@@ -322,9 +322,16 @@ class _lending extends State<lending> {
                 iconSize: 50,
                 onPressed: (){
 
+<<<<<<< HEAD
+                  },
+                    icon: Image.asset(
+                      "images/pen.png",
+                 ), 
+=======
                 },
                 icon: Image.asset(
                   "images/pen.png",
+>>>>>>> 0ddc3484f75ad7cbdded029c59caadf309a0d438
                 ),
               ),
             ),
