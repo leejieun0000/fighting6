@@ -117,7 +117,7 @@ class _Gonggu extends State<GongguMagam> {
                                   item,
                                   style: const TextStyle(
                                     fontSize: 25,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
                                   overflow: TextOverflow.ellipsis,
@@ -146,7 +146,7 @@ class _Gonggu extends State<GongguMagam> {
                           itemHeight: 40,
                           //itemWidth: 200,
                           itemPadding: const EdgeInsets.only(left: 14, right: 14),
-                          dropdownMaxHeight: 200,
+                          dropdownMaxHeight: 180,
                           dropdownPadding: null,
                           /*dropdownBorderRadius: BorderRadius.circular(14),
                                   dropdownBorder: null,
