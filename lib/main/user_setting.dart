@@ -82,7 +82,10 @@ class _UserSetting extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10), // 모서리를 둥글게
                 ),// 버튼의 테두리 색
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/InformationChange'
+                );
+              },
               child: const Row( // Row 위젯을 사용해 아이콘과 텍스트를 가로로 배열
                 mainAxisAlignment: MainAxisAlignment.start, // 가로로 정렬
                 children: <Widget>[

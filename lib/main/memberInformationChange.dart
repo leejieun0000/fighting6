@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:project1/main.dart';
 
-class informationChangeWidget extends StatefulWidget {
-  const informationChangeWidget({Key? key}) : super(key: key);
+class InformationChange extends StatefulWidget {
+  const InformationChange({Key? key, required this.tabIndex}) : super(key: key);
+  final int tabIndex;
+
 
   @override
-  _informationChangeWidgetState createState() => _informationChangeWidgetState();
+  _informationChange createState() => _informationChange();
 }
 
-class _informationChangeWidgetState extends State<informationChangeWidget> {
 
+class _informationChange extends State<InformationChange>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
