@@ -41,7 +41,7 @@ class _HomeButtonState extends State<HomeButton> {
       appBar: AppBar(
         title: Container(
           alignment: Alignment.centerLeft,
-          margin: EdgeInsets.only(left:30, bottom: 5),
+          margin: EdgeInsets.only(left:20, bottom: 5),
           child: const Text(
             '자취생 도우미',
             style: TextStyle(
@@ -56,7 +56,7 @@ class _HomeButtonState extends State<HomeButton> {
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 10),
+            margin: EdgeInsets.only(top: 10, left:7, right:7),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               controller: _scrollController,
