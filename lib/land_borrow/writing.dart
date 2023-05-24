@@ -51,6 +51,7 @@ class _writingWidgetState extends State<writingWidget> {
       ),
 
       body: ListView(
+        //padding: EdgeInsets.fromLTRB(30, 200, 30, 0),
         children: [
           Container(
             margin: EdgeInsets.fromLTRB(30.0, 5.0, 0.0, 5.0),

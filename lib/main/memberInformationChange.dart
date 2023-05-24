@@ -41,12 +41,12 @@ class _informationChange extends State<InformationChange>{
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Color(0xFFE072),
+                      color: Colors.grey,
                       width: 1.0,),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Color(0xFFE072),
+                      color: Colors.grey,
                       width: 1.0,),
                   ),
                   labelText: '아이디(닉네임)',
@@ -64,12 +64,12 @@ class _informationChange extends State<InformationChange>{
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Color(0xFFE072),
+                      color: Colors.grey,
                       width: 1.0,),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Color(0xFFE072),
+                      color: Colors.grey,
                       width: 1.0,),
                   ),
                   labelText: '이름',
@@ -87,12 +87,12 @@ class _informationChange extends State<InformationChange>{
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Color(0xFFE072),
+                      color: Colors.grey,
                       width: 1.0,),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Color(0xFFE072),
+                      color: Colors.grey,
                       width: 1.0,),
                   ),
                   labelText: '전화번호',
@@ -109,12 +109,12 @@ class _informationChange extends State<InformationChange>{
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Color(0xFFE072),
+                      color: Colors.grey,
                       width: 1.0,),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Color(0xFFE072),
+                      color: Colors.grey,
                       width: 1.0,),
                   ),
                   labelText: '주소',
@@ -127,7 +127,8 @@ class _informationChange extends State<InformationChange>{
             ),
             Container(
               alignment: const Alignment(0.8, 0.0),
-              padding: const EdgeInsets.only(right: 5.0),
+              /*padding: const EdgeInsets.only(right: 5.0),*/
+              padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
               child: ElevatedButton(
                 onPressed: (){
                   Navigator.push(

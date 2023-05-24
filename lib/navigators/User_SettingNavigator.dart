@@ -16,9 +16,9 @@ class UserSettingNavigator extends StatelessWidget {
       "/UserSetting": (context) => UserSetting(
         tabIndex: tabIndex,
       ),
-      "/InformationChange" : (context) => InformationChange(
+      /*"/InformationChange" : (context) => InformationChange(
         tabIndex: tabIndex,
-      )
+      )*/
     };
   }
 
