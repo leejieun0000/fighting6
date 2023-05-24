@@ -23,10 +23,10 @@ class _lendingState extends State<lending> {
     '어은동',
     '장대동',
     '신성동',
-    '관평동',
+    /*'관평동',
     '어은동',
     '둔산동',
-    '은행동'
+    '은행동'*/
   ];
 
   final List<Map<String, String>> _valueList_2 = [
@@ -53,7 +53,7 @@ class _lendingState extends State<lending> {
       appBar: AppBar(
         backgroundColor: const Color(0xffFFE072),
         title: Text(
-          '빌려주기/쓰기',
+          '빌려주기',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,

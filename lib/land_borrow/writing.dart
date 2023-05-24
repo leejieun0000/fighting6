@@ -51,10 +51,9 @@ class _writingWidgetState extends State<writingWidget> {
       ),
 
       body: ListView(
-        //padding: EdgeInsets.fromLTRB(30, 200, 30, 0),
         children: [
           Container(
-            margin: EdgeInsets.fromLTRB(30.0, 5.0, 0.0, 5.0),
+            margin: EdgeInsets.fromLTRB(30.0, 15.0, 0.0, 5.0),
             child: Row(
               children: [
                 Checkbox(
@@ -107,7 +106,7 @@ class _writingWidgetState extends State<writingWidget> {
           ),
          /* MultiImagesSelect(),*/
           Container(
-            margin: EdgeInsets.fromLTRB(30.0, 15.0, 300.0, 5.0),
+            margin: EdgeInsets.fromLTRB(30.0, 30.0, 300.0, 5.0),
             padding: EdgeInsets.all(5),
             decoration: BoxDecoration(color: Colors.yellow.shade300, borderRadius: BorderRadius.circular(10),
               boxShadow: [BoxShadow(color:Colors.grey.withOpacity(0.5),spreadRadius: 0.5,blurRadius: 5)],
