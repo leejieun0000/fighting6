@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project1/main/home_button.dart';
 
 class Alarm extends StatefulWidget {
   const Alarm({Key? key, required this.tabIndex}) : super(key: key);
@@ -40,11 +41,20 @@ class _Alarm extends State<Alarm> {
             padding: const EdgeInsets.all(8.0),
             child: Icon(Icons.navigate_before),
           ),
-          onPressed: () {
-            Navigator.pop(
-                context
+
+         /* onPressed: () {
+            Navigator.push(context,MaterialPageRoute(builder: (context)=> HomeButton(tabIndex: tabIndex)),);
+          },*/
+
+        /* onPressed: (){
+            Navigator.pushNamed(context, '/'
             );
+          },*/
+
+          onPressed: () {
+            Navigator.pop(context);
           },
+
         ),
       ),
       body: ListView.separated(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project1/main/memberInformationChange.dart';
+import 'package:project1/main/passwordChange.dart';
 
 class UserSetting extends StatelessWidget {
   const UserSetting({Key? key, required this.tabIndex}) : super(key: key);
@@ -82,7 +84,9 @@ class _UserSetting extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10), // 모서리를 둥글게
                 ),// 버튼의 테두리 색
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,MaterialPageRoute(builder: (context)=> InformationChange(tabIndex: tabIndex)),);
+              },
               child: const Row( // Row 위젯을 사용해 아이콘과 텍스트를 가로로 배열
                 mainAxisAlignment: MainAxisAlignment.start, // 가로로 정렬
                 children: <Widget>[
@@ -112,7 +116,9 @@ class _UserSetting extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10), // 모서리를 둥글게
                 ),// 버튼의 테두리 색
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,MaterialPageRoute(builder: (context)=> PasswordChange(tabIndex: tabIndex)),);
+              },
               child: const Row( // Row 위젯을 사용해 아이콘과 텍스트를 가로로 배열
                 mainAxisAlignment: MainAxisAlignment.start, // 가로로 정렬
                 children: <Widget>[
