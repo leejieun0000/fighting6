@@ -294,7 +294,7 @@ class _HomeButtonState extends State<HomeButton> {
                   Container(
                     margin: EdgeInsets.only(left: 35),
                     child: Image(
-                      image: AssetImage("images/landing.png"),
+                      image: AssetImage("images/house.png"),
                       width: 70,
                       height: 70,
                     ),
