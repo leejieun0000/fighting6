@@ -15,6 +15,7 @@ class GongguDetail extends StatefulWidget {
 }
 
 class _GongguDetail extends State<GongguDetail> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
