@@ -2,19 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:project1/land_borrow/lending_detail.dart';
 
-void main() {
+/*void main() {
   runApp(lending());
-}
+}*/
 
 class lending extends StatefulWidget {
-  const lending({Key? key}) : super(key: key);
+  const lending({Key? key, required this.tabIndex}) : super(key: key);
+  final int tabIndex;
 
   @override
-  _lendingState createState() => _lendingState();
+  _lendingState createState() => _lendingState(tabIndex: tabIndex);
 }
 
 class _lendingState extends State<lending> {
+  _lendingState({required this.tabIndex});
+  final int tabIndex;
   String? selectedValue;
   List<String> items = [
     '궁동',
@@ -46,6 +50,15 @@ class _lendingState extends State<lending> {
       'date': '반납일',
     }
   ];
+
+  void _navigateToDetailScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => LendingDetail(tabIndex: tabIndex)),
+    );
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -204,9 +217,13 @@ class _lendingState extends State<lending> {
                 );
               },
               padding: EdgeInsets.all(20),
-              itemBuilder: (context, index) {
+              itemBuilder: (context, index) { // 현재 인덱스에 해당하는 항목을 가져옵니다.
                 final item = _valueList_2[index];
-                return SizedBox(
+                return GestureDetector(
+                    onTap: () {
+                  _navigateToDetailScreen();
+                },
+                child : SizedBox(
                   height: 100,
                   child: Row(
                     children: [
@@ -241,7 +258,7 @@ class _lendingState extends State<lending> {
                       ),
                     ],
                   ),
-                );
+                ),);
               },
               itemCount: _valueList_2.length,
             ),

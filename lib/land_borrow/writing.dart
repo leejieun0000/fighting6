@@ -13,6 +13,7 @@ class writingWidget extends StatefulWidget {
 class _writingWidgetState extends State<writingWidget> {
   bool _isLending = false;
   bool _isBorrowing = false;
+  bool _isGonggu = false;
 
   final picker = ImagePicker();
   List<XFile?> multiImage = [];
@@ -149,7 +150,7 @@ class _writingWidgetState extends State<writingWidget> {
               )
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(30.0, 0.0, 0.0, 5.0),
+            margin: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 5.0),
             child: Row(
               children: [
                 Checkbox(
@@ -160,6 +161,7 @@ class _writingWidgetState extends State<writingWidget> {
                     setState(() {
                       _isLending = value!;
                       _isBorrowing = !value;
+                      _isGonggu = !value;
                     });
                   },
                 ),
@@ -173,10 +175,25 @@ class _writingWidgetState extends State<writingWidget> {
                     setState(() {
                       _isBorrowing = value!;
                       _isLending = !value;
+                      _isGonggu = !value;
                     });
                   },
                 ),
-                const Text("빌려 쓰기",
+                const Text("빌려쓰기",
+                  style: TextStyle(color: Colors.black),),
+                Checkbox(
+                  activeColor: Color(0xffFFE072),
+                  checkColor: Colors.white,
+                  value: _isGonggu,
+                  onChanged: (value) {
+                    setState(() {
+                      _isLending = !value!;
+                      _isBorrowing = !value;
+                      _isGonggu = value;
+                    });
+                  },
+                ),
+                const Text("공동구매",
                   style: TextStyle(color: Colors.black),),
               ],
             ),
