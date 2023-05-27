@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:project1/gonggu/groupPurchase_detail.dart';
 
 void main() {
   runApp(NewGonggu());
@@ -54,6 +55,12 @@ class _Gonggu extends State<NewGonggu> {
 
   ];
 
+  void _navigateToDetailScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GongguDetail()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,10 +186,13 @@ class _Gonggu extends State<NewGonggu> {
                 );
               },
               padding: EdgeInsets.all(20),
-              itemBuilder: (context, index) {
-                // 현재 인덱스에 해당하는 항목을 가져옵니다.
+              itemBuilder: (context, index) { // 현재 인덱스에 해당하는 항목을 가져옵니다.
                 final item = _valueList_2[index];
-                return SizedBox(
+                return GestureDetector(
+                    onTap: () {
+                  _navigateToDetailScreen();
+                },
+                child : SizedBox(
                   height: 100,
                   child: Row(
                     children: [
@@ -217,7 +227,7 @@ class _Gonggu extends State<NewGonggu> {
                       ),
                     ],
                   ),
-                );
+                ),);
               },
               itemCount: _valueList_2.length, // 항목 수를 동적으로 설정합니다.
             ),

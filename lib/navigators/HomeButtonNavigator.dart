@@ -34,6 +34,7 @@ class HomeButtonNavigator extends StatelessWidget{
       "/GongguWrite": (context) => GongguWrite(
       ),
       "/lending": (context) => lending(
+        tabIndex: tabIndex,
       ),
 
     };

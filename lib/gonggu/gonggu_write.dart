@@ -1,6 +1,8 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:project1/gonggu/gonggu_plusgogi.dart';
 
 class GongguWrite extends StatefulWidget {
   const GongguWrite({Key? key}) : super(key: key);
@@ -10,19 +12,31 @@ class GongguWrite extends StatefulWidget {
 }
 
 class _GongWidgetState extends State<GongguWrite> {
+  bool _isLending = false;
+  bool _isBorrowing = false;
+  bool _isGonggu = false;
+
   final picker = ImagePicker();
   List<XFile?> multiImage = [];
   List<XFile?> images = [];
-
   DateTime date = DateTime.now();
+
+  String? selectedValue;
+  List<String> items = [
+    '궁동',
+    '죽동',
+    '봉명동',
+    '어은동',
+    '장대동',
+    '신성동',
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          '글쓰기',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        title: const Text('글쓰기',
+          style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
         ),
         actions: [
           Padding(
@@ -31,11 +45,10 @@ class _GongWidgetState extends State<GongguWrite> {
               minWidth: 60,
               color: Colors.white,
               onPressed: () {
-//저장하기~
+                Navigator.push(context,MaterialPageRoute(builder: (context)=> NewGonggu()),);
               },
               child: Text('저장'),
-              shape: RoundedRectangleBorder(
-                // 테두리를 둥글게 만들기 위한 설정
+              shape: RoundedRectangleBorder( // 테두리를 둥글게 만들기 위한 설정
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
@@ -50,24 +63,151 @@ class _GongWidgetState extends State<GongguWrite> {
           },
         ),
       ),
+
       body: ListView(
-        padding: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
         children: [
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Container(
+                  width: 120,
+                  height: 80,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton2(
+                        isExpanded: true,
+                        hint: const Row(
+                          children: [
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: Text(
+                                '궁동',
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        items: items
+                            .map((item) =>
+                            DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ))
+                            .toList(),
+                        value: selectedValue,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedValue = value as String;
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                        ),
+                        iconSize: 14,
+                        iconEnabledColor: Colors.black,
+                        iconDisabledColor: Colors.grey,
+                        buttonHeight: 50,
+                        buttonWidth: 160,
+                        buttonPadding: const EdgeInsets.only(left: 14, right: 14),
+                        buttonDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          color: Color(0xffFFE072),
+                        ),
+                        itemHeight: 40,
+                        //itemWidth: 200,
+                        itemPadding: const EdgeInsets.only(left: 14, right: 14),
+                        dropdownMaxHeight: 200,
+                        dropdownPadding: null,
+                        /*dropdownBorderRadius: BorderRadius.circular(14),
+                                  dropdownBorder: null,
+                                  dropdownColor: Colors.redAccent,
+                                  elevation: 8,*/
+                        scrollbarRadius: const Radius.circular(40),
+                        scrollbarThickness: 6,
+                        scrollbarAlwaysShow: true,
+                        offset: const Offset(0, 0),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+          ),
+          Container(
+            margin: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 5.0),
+            child: Row(
+              children: [
+                Checkbox(
+                  activeColor: Color(0xffFFE072),
+                  checkColor: Colors.white,
+                  value: _isLending,
+                  onChanged: (value) {
+                    setState(() {
+                      _isLending = value!;
+                      _isBorrowing = !value;
+                      _isGonggu = !value;
+                    });
+                  },
+                ),
+                const Text("빌려주기",
+                  style: TextStyle(color: Colors.black),),
+                Checkbox(
+                  activeColor: Color(0xffFFE072),
+                  checkColor: Colors.white,
+                  value: _isBorrowing,
+                  onChanged: (value) {
+                    setState(() {
+                      _isBorrowing = value!;
+                      _isLending = !value;
+                      _isGonggu = !value;
+                    });
+                  },
+                ),
+                const Text("빌려쓰기",
+                  style: TextStyle(color: Colors.black),),
+                Checkbox(
+                  activeColor: Color(0xffFFE072),
+                  checkColor: Colors.white,
+                  value: _isGonggu,
+                  onChanged: (value) {
+                    setState(() {
+                      _isLending = !value!;
+                      _isBorrowing = !value;
+                      _isGonggu = value;
+                    });
+                  },
+                ),
+                const Text("공동구매",
+                  style: TextStyle(color: Colors.black),),
+              ],
+            ),
+          ),
           Row(
             children: [
-              SizedBox(
-                width: 35,
+              SizedBox(width: 35,
               ),
               new Text(
                 '제목 : ',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                ),
+                style: TextStyle(fontSize: 20, color: Colors.black,),
               ),
-              SizedBox(
-                width: 20,
-              ),
+              SizedBox(width: 20,),
               Container(
                 child: TextField(
                   decoration: InputDecoration(
@@ -80,39 +220,52 @@ class _GongWidgetState extends State<GongguWrite> {
           ),
           /* MultiImagesSelect(),*/
           Container(
-              margin: EdgeInsets.fromLTRB(30.0, 30.0, 300.0, 5.0),
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: Colors.yellow.shade300,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 0.5,
-                      blurRadius: 5)
-                ],
-              ),
-              child: IconButton(
-                  onPressed: () async {
-                    multiImage = await picker.pickMultiImage();
+            margin: EdgeInsets.fromLTRB(30.0, 30.0, 300.0, 5.0),
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(color: Colors.yellow.shade300, borderRadius: BorderRadius.circular(10),
+              boxShadow: [BoxShadow(color:Colors.grey.withOpacity(0.5),spreadRadius: 0.5,blurRadius: 5)],
+            ),
+
+            child: Column(
+              children: [
+                IconButton(
+                    onPressed: () async {multiImage = await picker.pickMultiImage();
                     setState(() {
                       images.addAll(multiImage);
                     });
-                  },
-                  icon: Icon(
-                    Icons.add_photo_alternate_outlined,
-                    size: 30,
-                    color: Colors.white,
-                  ))),
+                    },
+                    icon: Icon(
+                      Icons.add_photo_alternate_outlined,
+                      size: 30,
+                      color: Colors.white,
+                    )
+                ),
+                Container(
+                  //padding: EdgeInsets.only(top: 50),
+                  child: Text(
+                    '이미지 추가',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.black,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+
+              ],
+            ),
+
+          ),
           Container(
             margin: EdgeInsets.all(10),
-            child: GridView.builder(
-              padding: EdgeInsets.all(0),
+            child: GridView.builder(padding: EdgeInsets.all(0),
               shrinkWrap: true,
               itemCount: images.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                childAspectRatio: 1 / 1,
+                childAspectRatio:
+                1 / 1,
                 mainAxisSpacing: 10,
                 crossAxisSpacing: 10,
               ),
@@ -123,26 +276,33 @@ class _GongWidgetState extends State<GongguWrite> {
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          image: DecorationImage(
+                          image:
+                          DecorationImage(
                               fit: BoxFit.cover,
-                              image: FileImage(File(images[index]!.path)))),
+                              image: FileImage(File(images[index]!.path
+                              ))
+                          )
+                      ),
                     ),
                     Container(
                         decoration: BoxDecoration(
                           color: Colors.black,
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius:
+                          BorderRadius.circular(5),
                         ),
                         child: IconButton(
                           padding: EdgeInsets.zero,
                           constraints: BoxConstraints(),
-                          icon:
-                              Icon(Icons.close, color: Colors.white, size: 15),
+                          icon: Icon(Icons.close,
+                              color: Colors.white,
+                              size: 15),
                           onPressed: () {
                             setState(() {
                               images.remove(images[index]);
                             });
                           },
-                        ))
+                        )
+                    )
                   ],
                 );
               },
@@ -152,7 +312,9 @@ class _GongWidgetState extends State<GongguWrite> {
             maxLines: null,
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(horizontal: 30),
+              contentPadding: EdgeInsets.symmetric(
+                  horizontal: 30
+              ),
               hintText: '상품의 세부설명을 입력해주세요.',
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
@@ -197,7 +359,7 @@ class _GongWidgetState extends State<GongguWrite> {
                                 textButtonTheme: TextButtonThemeData(
                                   style: TextButton.styleFrom(
                                     foregroundColor:
-                                        Colors.black, // button text color
+                                    Colors.black, // button text color
                                   ),
                                 ),
                               ),
@@ -237,3 +399,4 @@ class _GongWidgetState extends State<GongguWrite> {
     );
   }
 }
+

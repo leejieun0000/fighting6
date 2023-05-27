@@ -54,6 +54,7 @@ class _Gonggu extends State<GongguMagam> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xffFFE072),
@@ -73,7 +74,7 @@ class _Gonggu extends State<GongguMagam> {
               child: Icon(Icons.navigate_before),
             ),
             onPressed: () {
-              print("navigate");
+              Navigator.pushNamed(context, '/');
             },
           ),
         ),
