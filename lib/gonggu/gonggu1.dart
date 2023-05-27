@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
+
 class Gonggu extends StatefulWidget {
   const Gonggu({super.key, required this.tabIndex});
   final int tabIndex;
@@ -101,8 +102,7 @@ class _Gonggu extends State<Gonggu> {
                           ],
                         ),
                         items: items
-                            .map((item) =>
-                            DropdownMenuItem<String>(
+                            .map((item) => DropdownMenuItem<String>(
                               value: item,
                               child: Text(
                                 item,
@@ -139,10 +139,6 @@ class _Gonggu extends State<Gonggu> {
                         itemPadding: const EdgeInsets.only(left: 14, right: 14),
                         dropdownMaxHeight: 180,
                         dropdownPadding: null,
-                        /*dropdownBorderRadius: BorderRadius.circular(14),
-                                  dropdownBorder: null,
-                                  dropdownColor: Colors.redAccent,
-                                  elevation: 8,*/
                         scrollbarRadius: const Radius.circular(40),
                         scrollbarThickness: 6,
                         scrollbarAlwaysShow: true,
