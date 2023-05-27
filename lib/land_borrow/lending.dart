@@ -58,8 +58,6 @@ class _lendingState extends State<lending> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

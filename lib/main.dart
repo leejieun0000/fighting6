@@ -1,15 +1,20 @@
-/*import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:project1/main/home.dart';
 import 'package:project1/main/join.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+// WidgetsFlutterBinding.ensureInitialized();
+// await Firebase.initializeApp(
+//   options: DefaultFirebaseOptions.currentPlatform,
+// );
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp();
 
   runApp(login());
 }
@@ -57,319 +62,100 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void showToast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black54,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
+  Future<void> signIn() async {
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      showToast('로그인 성공: ${userCredential.user!.email}');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MyHome()),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        showToast('등록되지 않은 이메일입니다');
+      } else if (e.code == 'wrong-password') {
+        showToast('비밀번호가 틀렸습니다');
+      } else {
+        showToast('로그인 오류: ${e.code}');
+      }
+    } catch (e) {
+      showToast('기타 오류: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.fromLTRB(30, 50, 30, 0),
-                    child: Center(
-                      child: Image(
-                        image: AssetImage('images/login_yw.png'),
-                        width: 430,
-                        height: 430,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(30.0, 0, 30.0, 20.0),
-                    child: TextField(
-                      // obscureText: true,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: Colors.grey,
-                            width: 1.0,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: Colors.grey,
-                            width: 1.0,
-                          ),
-                        ),
-                        labelText: '아이디',
-                        //hintText: 'abcde',
-                        labelStyle: TextStyle(color: Colors.grey),
-                        isDense: true,
-                        contentPadding: EdgeInsets.all(17.0),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
-                    child: TextField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: Colors.grey,
-                            width: 1.0,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: Colors.grey,
-                            width: 1.0,
-                          ),
-                        ),
-                        labelText: '비밀번호',
-                        //hintText: '12345',
-                        labelStyle: TextStyle(color: Colors.grey),
-                        isDense: true,
-                        contentPadding: EdgeInsets.all(17.0),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    alignment: const Alignment(0.0, 0.0),
-                    padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 10),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const MyHome()),
-                        );
-                      },
-                      child: const Text('로그인',
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        backgroundColor: Color(0xffFFD76F),
-                        minimumSize: Size(400, 50),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    alignment: const Alignment(0.0, 0.0),
-                    padding: const EdgeInsets.fromLTRB(50.0, 10.0, 50.0, 10.0),
-                    child: TextButton(
-                      child: Text(
-                        "회원가입",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const JoinWidget()),
-                        );
-                      },
-                      style: TextButton.styleFrom(
-                        primary: Colors.black,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Image.asset(
-              'images/dongnae.png',
-              fit: BoxFit.fitWidth,
-              width: MediaQuery.of(context).size.width,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}*/
-
-import 'package:flutter/material.dart';
-import 'package:project1/main/home.dart';
-import 'package:project1/main/join.dart';
-import 'package:project1/main/home.dart';
-import 'package:project1/main/join.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-
-void main() {
-  runApp(login());
-}
-class login extends StatelessWidget {
-  const login({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'login',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          backgroundColor: Color(0xffFFE072),
-          centerTitle: true,
+      appBar: AppBar(
+        title: const Text(
+          '회원가입',
+          style: TextStyle(color: Colors.black),
         ),
-        textTheme: TextTheme(
-          headline1: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
       ),
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: [
-        const Locale('ko', 'KR'),
-      ],
-      home: LoginWidget(),
-    );
-  }
-}
-class LoginWidget extends StatefulWidget {
-  const LoginWidget({Key? key}) : super(key: key);
-  @override
-  _LoginWidgetState createState() => _LoginWidgetState();
-}
-class _LoginWidgetState extends State<LoginWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,  // 키보드가 올라와도 화면 크기를 변경하지 않음
-      body: Stack(
-        children: [
-      SingleChildScrollView(
-      child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-           SizedBox(
-             height: 80,
-           ),
-          Container(
-            margin: EdgeInsets.fromLTRB(30, 50, 30, 20),
-            child: Image.asset(
-              'images/login_yw.png',
-              fit: BoxFit.fitWidth,
-              width: MediaQuery.of(context).size.width,
-            ),
-          ),
-
-          Padding(
-              padding: EdgeInsets.fromLTRB(30.0, 10, 30.0, 20.0),
-              child: TextField(
-                // obscureText: true,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-                  labelText: '아이디',
-                  //hintText: 'abcde',
-                  labelStyle: TextStyle(color: Colors.grey),
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(17.0),
-                ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(40.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextField(
+              controller: emailController,
+              decoration: InputDecoration(
+                labelText: '이메일',
               ),
             ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
-              child: TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 1.0,
-                    ),
-                  ),
-                  labelText: '비밀번호',
-                  //hintText: '12345',
-                  labelStyle: TextStyle(color: Colors.grey),
-                  isDense: true,
-                  contentPadding: EdgeInsets.all(17.0),
-                ),
+            SizedBox(height: 16.0),
+            TextField(
+              controller: passwordController,
+              decoration: InputDecoration(
+                labelText: '비밀번호',
               ),
+              obscureText: true,
             ),
-            Container(
-              alignment: const Alignment(0.0, 0.0),
-              padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 10.0),
-              child: ElevatedButton(
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyHome()),
-                  );
-                },
-                child: const Text('로그인',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),),
-                    backgroundColor: Color(0xffFFE072),
-                    minimumSize: Size(400, 50),
-                ),
-              ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: signIn,
+              child: Text('로그인'),
             ),
-            Container(
-              alignment: const Alignment(0.0, 0.0),
-              padding: const EdgeInsets.fromLTRB(50.0, 20.0, 50.0, 10.0),
-              child:TextButton(
-                child: Text("회원가입",
-                    style: TextStyle(fontSize: 20),),
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const JoinWidget()),
-                  );
-                },
-                style: TextButton.styleFrom(
-                  primary: Colors.black,
-                ),
-              ),
+            SizedBox(height: 10.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const JoinWidget()),
+                );
+              },
+              child: Text('회원가입'),
             ),
           ],
         ),
-      ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Image.asset(
-              'images/dongnae.png',
-              fit: BoxFit.fitWidth,
-              width: MediaQuery.of(context).size.width,
-              ),
-            ),
-          ],
       ),
     );
   }
