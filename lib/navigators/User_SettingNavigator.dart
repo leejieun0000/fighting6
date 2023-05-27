@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:project1/main/home_button.dart';
 import 'package:project1/main/user_setting.dart';
 
+import '../main/memberInformationChange.dart';
+
 class UserSettingNavigator extends StatelessWidget {
   const UserSettingNavigator({super.key, required this.tabIndex});
   final int tabIndex;
@@ -14,6 +16,9 @@ class UserSettingNavigator extends StatelessWidget {
       "/UserSetting": (context) => UserSetting(
         tabIndex: tabIndex,
       ),
+      /*"/InformationChange" : (context) => InformationChange(
+        tabIndex: tabIndex,
+      )*/
     };
   }
 

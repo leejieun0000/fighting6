@@ -7,12 +7,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-void main() async{
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+// WidgetsFlutterBinding.ensureInitialized();
+// await Firebase.initializeApp(
+//   options: DefaultFirebaseOptions.currentPlatform,
+// );
 
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
@@ -55,7 +55,7 @@ class login extends StatelessWidget {
 }
 
 class LoginWidget extends StatefulWidget {
-  // const LoginWidget({Key? key}) : super(key: key);
+  const LoginWidget({Key? key}) : super(key: key);
 
   @override
   _LoginWidgetState createState() => _LoginWidgetState();
@@ -83,18 +83,19 @@ class _LoginWidgetState extends State<LoginWidget> {
       fontSize: 16.0,
     );
   }
-  
-  Future<void> singIn() async {
+
+  Future<void> signIn() async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
       showToast('로그인 성공: ${userCredential.user!.email}');
       Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MyHome()),
-            );
+        context,
+        MaterialPageRoute(builder: (context) => const MyHome()),
+      );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         showToast('등록되지 않은 이메일입니다');
@@ -111,6 +112,14 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          '회원가입',
+          style: TextStyle(color: Colors.black),
+        ),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(40.0),
         child: Column(
@@ -132,44 +141,18 @@ class _LoginWidgetState extends State<LoginWidget> {
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: singIn,
-              //     () async {
-              //   try {
-              //     UserCredential userCredential = await FirebaseAuth.instance
-              //         .signInWithEmailAndPassword(
-              //         email: emailController.text,
-              //         password: passwordController.text) //아이디와 비밀번호로 로그인 시도
-              //         .then((value) {
-              //       print(value);
-              //       Navigator.push(
-              //         context,
-              //         MaterialPageRoute(builder: (context) => const MyHome()),
-              //       );
-              //       return value;
-              //     });
-              //   } on FirebaseAuthException catch (e) {
-              //     //로그인 예외처리
-              //     if (e.code == 'user-not-found') {
-              //       print('등록되지 않은 이메일입니다');
-              //     } else if (e.code == 'wrong-password') {
-              //       print('비밀번호가 틀렸습니다');
-              //     } else {
-              //       print(e.code);
-              //     }
-              //   }
-              // },
+              onPressed: signIn,
               child: Text('로그인'),
             ),
-            SizedBox(height: 10,
-            ),
+            SizedBox(height: 10.0),
             ElevatedButton(
-              onPressed: (){
+              onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => JoinWidget()),
+                  MaterialPageRoute(builder: (context) => const JoinWidget()),
                 );
               },
-              child: Text('회원 가입'),
+              child: Text('회원가입'),
             ),
           ],
         ),

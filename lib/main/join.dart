@@ -4,7 +4,7 @@ import 'package:project1/main.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class JoinWidget extends StatefulWidget {
-  // const JoinWidget({Key? key}) : super(key: key);
+  const JoinWidget({Key? key}) : super(key: key);
 
   @override
   _JoinWidgetState createState() => _JoinWidgetState();
@@ -13,13 +13,6 @@ class JoinWidget extends StatefulWidget {
 class _JoinWidgetState extends State<JoinWidget> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
 
   void signUp() async {
     try {
@@ -56,10 +49,83 @@ class _JoinWidgetState extends State<JoinWidget> {
       fontSize: 16.0,
     );
   }
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _addressController = TextEditingController();
+
+  bool _isCheckMan = false;
+  bool _isCheckWoman = false;
+  bool _isChecked = false;
+
+  bool _isPasswordLengthValid = true;
+  bool _isPasswordMatch = true;
+  bool _isConfirmPasswordFocused = false;
+
+  void _validatePassword() {
+    String password = _passwordController.text;
+    String confirmPassword = _confirmPasswordController.text;
+
+    // Validate password length and pattern
+    bool isPasswordValid = password.length >= 8 && password.length <= 12;
+    bool isPasswordPatternValid =
+    RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,12}$').hasMatch(password);
+
+    setState(() {
+      _isPasswordLengthValid = isPasswordValid && isPasswordPatternValid;
+      if (_isConfirmPasswordFocused) {
+        _isPasswordMatch = password == confirmPassword;
+      }
+    });
+  }
+
+  bool _isFormValid() {
+    return _isPasswordLengthValid &&
+        _isPasswordMatch &&
+        (_isCheckMan || _isCheckWoman) &&
+        _isChecked &&
+        _isAllTextFieldsFilled();
+  }
+
+  bool _isAllTextFieldsFilled() {
+    return _textFieldHasValidInput(_usernameController) &&
+        _textFieldHasValidInput(_passwordController) &&
+        _textFieldHasValidInput(_confirmPasswordController) &&
+        _textFieldHasValidInput(_nameController) &&
+        _textFieldHasValidInput(_phoneController) &&
+        _textFieldHasValidInput(_addressController);
+  }
+
+  bool _textFieldHasValidInput(TextEditingController controller) {
+    return controller.text.trim().isNotEmpty && !controller.text.startsWith(' ');
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _nameController.dispose();
+    _phoneController.dispose();
+    _addressController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          '회원가입',
+          style: TextStyle(color: Colors.black),
+        ),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(40.0),
         child: Column(

@@ -11,12 +11,10 @@ class lending extends StatefulWidget {
   const lending({Key? key}) : super(key: key);
 
   @override
-  _lending createState() => _lending();
+  _lendingState createState() => _lendingState();
 }
 
-
-class _lending extends State<lending> {
-
+class _lendingState extends State<lending> {
   String? selectedValue;
   List<String> items = [
     '궁동',
@@ -47,9 +45,7 @@ class _lending extends State<lending> {
       'title': '벌레 잡아드립니다.',
       'date': '반납일',
     }
-
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,96 +69,95 @@ class _lending extends State<lending> {
               child: Icon(Icons.navigate_before),
             ),
             onPressed: () {
-              Navigator.pushNamed(context, '/'
-              );
+              Navigator.pushNamed(context, '/');
             },
           ),
         ),
         body: Column(
-          children: [Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Container(
-                  width: 120,
-                  height: 80,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton2(
-                        isExpanded: true,
-                        hint: const Row(
-                          children: [
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Expanded(
-                              child: Text(
-                                '궁동',
-                                style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                                overflow: TextOverflow.ellipsis,
+          children: [
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Container(
+                    width: 120,
+                    height: 80,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton2(
+                          isExpanded: true,
+                          hint: const Row(
+                            children: [
+                              SizedBox(
+                                width: 5,
                               ),
-                            ),
-                          ],
-                        ),
-                        items: items
-                            .map((item) =>
-                            DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: const TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
+                              Expanded(
+                                child: Text(
+                                  '궁동',
+                                  style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                overflow: TextOverflow.ellipsis,
                               ),
-                            ))
-                            .toList(),
-                        value: selectedValue,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedValue = value as String;
-                          });
-                        },
-                        icon: const Icon(
-                          Icons.arrow_forward_ios_outlined,
-                        ),
-                        iconSize: 14,
-                        iconEnabledColor: Colors.black,
-                        iconDisabledColor: Colors.grey,
-                        buttonHeight: 50,
-                        buttonWidth: 160,
-                        buttonPadding: const EdgeInsets.only(
-                            left: 14, right: 14),
-                        buttonDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(14),
-                          color: Colors.white,
-                        ),
-                        itemHeight: 40,
-                        //itemWidth: 200,
-                        itemPadding: const EdgeInsets.only(left: 14, right: 14),
-                        dropdownMaxHeight: 200,
-                        dropdownPadding: null,
-                        /*dropdownBorderRadius: BorderRadius.circular(14),
+                            ],
+                          ),
+                          items: items
+                              .map((item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      style: const TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ))
+                              .toList(),
+                          value: selectedValue,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedValue = value as String;
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.arrow_forward_ios_outlined,
+                          ),
+                          iconSize: 14,
+                          iconEnabledColor: Colors.black,
+                          iconDisabledColor: Colors.grey,
+                          buttonHeight: 50,
+                          buttonWidth: 160,
+                          buttonPadding:
+                              const EdgeInsets.only(left: 14, right: 14),
+                          buttonDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: Colors.white,
+                          ),
+                          itemHeight: 40,
+                          //itemWidth: 200,
+                          itemPadding:
+                              const EdgeInsets.only(left: 14, right: 14),
+                          dropdownMaxHeight: 200,
+                          dropdownPadding: null,
+                          /*dropdownBorderRadius: BorderRadius.circular(14),
                                   dropdownBorder: null,
                                   dropdownColor: Colors.redAccent,
                                   elevation: 8,*/
-                        scrollbarRadius: const Radius.circular(40),
-                        scrollbarThickness: 6,
-                        scrollbarAlwaysShow: true,
-                        offset: const Offset(0, 0),
+                          scrollbarRadius: const Radius.circular(40),
+                          scrollbarThickness: 6,
+                          scrollbarAlwaysShow: true,
+                          offset: const Offset(0, 0),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              )
-          ),
+                )),
             Row(
               children: [
                 Container(
@@ -180,7 +175,6 @@ class _lending extends State<lending> {
                     ),
                   ),
                 ),
-
                 Container(
                   width: 130,
                   height: 50,
@@ -188,8 +182,7 @@ class _lending extends State<lending> {
                   padding: const EdgeInsets.fromLTRB(5.0, 0.0, 20.0, 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/Borrowing'
-                      );
+                      Navigator.pushNamed(context, '/Borrowing');
                     },
                     child: const Text('빌려쓰기'),
                     style: ElevatedButton.styleFrom(
@@ -201,7 +194,6 @@ class _lending extends State<lending> {
                 ),
               ],
             ),
-
             Divider(
               color: Colors.black, // 원하는 색상을 설정합니다.
               thickness: 1, // 원하는 두께를 설정합니다.
@@ -260,16 +252,13 @@ class _lending extends State<lending> {
                 itemCount: _valueList_2.length, // 항목 수를 동적으로 설정합니다.
               ),
             ),
-
             Container(
               margin: EdgeInsets.all(20),
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: IconButton(
                   iconSize: 50,
-                  onPressed: () {
-
-                  },
+                  onPressed: () {},
                   icon: Image.asset(
                     "images/pen.png",
                   ),
