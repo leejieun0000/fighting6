@@ -67,7 +67,6 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - images/loginpicture.png
      - images/giving.png
      - images/cart.png
      - images/human.png
@@ -82,6 +81,20 @@ flutter:
      - images/grape.png
      - images/hanger.png
      - images/ganjang.png
+     - images/bell.png
+     - images/lock.png
+     - images/person.png
+     - images/paper.png
+     - images/buy.png
+     - images/landing.png
+     - images/shopping.png
+     - images/nev_alarm.png
+     - images/nev_home.png
+     - images/nev_my.png
+     - images/dongnae.png
+     - images/login_yw.png
+
+
 
 
 

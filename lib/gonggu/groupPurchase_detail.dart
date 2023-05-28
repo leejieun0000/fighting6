@@ -37,7 +37,6 @@ class _GongguDetail extends State<GongguDetail> {
         leading: IconButton(
           icon: Icon(Icons.navigate_before),
           onPressed: () {
-            print("navigate");
           },
         ),
         actions: [
