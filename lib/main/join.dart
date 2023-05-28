@@ -24,25 +24,25 @@ class _JoinWidgetState extends State<JoinWidget> {
         email: emailController.text,
         password: emailController.text,
       );
-      showToast('회원가입 성공: ${userCredential.user!.email}');
+      showToast(context, '회원가입이 완료되었습니다.', Icons.check);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const login()),
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        showToast('비밀번호가 너무 약합니다');
+        showToast(context, '비밀번호가 너무 약합니다', Icons.error_outline);
       } else if (e.code == 'email-already-in-use') {
-        showToast('이미 사용 중인 이메일입니다');
+        showToast(context, '이미 사용 중인 이메일입니다', Icons.error_outline);
       } else {
-        showToast('회원 가입 오류: ${e.code}');
+        showToast(context, '회원 가입 오류: ${e.code}', Icons.error_outline);
       }
     } catch (e) {
-      showToast('기타 오류: $e');
+      showToast(context, '기타 오류: $e', Icons.error_outline);
     }
   }
 
-  void showToast(String message) {
+  /*void showToast(String message) {
     Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
@@ -52,6 +52,42 @@ class _JoinWidgetState extends State<JoinWidget> {
       textColor: Colors.white,
       fontSize: 16.0,
     );
+  }*/
+  void showToast(BuildContext context, String message, IconData iconData) {
+    final overlay = Overlay.of(context);
+    OverlayEntry overlayEntry;
+
+    overlayEntry = OverlayEntry(builder: (context) => Positioned(
+      top: MediaQuery.of(context).size.height * 0.8,
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Card(
+            color: Color(0xfffd9b13),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                children: [
+                  Icon(iconData, color: Colors.white),
+                  SizedBox(width: 10),
+                  Text(message, style: TextStyle(color: Colors.white))
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ));
+
+    overlay.insert(overlayEntry);
+
+    Future.delayed(Duration(seconds: 2)).then((value) {
+      overlayEntry.remove();
+    });
   }
 
 
