@@ -28,7 +28,7 @@ class _GongWidgetState extends State<GongguWrite> {
     '봉명동',
     '어은동',
     '장대동',
-    '신성동',
+
   ];
 
   @override
