@@ -22,10 +22,6 @@ class _Gonggu extends State<GongguMagam> {
     '어은동',
     '장대동',
     '신성동',
-    '관평동',
-    '어은동',
-    '둔산동',
-    '은행동'
   ];
 
   final List<Map<String, String>> _valueList_2 = [
