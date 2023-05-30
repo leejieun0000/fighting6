@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project1/main/home.dart';
 import 'package:project1/main/memberInformationChange.dart';
 import 'package:project1/main/passwordChange.dart';
 
@@ -36,7 +37,10 @@ class _UserSetting extends StatelessWidget {
             child: Icon(Icons.navigate_before),
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MyHome()),
+            );
           },
         ),
       ),
@@ -136,8 +140,6 @@ class _UserSetting extends StatelessWidget {
               ),
             ),
           ),
-
-
         ],
       ),
     );

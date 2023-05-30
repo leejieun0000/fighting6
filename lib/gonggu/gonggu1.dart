@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:project1/gonggu/groupPurchase_detail.dart';
+
 
 class Gonggu extends StatefulWidget {
   const Gonggu({super.key, required this.tabIndex});
@@ -20,6 +22,7 @@ class _Gonggu extends State<Gonggu> {
     '봉명동',
     '어은동',
     '장대동',
+    '신성동',
   ];
 
   final List<Map<String, String>> _valueList_2 = [
@@ -40,6 +43,13 @@ class _Gonggu extends State<Gonggu> {
     }
 
   ];
+
+  void _navigateToDetailScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GongguDetail()),
+    );
+  }
 
 
   @override
@@ -101,8 +111,7 @@ class _Gonggu extends State<Gonggu> {
                           ],
                         ),
                         items: items
-                            .map((item) =>
-                            DropdownMenuItem<String>(
+                            .map((item) => DropdownMenuItem<String>(
                               value: item,
                               child: Text(
                                 item,
@@ -139,10 +148,6 @@ class _Gonggu extends State<Gonggu> {
                         itemPadding: const EdgeInsets.only(left: 14, right: 14),
                         dropdownMaxHeight: 180,
                         dropdownPadding: null,
-                        /*dropdownBorderRadius: BorderRadius.circular(14),
-                                  dropdownBorder: null,
-                                  dropdownColor: Colors.redAccent,
-                                  elevation: 8,*/
                         scrollbarRadius: const Radius.circular(40),
                         scrollbarThickness: 6,
                         scrollbarAlwaysShow: true,
@@ -168,9 +173,13 @@ class _Gonggu extends State<Gonggu> {
                 );
                 },
               padding: EdgeInsets.all(20),
-              itemBuilder: (context, index) {// 현재 인덱스에 해당하는 항목을 가져옵니다.
+              itemBuilder: (context, index) { // 현재 인덱스에 해당하는 항목을 가져옵니다.
                 final item = _valueList_2[index];
-                return SizedBox(
+                return GestureDetector(
+                  onTap: () {
+                    _navigateToDetailScreen();
+                  },
+                child : SizedBox(
                 height: 100,
                   child: Row(
                     children: [
@@ -205,7 +214,7 @@ class _Gonggu extends State<Gonggu> {
                       ),
                     ],
                   ),
-                );
+                ),);
                 },
               itemCount: _valueList_2.length, // 항목 수를 동적으로 설정합니다.
             ),

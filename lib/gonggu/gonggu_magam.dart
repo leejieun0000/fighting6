@@ -22,10 +22,6 @@ class _Gonggu extends State<GongguMagam> {
     '어은동',
     '장대동',
     '신성동',
-    '관평동',
-    '어은동',
-    '둔산동',
-    '은행동'
   ];
 
   final List<Map<String, String>> _valueList_2 = [
@@ -54,6 +50,7 @@ class _Gonggu extends State<GongguMagam> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xffFFE072),
@@ -73,7 +70,7 @@ class _Gonggu extends State<GongguMagam> {
               child: Icon(Icons.navigate_before),
             ),
             onPressed: () {
-              print("navigate");
+              Navigator.pushNamed(context, '/');
             },
           ),
         ),
