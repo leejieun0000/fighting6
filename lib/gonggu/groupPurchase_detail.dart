@@ -28,7 +28,8 @@ class _GongguDetailState extends State<GongguDetail> {
           icon: const Icon(Icons.navigate_before),
           onPressed: () {
             end
-                ?  Navigator.push(context,MaterialPageRoute(builder: (context)=> GongguMagam()))
+                ? Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => GongguMagam()))
                 : Navigator.pop(context);
           },
         ),
@@ -80,41 +81,39 @@ class _GongguDetailState extends State<GongguDetail> {
             const Padding(padding: EdgeInsets.all(4)),
             end
                 ? Container(
-              width: 380,
-              height: 250,
-              decoration: BoxDecoration(
-                color: const Color(0xff60597B),
-                image: const DecorationImage(
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                    Color.fromRGBO(0, 0, 0, 0.2), // 투명도를 나타내는 Color 객체 사용
-                    BlendMode.dstATop,
-                  ),
-                  image: AssetImage('images/emart.png'),
-                ),
-              ),
-              child: Center(
-                child: const Text(
-                  '마감',
-                  style: TextStyle(fontSize: 50),
-                ),
-              ),
-            )
+                    width: 380,
+                    height: 250,
+                    decoration: BoxDecoration(
+                      color: const Color(0xff60597B),
+                      image: const DecorationImage(
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                          Color.fromRGBO(0, 0, 0, 0.2), // 투명도를 나타내는 Color 객체 사용
+                          BlendMode.dstATop,
+                        ),
+                        image: AssetImage('images/emart.png'),
+                      ),
+                    ),
+                    child: Center(
+                      child: const Text(
+                        '마감',
+                        style: TextStyle(fontSize: 50),
+                      ),
+                    ),
+                  )
                 : Container(
-              width: 380,
-              height: 250,
-              child: Image.asset(
-                'images/emart.png',
-                fit: BoxFit.fill,
-              ),
-            ),
-
-
+                    width: 380,
+                    height: 250,
+                    child: Image.asset(
+                      'images/emart.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
             const Padding(padding: EdgeInsets.all(10)),
             Container(
               child: const Text(
                 "이마트 트레이더스에 파는 상품들이 혼자 먹기에는 양이 너무 많아서 공구 하실 분을 찾습니다! "
-                    "같이 장 보러 가셔도 좋고, 사고 싶으신 물품을 저와 상의하셔도 좋습니다.",
+                "같이 장 보러 가셔도 좋고, 사고 싶으신 물품을 저와 상의하셔도 좋습니다.",
                 style: TextStyle(fontSize: 20),
               ),
             ),
@@ -129,6 +128,61 @@ class _GongguDetailState extends State<GongguDetail> {
             Container(
               width: 500,
               child: const Divider(color: Colors.yellow, thickness: 2.0),
+            ),
+            const Padding(padding: EdgeInsets.all(10)),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: Text(
+                    "qwer",
+                    style: TextStyle(fontSize: 17),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 25),
+                  child: Text(
+                    "저랑 가요!",
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 25),
+                  child: Text(
+                    "afsd",
+                    style: TextStyle(fontSize: 17),
+                  ),
+                ),
+                Container(
+                    margin: EdgeInsets.only(left: 40),
+                    child: Text(
+                      "언제 시간되시나요?",
+                      style: TextStyle(fontSize: 15),
+                    )),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
+            TextFormField(
+              maxLines: null,
+              keyboardType: TextInputType.multiline,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: 30
+                ),
+                hintText: '댓글쓰기',
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10),
             ),
           ],
         ),
