@@ -112,11 +112,7 @@ class _Information2 extends State<Information2> {
 */
 
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-void main() {
-  runApp(Information());
-}
+import 'package:url_launcher/url_launcher.dart';   //pub get하기
 
 class Information extends StatelessWidget {
   const Information({Key? key}) : super(key: key);

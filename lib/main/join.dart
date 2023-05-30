@@ -13,6 +13,10 @@ class JoinWidget extends StatefulWidget {
 class _JoinWidgetState extends State<JoinWidget> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
 
   void signUp() async {
     try {
@@ -20,25 +24,25 @@ class _JoinWidgetState extends State<JoinWidget> {
         email: emailController.text,
         password: passwordController.text,
       );
-      showToast('회원가입 성공: ${userCredential.user!.email}');
+      showToast(context, '회원가입이 완료되었습니다.', Icons.check);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const login()),
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        showToast('비밀번호가 너무 약합니다');
+        showToast(context, '비밀번호가 너무 약합니다', Icons.error_outline);
       } else if (e.code == 'email-already-in-use') {
-        showToast('이미 사용 중인 이메일입니다');
+        showToast(context, '이미 사용 중인 이메일입니다', Icons.error_outline);
       } else {
-        showToast('회원 가입 오류: ${e.code}');
+        showToast(context, '회원 가입 오류: ${e.code}', Icons.error_outline);
       }
     } catch (e) {
-      showToast('기타 오류: $e');
+      showToast(context, '기타 오류: $e', Icons.error_outline);
     }
   }
 
-  void showToast(String message) {
+  /*void showToast(String message) {
     Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
@@ -48,16 +52,45 @@ class _JoinWidgetState extends State<JoinWidget> {
       textColor: Colors.white,
       fontSize: 16.0,
     );
-  }
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _addressController = TextEditingController();
+  }*/
+  void showToast(BuildContext context, String message, IconData iconData) {
+    final overlay = Overlay.of(context);
+    OverlayEntry overlayEntry;
 
-  bool _isCheckMan = false;
-  bool _isCheckWoman = false;
+    overlayEntry = OverlayEntry(builder: (context) => Positioned(
+      top: MediaQuery.of(context).size.height * 0.8,
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Card(
+            color: Color(0xfffd9b13),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                children: [
+                  Icon(iconData, color: Colors.white),
+                  SizedBox(width: 10),
+                  Text(message, style: TextStyle(color: Colors.white))
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ));
+
+    overlay.insert(overlayEntry);
+
+    Future.delayed(Duration(seconds: 2)).then((value) {
+      overlayEntry.remove();
+    });
+  }
+
+
   bool _isChecked = false;
 
   bool _isPasswordLengthValid = true;
@@ -65,8 +98,8 @@ class _JoinWidgetState extends State<JoinWidget> {
   bool _isConfirmPasswordFocused = false;
 
   void _validatePassword() {
-    String password = _passwordController.text;
-    String confirmPassword = _confirmPasswordController.text;
+    String password = passwordController.text;
+    String confirmPassword = confirmPasswordController.text;
 
     // Validate password length and pattern
     bool isPasswordValid = password.length >= 8 && password.length <= 12;
@@ -78,24 +111,25 @@ class _JoinWidgetState extends State<JoinWidget> {
       if (_isConfirmPasswordFocused) {
         _isPasswordMatch = password == confirmPassword;
       }
-    });
+      });
   }
 
   bool _isFormValid() {
     return _isPasswordLengthValid &&
         _isPasswordMatch &&
-        (_isCheckMan || _isCheckWoman) &&
         _isChecked &&
         _isAllTextFieldsFilled();
   }
 
   bool _isAllTextFieldsFilled() {
-    return _textFieldHasValidInput(_usernameController) &&
-        _textFieldHasValidInput(_passwordController) &&
-        _textFieldHasValidInput(_confirmPasswordController) &&
-        _textFieldHasValidInput(_nameController) &&
-        _textFieldHasValidInput(_phoneController) &&
-        _textFieldHasValidInput(_addressController);
+
+    return
+        _textFieldHasValidInput(emailController) &&
+        _textFieldHasValidInput(passwordController) &&
+        _textFieldHasValidInput(confirmPasswordController) &&
+        _textFieldHasValidInput(nameController) &&
+        _textFieldHasValidInput(phoneController) &&
+        _textFieldHasValidInput(addressController);
   }
 
   bool _textFieldHasValidInput(TextEditingController controller) {
@@ -103,17 +137,45 @@ class _JoinWidgetState extends State<JoinWidget> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    emailController.addListener(() {
+      setState(() {});
+    });
+    passwordController.addListener(() {
+      setState(() {});
+    });
+    confirmPasswordController.addListener(() {
+      setState(() {});
+    });
+    nameController.addListener(() {
+      setState(() {});
+    });
+    phoneController.addListener(() {
+      setState(() {});
+    });
+    addressController.addListener(() {
+      setState(() {});
+    });
+    confirmPasswordController.addListener(() {
+      String password = passwordController.text;
+      String confirmPassword = confirmPasswordController.text;
+      _isPasswordMatch = password == confirmPassword;
+      setState(() {});
+    });
+  }
+
+  @override
   void dispose() {
-    _usernameController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    _nameController.dispose();
-    _phoneController.dispose();
-    _addressController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
+    confirmPasswordController.removeListener(() {});
+    nameController.removeListener(() {});
+    phoneController.removeListener(() {});
+    addressController.removeListener(() {});
+    emailController.removeListener(() {});
+    passwordController.removeListener(() {});
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -127,29 +189,256 @@ class _JoinWidgetState extends State<JoinWidget> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(40.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                labelText: '이메일',
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30.0, 50.0, 30.0, 20.0),
+              child: TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                      width: 1.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+                  labelText: '이메일',
+                  //hintText: '이메일',
+                  labelStyle: TextStyle(color: Colors.grey),
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(17.0),
+                ),
               ),
             ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: passwordController,
-              decoration: InputDecoration(
-                labelText: '비밀번호',
+
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
+              child: TextField(
+                controller: passwordController,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                      width: 1.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+                  labelText: '비밀번호',
+                  //hintText: '비밀번호',
+                  labelStyle: TextStyle(color: Colors.grey),
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(17.0),
+                ),
+                obscureText: true,
               ),
-              obscureText: true,
             ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: signUp,
-              child: Text('회원가입'),
+
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
+              child: TextFormField(
+                obscureText: true,
+                controller: confirmPasswordController,
+                validator: (value) {
+                  if (value != passwordController.text) {
+                    return '비밀번호가 일치하지 않습니다';
+                  }
+                  return null;
+                },
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: _isPasswordMatch ? Colors.black : Colors.pink,
+                      width: 1.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: _isPasswordMatch ? Colors.grey : Colors.red,
+                      width: 1.0,
+                    ),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.pink,
+                      width: 1.0,
+                    ),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.pink,
+                      width: 1.0,
+                    ),
+                  ),
+                  labelText: '비밀번호 확인',
+                  labelStyle: TextStyle(color: Colors.grey),
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(17.0),
+                ),
+              ),
             ),
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
+              child: TextField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                      width: 1.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+                  labelText: '이름',
+                  //hintText: '이름',
+                  labelStyle: TextStyle(color: Colors.grey),
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(17.0),
+                ),
+              ),
+            ),
+
+
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
+              child: TextField(
+                controller: phoneController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                      width: 1.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+                  labelText: '전화번호',
+                  //hintText: '전화번호',
+                  labelStyle: TextStyle(color: Colors.grey),
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(17.0),
+                ),
+              ),
+            ),
+
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+              child: TextField(
+                controller: addressController,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.black,
+                      width: 1.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: Colors.grey,
+                      width: 1.0,
+                    ),
+                  ),
+                  labelText: '주소',
+                  //hintText: '주소',
+                  labelStyle: TextStyle(color: Colors.grey),
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(17.0),
+                ),
+              ),
+            ),
+
+
+            Container(
+              margin: EdgeInsets.fromLTRB(30.0, 5.0, 0.0, 5.0),
+              child: Row(
+                children: [
+                  Checkbox(
+                    activeColor: Color(0xffFFE072),
+                    checkColor: Colors.white,
+                    value: _isChecked,
+                    onChanged: (value) {
+                      setState(() {
+                        _isChecked = value!;
+                      });
+                    },
+                  ),
+                  const Text(
+                    '개인정보 이용에 동의합니다.',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ],
+              ),
+            ),
+
+
+            Container(
+              alignment: const Alignment(0.8, 0.0),
+              padding: const EdgeInsets.only(right: 5.0),
+              child: ElevatedButton(
+                onPressed: _isFormValid()
+                    ? () {
+                        signUp();
+                  /*Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginWidget(),
+                    ),
+                  );*/
+                }
+                    : null,
+                child: const Text('완료'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                  _isFormValid() ? Color(0xffFFE072) : Colors.grey,
+                  minimumSize: const Size(100, 40),
+                ),
+              ),
+            ),  //완료 버튼
+
+
           ],
         ),
       ),
