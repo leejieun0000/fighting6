@@ -22,7 +22,7 @@ class _JoinWidgetState extends State<JoinWidget> {
     try {
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
-        password: emailController.text,
+        password: passwordController.text,
       );
       showToast(context, '회원가입이 완료되었습니다.', Icons.check);
       Navigator.push(
