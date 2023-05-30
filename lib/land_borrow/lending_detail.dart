@@ -105,7 +105,7 @@ class _LendingDetailState extends State<LendingDetail> {
               ),
               child: Center(
                 child: const Text(
-                  '마감',
+                  '대여중',
                   style: TextStyle(fontSize: 50),
                 ),
               ),
