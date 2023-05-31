@@ -43,7 +43,7 @@ class _HomeButtonState extends State<HomeButton> {
           alignment: Alignment.centerLeft,
           margin: EdgeInsets.only(left:20, bottom: 5),
           child: const Text(
-            '자취생 도우미',
+            '자취 메이트',
             style: TextStyle(
               fontSize: 25,
               color: Colors.black,
