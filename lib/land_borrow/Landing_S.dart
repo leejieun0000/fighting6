@@ -12,16 +12,12 @@ class LandingSetting extends StatefulWidget {
 class _LandingSettingState extends State<LandingSetting> {
   _LandingSettingState({required this.tabIndex});
   final int tabIndex;
-  DateTimeRange dateTimeRange = DateTimeRange(
-      start: DateTime.now(),
-      end: DateTime.now()
-  );
+  DateTime date = DateTime.now();
+  DateTime date2 = DateTime.now();
+
 
   @override
   Widget build(BuildContext context) {
-    final start = dateTimeRange.start;
-    final end = dateTimeRange.end;
-    DateTime date = DateTime.now();
     return Scaffold(
       appBar: AppBar(
         title: const Text('대여중',
@@ -183,7 +179,7 @@ class _LandingSettingState extends State<LandingSetting> {
                       onPressed: () async {
                         final selectedDate = await showDatePicker(
                           context: context,
-                          initialDate: date,
+                          initialDate: date2,
                           firstDate: DateTime(1900),
                           lastDate: DateTime(2100),
                           initialEntryMode: DatePickerEntryMode.calendarOnly,
@@ -207,7 +203,7 @@ class _LandingSettingState extends State<LandingSetting> {
                         );
                         if (selectedDate != null) {
                           setState(() {
-                            date = selectedDate;
+                            date2 = selectedDate;
                           });
                         }
                       },
@@ -215,7 +211,7 @@ class _LandingSettingState extends State<LandingSetting> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+                            "${date2.year.toString()}-${date2.month.toString().padLeft(2, '0')}-${date2.day.toString().padLeft(2, '0')}",
                             style: TextStyle(fontSize: 18, color: Colors.black,),
                             textAlign: TextAlign.left,
                           ),
