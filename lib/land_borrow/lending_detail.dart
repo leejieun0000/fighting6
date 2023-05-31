@@ -1,5 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:project1/land_borrow/Landing_S.dart';
+/*import 'package:cloud_firestore/cloud_firestore.dart';
+
+CollectionReference commentsRef = FirebaseFirestore.instance.collection('comments');
+
+Stream<QuerySnapshot> getComments() {
+  return commentsRef.snapshots();
+}
+
+void addComment(String text) {
+  commentsRef.add({'text': text});
+}*/
 
 class LendingDetail extends StatefulWidget {
   const LendingDetail({Key? key, required this.tabIndex}) : super(key: key);
@@ -8,6 +19,27 @@ class LendingDetail extends StatefulWidget {
   @override
   _LendingDetailState createState() => _LendingDetailState(tabIndex: tabIndex);
 }
+
+/*class Comment {
+  final String id;
+  final String text;
+  final DateTime createdAt;
+
+  Comment({
+    required this.id,
+    required this.text,
+    required this.createdAt,
+  });
+
+  factory Comment.fromSnapshot(DocumentSnapshot doc) {
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    return Comment(
+      id: doc.id,
+      text: data['text'],
+      createdAt: data['createdAt'].toDate(),
+    );
+  }
+}*/
 
 class _LendingDetailState extends State<LendingDetail> {
   _LendingDetailState({required this.tabIndex});
@@ -137,6 +169,34 @@ class _LendingDetailState extends State<LendingDetail> {
               width: 500,
               child: const Divider(color: Colors.yellow, thickness: 2.0),
             ),
+            /*Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: getComments(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    List<Comment> comments = [];
+                    snapshot.data!.docs.forEach((doc) {
+                      comments.add(Comment.fromSnapshot(doc));
+                    });
+                    return ListView.builder(
+                      itemCount: comments.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(comments[index].text),
+                        );
+                      },
+                    );
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
+            ),
+            TextField(
+              onSubmitted: (text) {
+                addComment(text);
+              },
+            ),*/
           ],
         ),
       ),
