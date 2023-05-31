@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class writingWidget extends StatefulWidget {
   const writingWidget({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _writingWidgetState extends State<writingWidget> {
 
   final picker = ImagePicker();
   List<XFile?> multiImage = [];
-  List<XFile?> images = [];
+  // List<XFile?> images = [];
   DateTime date = DateTime.now();
 
   String? selectedValue;
@@ -228,7 +229,8 @@ class _writingWidgetState extends State<writingWidget> {
             child: Column(
               children: [
                 IconButton(
-                    onPressed: () async {multiImage = await picker.pickMultiImage();
+                    onPressed: () async {
+                      multiImage = await picker.pickMultiImage();
                     setState(() {
                       images.addAll(multiImage);
                     });

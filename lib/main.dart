@@ -4,6 +4,8 @@ import 'package:project1/main/home.dart';
 import 'package:project1/main/join.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:project1/user_provider.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -24,32 +26,37 @@ class login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'login',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          backgroundColor: Color(0xffFFE072),
-          centerTitle: true,
-        ),
-        textTheme: TextTheme(
-          headline1: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
+    return ChangeNotifierProvider<UserProvider>(
+      create: (BuildContext context){
+        return UserProvider();
+      },
+      child: MaterialApp(
+        title: 'login',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            backgroundColor: Color(0xffFFE072),
+            centerTitle: true,
           ),
+          textTheme: TextTheme(
+            headline1: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          // datePickerTheme: DatePickerThemeData(
+          //
+          // ),
         ),
-        // datePickerTheme: DatePickerThemeData(
-        //
-        // ),
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          const Locale('ko', 'KR'),
+        ],
+        home: LoginWidget(),
       ),
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: [
-        const Locale('ko', 'KR'),
-      ],
-      home: LoginWidget(),
     );
   }
 }
