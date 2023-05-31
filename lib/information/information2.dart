@@ -135,6 +135,13 @@ class Information2 extends StatefulWidget {
 }
 
 class _Information2State extends State<Information2> {
+  void launchUrl(Uri uri) async {
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString());
+    } else {
+      throw 'Could not launch $uri';
+    }
+  }
 
 
   @override

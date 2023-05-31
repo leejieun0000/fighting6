@@ -200,10 +200,6 @@ class _writingWidgetState extends State<writingWidget> {
             ),
           ),
 
-          Divider(
-            color: Colors.black,  // 원하는 색상을 설정합니다.
-            thickness: 1,  // 원하는 두께를 설정합니다.
-          ),
 
 
           Row(

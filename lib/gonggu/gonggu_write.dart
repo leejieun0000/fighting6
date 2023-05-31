@@ -201,12 +201,6 @@ class _GongWidgetState extends State<GongguWrite> {
             ),
           ),
 
-          Divider(
-            color: Colors.black,  // 원하는 색상을 설정합니다.
-            thickness: 1,  // 원하는 두께를 설정합니다.
-          ),
-
-
           Row(
             children: [
               SizedBox(width: 35,
