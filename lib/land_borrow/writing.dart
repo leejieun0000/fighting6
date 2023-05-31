@@ -69,10 +69,10 @@ class _writingWidgetState extends State<writingWidget> {
           Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: EdgeInsets.only(left: 20),
+                padding: EdgeInsets.only(left: 20, top: 5),
                 child: Container(
                   width: 120,
-                  height: 80,
+                  height: 50,
                   child: Align(
                     alignment: Alignment.centerLeft,
 
@@ -88,7 +88,7 @@ class _writingWidgetState extends State<writingWidget> {
                               child: Text(
                                 '궁동',
                                 style: TextStyle(
-                                  fontSize: 25,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
                                 ),
@@ -104,7 +104,7 @@ class _writingWidgetState extends State<writingWidget> {
                               child: Text(
                                 item,
                                 style: const TextStyle(
-                                  fontSize: 25,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
                                 ),
@@ -124,12 +124,13 @@ class _writingWidgetState extends State<writingWidget> {
                         iconSize: 14,
                         iconEnabledColor: Colors.black,
                         iconDisabledColor: Colors.grey,
-                        buttonHeight: 50,
+                        buttonHeight: 40,
                         buttonWidth: 160,
                         buttonPadding: const EdgeInsets.only(left: 14, right: 14),
                         buttonDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
                           color: Color(0xffFFE072),
+
                         ),
                         itemHeight: 40,
                         //itemWidth: 200,
@@ -199,6 +200,13 @@ class _writingWidgetState extends State<writingWidget> {
               ],
             ),
           ),
+
+          Divider(
+            color: Colors.black,  // 원하는 색상을 설정합니다.
+            thickness: 1,  // 원하는 두께를 설정합니다.
+          ),
+
+
           Row(
             children: [
               SizedBox(width: 35,

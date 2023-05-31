@@ -28,7 +28,7 @@ class _GongWidgetState extends State<GongguWrite> {
     '봉명동',
     '어은동',
     '장대동',
-
+    '신성동',
   ];
 
   @override
@@ -69,10 +69,10 @@ class _GongWidgetState extends State<GongguWrite> {
           Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: EdgeInsets.only(left: 20),
+                padding: EdgeInsets.only(left: 20, top: 5),
                 child: Container(
                   width: 120,
-                  height: 80,
+                  height: 50,
                   child: Align(
                     alignment: Alignment.centerLeft,
 
@@ -88,7 +88,7 @@ class _GongWidgetState extends State<GongguWrite> {
                               child: Text(
                                 '궁동',
                                 style: TextStyle(
-                                  fontSize: 25,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
                                 ),
@@ -104,7 +104,7 @@ class _GongWidgetState extends State<GongguWrite> {
                               child: Text(
                                 item,
                                 style: const TextStyle(
-                                  fontSize: 25,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
                                 ),
@@ -124,12 +124,13 @@ class _GongWidgetState extends State<GongguWrite> {
                         iconSize: 14,
                         iconEnabledColor: Colors.black,
                         iconDisabledColor: Colors.grey,
-                        buttonHeight: 50,
+                        buttonHeight: 40,
                         buttonWidth: 160,
                         buttonPadding: const EdgeInsets.only(left: 14, right: 14),
                         buttonDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
                           color: Color(0xffFFE072),
+
                         ),
                         itemHeight: 40,
                         //itemWidth: 200,
@@ -151,7 +152,7 @@ class _GongWidgetState extends State<GongguWrite> {
               )
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 5.0),
+            margin: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
             child: Row(
               children: [
                 Checkbox(
@@ -199,13 +200,20 @@ class _GongWidgetState extends State<GongguWrite> {
               ],
             ),
           ),
+
+          Divider(
+            color: Colors.black,  // 원하는 색상을 설정합니다.
+            thickness: 1,  // 원하는 두께를 설정합니다.
+          ),
+
+
           Row(
             children: [
               SizedBox(width: 35,
               ),
               new Text(
                 '제목 : ',
-                style: TextStyle(fontSize: 20, color: Colors.black,),
+                style: TextStyle(fontSize: 23, color: Colors.black, fontWeight: FontWeight.w700),
               ),
               SizedBox(width: 20,),
               Container(
@@ -393,7 +401,7 @@ class _GongWidgetState extends State<GongguWrite> {
                     ),
                   ),
                 ],
-              )),
+           )),
         ],
       ),
     );
