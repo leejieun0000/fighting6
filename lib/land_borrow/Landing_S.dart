@@ -159,7 +159,7 @@ class _LandingSettingState extends State<LandingSetting> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+                            "${start.year.toString()}-${start.month.toString().padLeft(2, '0')}-${start.day.toString().padLeft(2, '0')}",
                             style: TextStyle(fontSize: 18, color: Colors.black,),
                             textAlign: TextAlign.left,
                           ),
@@ -215,7 +215,7 @@ class _LandingSettingState extends State<LandingSetting> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+                            "${end.year.toString()}-${end.month.toString().padLeft(2, '0')}-${end.day.toString().padLeft(2, '0')}",
                             style: TextStyle(fontSize: 18, color: Colors.black,),
                             textAlign: TextAlign.left,
                           ),

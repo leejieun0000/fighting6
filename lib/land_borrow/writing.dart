@@ -18,7 +18,7 @@ class _writingWidgetState extends State<writingWidget> {
 
   final picker = ImagePicker();
   List<XFile?> multiImage = [];
-  // List<XFile?> images = [];
+  List<XFile?> images = [];
   DateTime date = DateTime.now();
 
   String? selectedValue;
