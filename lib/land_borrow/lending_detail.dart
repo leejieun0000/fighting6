@@ -137,6 +137,45 @@ class _LendingDetailState extends State<LendingDetail> {
               width: 500,
               child: const Divider(color: Colors.yellow, thickness: 2.0),
             ),
+            const Padding(padding: EdgeInsets.all(10)),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: Text(
+                    "qwer",
+                    style: TextStyle(fontSize: 17),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 25),
+                  child: Text(
+                    "저 필요해요!!",
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
+            TextFormField(
+              maxLines: null,
+              keyboardType: TextInputType.multiline,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: 30
+                ),
+                hintText: '댓글쓰기',
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
           ],
         ),
       ),

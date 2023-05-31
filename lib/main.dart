@@ -163,7 +163,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     margin: EdgeInsets.fromLTRB(30, 50, 30, 0),
                     child: Center(
                       child: Image(
-                        image: AssetImage('images/login_yw.png'),
+                        image: AssetImage('images/mate.png'),
                         width: 430,
                         height: 430,
                       ),
