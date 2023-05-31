@@ -78,7 +78,7 @@ class _Gonggu extends State<NewGonggu> {
             child: Icon(Icons.navigate_before),
           ),
           onPressed: () {
-            print("navigate");
+            Navigator.pushNamed(context, '/');
           },
         ),
       ),
