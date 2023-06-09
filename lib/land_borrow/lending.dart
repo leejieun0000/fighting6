@@ -214,45 +214,45 @@ class _lendingState extends State<lending> {
               itemBuilder: (context, index) { // 현재 인덱스에 해당하는 항목을 가져옵니다.
                 final item = _valueList_2[index];
                 return GestureDetector(
-                    onTap: () {
-                  _navigateToDetailScreen();
-                },
-                child : SizedBox(
-                  height: 100,
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        item['imagePath']!,
-                        width: 110,
-                        height: 90,
-                        fit: BoxFit.cover,
-                      ),
-                      SizedBox(width: 20),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: Text(
-                                item['title']!,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                  onTap: () {
+                    _navigateToDetailScreen();
+                  },
+                  child : SizedBox(
+                    height: 100,
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          item['imagePath']!,
+                          width: 110,
+                          height: 90,
+                          fit: BoxFit.cover,
+                        ),
+                        SizedBox(width: 20),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Text(
+                                  item['title']!,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: 7),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(item['date']!),
-                            ),
-                          ],
+                              SizedBox(height: 7),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Text(item['date']!),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),);
+                      ],
+                    ),
+                  ),);
               },
               itemCount: _valueList_2.length,
             ),
