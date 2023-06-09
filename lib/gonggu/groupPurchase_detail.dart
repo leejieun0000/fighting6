@@ -2,7 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:project1/gonggu/gonggu_magam.dart';
 
 void main() {
-  runApp(const GongguDetail());
+  runApp(Information());
+}
+
+class Information extends StatelessWidget {
+  const Information({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'login',
+      debugShowCheckedModeBanner: false,
+      home: GongguDetail(),
+    );
+  }
+
 }
 
 class GongguDetail extends StatefulWidget {
@@ -22,7 +36,6 @@ class _GongguDetailState extends State<GongguDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
         iconTheme: const IconThemeData(color: Colors.black),
         leading: IconButton(
           icon: const Icon(Icons.navigate_before),

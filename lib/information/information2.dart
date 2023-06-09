@@ -19,7 +19,7 @@ class Information extends StatelessWidget {
 }
 
 class Information2 extends StatefulWidget {
-  const Information2({super.key});
+  const Information2({Key? key}) : super(key: key);
 
   @override
   _Information2 createState() => _Information2();
