@@ -225,7 +225,7 @@ class _writingWidgetState extends State<writingWidget> {
               ),
             ],
           ),
-         /* MultiImagesSelect(),*/
+          /* MultiImagesSelect(),*/
           Container(
             margin: EdgeInsets.fromLTRB(30.0, 30.0, 300.0, 5.0),
             padding: EdgeInsets.all(5),
@@ -319,9 +319,9 @@ class _writingWidgetState extends State<writingWidget> {
             maxLines: null,
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
-               contentPadding: EdgeInsets.symmetric(
-                 horizontal: 30
-               ),
+              contentPadding: EdgeInsets.symmetric(
+                  horizontal: 30
+              ),
               hintText: '상품의 세부설명을 입력해주세요.',
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
@@ -406,4 +406,3 @@ class _writingWidgetState extends State<writingWidget> {
     );
   }
 }
-

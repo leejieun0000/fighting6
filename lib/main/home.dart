@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project1/item_list.dart';
 import 'package:project1/main/alarm.dart';
 import 'package:project1/navigators/HomeButtonNavigator.dart';
 import 'package:project1/main/user_setting.dart';
@@ -15,7 +16,8 @@ class _MyHomeState extends State<MyHome>{
   final screens = [
     Alarm(tabIndex: 0),
     HomeButtonNavigator(tabIndex: 1),
-    UserSetting(tabIndex: 2),
+    // UserSetting(tabIndex: 2),
+    ItemList(tabIndex: 2,),
   ];
 
   @override
