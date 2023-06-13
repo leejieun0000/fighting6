@@ -12,6 +12,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+void main() {
+  runApp(writingWidget());
+}
+
 class writingWidget extends StatefulWidget {
   const writingWidget({Key? key}) : super(key: key);
 

@@ -1,32 +1,54 @@
 {
   "project_info": {
+
+    "project_number": "91198812212",
+    "project_id": "my-basic-fighting",
+    "storage_bucket": "my-basic-fighting.appspot.com",
+
     "project_number": "381955923532",
     "project_id": "fightinghelper",
     "storage_bucket": "fightinghelper.appspot.com"
+
   },
   "client": [
     {
       "client_info": {
+
+        "mobilesdk_app_id": "1:91198812212:android:b54c2a4366f6fdcf961a61",
+
         "mobilesdk_app_id": "1:381955923532:android:18bd24f5cf62b9ba565ee9",
+
         "android_client_info": {
           "package_name": "com.example.project1"
         }
       },
       "oauth_client": [
         {
+
+          "client_id": "91198812212-76umlts3teiu9ou4434egrppm756ivav.apps.googleusercontent.com",
+
           "client_id": "381955923532-98c79fo7bc35e031pf64m7ehs6smhiuj.apps.googleusercontent.com",
+
           "client_type": 3
         }
       ],
       "api_key": [
         {
+
+          "current_key": "AIzaSyBXh0NUZlTAtHVP7TtsvRwYhE-Ndv3BS98",
+
           "current_key": "AIzaSyCh8tNWJzUC2SX7yEBA-JrUkOENOLwac_o"
+
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
+
+              "client_id": "91198812212-76umlts3teiu9ou4434egrppm756ivav.apps.googleusercontent.com",
+              "client_type": 3,
+
               "client_id": "381955923532-98c79fo7bc35e031pf64m7ehs6smhiuj.apps.googleusercontent.com",
               "client_type": 3
             },
@@ -36,6 +58,7 @@
               "ios_info": {
                 "bundle_id": "com.example.project1"
               }
+
             }
           ]
         }

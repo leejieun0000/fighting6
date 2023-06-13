@@ -4,6 +4,23 @@ import 'package:flutter/services.dart';
 import 'package:project1/land_borrow/lending.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
+/*void main() {
+  runApp(Information());
+}
+
+class Information extends StatelessWidget {
+  const Information({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: 'login',
+      debugShowCheckedModeBanner: false,
+      home: Borrowing(),
+    );
+  }
+}*/
+
 // void main() {
 //   runApp(Information());
 // }
@@ -21,9 +38,11 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 //   }
 // }
 
+
 class Borrowing extends StatefulWidget {
   const Borrowing({super.key, required this.tabIndex});
   final int tabIndex;
+  //const Borrowing({super.key});
 
   @override
   _borrowing createState() => _borrowing();
