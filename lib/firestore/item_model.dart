@@ -9,6 +9,7 @@ class ItemModel {
   late String category;
   late String detail;
   late DateTime date;
+  late DocumentReference? reference;
 
   ItemModel({
     required this.itemKey,
@@ -18,9 +19,10 @@ class ItemModel {
     required this.town,
     required this.category,
     required this.detail,
-    required this.date,});
+    required this.date,
+    this.reference});
 
-  ItemModel.fromJson(Map<String, dynamic> json, this.itemKey,) {
+  ItemModel.fromJson(Map<String, dynamic> json, this.itemKey, this.reference) {
     // itemKey = json['itemKey']??"";
     userKey = json['userKey']??"";
     image = json['image'] != null ? json['image'].cast<String>() : [];
@@ -29,7 +31,11 @@ class ItemModel {
     category = json['category']??"";
     detail = json['detatil']??"";
     date = json['data']??"";
+    // reference = json['reference'];
   }
+
+  ItemModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot)
+  : this.fromJson(snapshot.data()!, snapshot.id, snapshot.reference);
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
