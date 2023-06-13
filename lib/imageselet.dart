@@ -86,40 +86,8 @@ class _ImageSelectionScreenState extends State<ImageSelectionScreen> {
     TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
     String imageUrl = await taskSnapshot.ref.getDownloadURL();
 
-    // saveImageToFirestore(imageUrl);
-
     return imageUrl;
   }
-  //
-  // Future<void> saveImageToFirestore(File imageFile) async {
-  //   // 1. 이미지를 Firebase Storage에 업로드
-  //   FirebaseStorage storage = FirebaseStorage.instance;
-  //   Reference storageRef = storage.ref().child('images').child('image.jpg');
-  //   UploadTask uploadTask = storageRef.putFile(imageFile);
-  //   TaskSnapshot uploadSnapshot = await uploadTask.whenComplete(() {});
-  //
-  //   // 2. 업로드된 이미지의 URL을 Firestore에 저장
-  //   String imageUrl = await uploadSnapshot.ref.getDownloadURL();
-  //
-  //   // Firestore에 데이터 저장
-  //   CollectionReference collection = FirebaseFirestore.instance.collection('post');
-  //   Map<String, dynamic> data = {
-  //     'category': Number,
-  //     'day': DateTime.now(),
-  //     'detail': _detailController.text,
-  //     'title': _titleController.text,
-  //     'image_url': imageUrl,
-  //     'userid': getUserId(),
-  //     'dead_line': "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
-  //   };
-  //
-  //   try {
-  //     await collection.add(data);
-  //     print('Data saved successfully');
-  //   } catch (e) {
-  //     print('Error saving data: $e');
-  //   }
-  // }
 
   Future<List<XFile>> getImagesFromGallery() async {
     final picker = ImagePicker();
@@ -136,21 +104,6 @@ class _ImageSelectionScreenState extends State<ImageSelectionScreen> {
     return selectedImages;
   }
 
-  // void _selectImages() async {
-  //   List<XFile> imageFiles = await getImagesFromGallery();
-  //   if (imageFiles.isNotEmpty) {
-  //     List<String> imageUrls = [];
-  //     for (XFile imageFile in imageFiles) {
-  //       File file = File(imageFile.path);
-  //       String imageUrl = await uploadImageToFirebase(file);
-  //       imageUrls.add(imageUrl);
-  //     }
-  //     setState(() {
-  //       _imageUrls = imageUrls;
-  //     });
-  //   }
-  // }
-
   void _selectImages() async {
     List<XFile> imageFiles = await getImagesFromGallery();
     if (imageFiles.isNotEmpty) {
@@ -164,7 +117,6 @@ class _ImageSelectionScreenState extends State<ImageSelectionScreen> {
     List<String> imageUrls = [];
     for (XFile imageFile in _selectedImages) {
       File file = File(imageFile.path);
-      // saveImageToFirestore(file);
       String imageUrl = await uploadImageToFirebase(file);
       imageUrls.add(imageUrl);
     }
@@ -173,37 +125,6 @@ class _ImageSelectionScreenState extends State<ImageSelectionScreen> {
       _imageUrls.addAll(imageUrls);
     });
   }
-
-  // void _saveImages() async {
-  //   if (_selectedImages.isEmpty) {
-  //     return;
-  //   }
-  //
-  //   XFile imageFile = _selectedImages.first;
-  //   File file = File(imageFile.path);
-  //   String imageUrl = await uploadImageToFirebase(file);
-  //
-  //   setState(() {
-  //     imagesUrl = imageUrl;
-  //   });
-  //
-  //   FirebaseFirestore.instance.collection('post').add({
-  //     'category': Number,
-  //     'day': DateTime.now(),
-  //     'detail': _detailController.text,
-  //     'title': _titleController.text,
-  //     'image_url': imageUrl,
-  //     'userid': getUserId(),
-  //     'dead_line': "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}"
-  //   }).then((value) {
-  //     // 저장 성공 시 처리할 작업
-  //     print('Image URL saved to Firestore');
-  //   }).catchError((error) {
-  //     // 저장 실패 시 처리할 작업
-  //     print('Failed to save image URL: $error');
-  //   });
-  // }
-
 
   String getUserId() {
     User? user = FirebaseAuth.instance.currentUser;
@@ -238,55 +159,6 @@ class _ImageSelectionScreenState extends State<ImageSelectionScreen> {
       });
     });
   }
-
-  // Future<void> saveImageToFirestore(String imageUrl) async {
-  //   FirebaseFirestore.instance
-  //       .collection('post')
-  //       .doc(_titleController.text)
-  //       .set({
-  //     'category': Number,
-  //     'day': DateTime.now(),
-  //     'detail': _detailController.text,
-  //     'title': _titleController.text,
-  //     'image_url': imageUrl,
-  //     'userid': getUserId(),
-  //     'dead_line': "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
-  //   })
-  //       .then((value) {
-  //     setState(() {
-  //       // 성공 처리
-  //       // 예: 텍스트를 업데이트하거나 UI를 변경하는 등의 작업 수행
-  //       print('Success!');
-  //       print('Image URL added to Firestore: $imageUrl');
-  //     });
-  //   })
-  //       .catchError((error) {
-  //     setState(() {
-  //       // 실패 처리
-  //       // 예: 오류 메시지를 표시하거나 에러 처리 작업 수행
-  //       print('Fail!');
-  //     });
-  //   });
-  // }
-
-  // void saveImageToFirestore(String imageUrl) {
-  //   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  //   CollectionReference collection = firestore.collection('post');
-  //
-  //   collection.add({
-  //     'category': Number,
-  //     'day': DateTime.now(),
-  //     'detail': _detailController.text,
-  //     'title': _titleController.text,
-  //     'image_url': imageUrl,
-  //     'userid': getUserId(),
-  //     'dead_line': "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
-  //   }).then((value) {
-  //     print('Image URL added to Firestore: $imageUrl');
-  //   }).catchError((error) {
-  //     print('Failed to add image URL to Firestore: $error');
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
