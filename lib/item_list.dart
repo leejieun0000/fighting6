@@ -6,27 +6,28 @@ import 'package:flutter/material.dart';
 //   runApp(const ItemList());
 // }
 
-class ItemList extends StatelessWidget {
+class ItemList extends StatefulWidget {
+  const ItemList({Key? key, required this.tabIndex}) : super(key: key);
+  final int tabIndex;
+
+  @override
+  _ItemList createState() => _ItemList(tabIndex: tabIndex);
+}
+
+class _ItemList extends State<ItemList> {
   // const ItemList({Key? key}) : super(key: key);
 
-  ItemList({Key? key, required this.tabIndex}) : super(key: key);
+  _ItemList({required this.tabIndex});
   final int tabIndex;
-  final CollectionReference usersRef = FirebaseFirestore.instance.collection("post");
+  CollectionReference usersRef = FirebaseFirestore.instance.collection("post");
   List<String> imageUrls = [];
 
-  Future<void> fetchImageUrlsByFolder(String folderName) async {
-    Reference storageReference = FirebaseStorage.instance.ref().child(folderName);
-    ListResult listResult = await storageReference.listAll();
-    List<Reference> allFiles = listResult.items;
 
-    List<String> urls = [];
-    for (Reference file in allFiles) {
-      String url = await file.getDownloadURL();
-      urls.add(url);
-    }
-
-    imageUrls = urls;
+  @override
+  void initState() {
+    super.initState();
   }
+
 
   @override
   Widget build(BuildContext context){
@@ -35,7 +36,7 @@ class ItemList extends StatelessWidget {
         title: Text('Firestore ListView'),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: usersRef.where('category', isEqualTo: 1).snapshots(),
+        stream: usersRef.where('category', isEqualTo: 1).where('town', isEqualTo: '궁동').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
@@ -44,9 +45,6 @@ class ItemList extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
           }
-
-          List<String> documentNames = []; // 문서 이름을 저장할 리스트
-          List<String> imageUrls = [];
 
           return SingleChildScrollView(
             child: Padding(
@@ -97,28 +95,30 @@ class ItemList extends StatelessWidget {
                           );
                         },
                         child: SizedBox(
-                          height: 100,
+                          height: 150,
                           child: Row(
                             children: [
-                              Image(
-                                image: AssetImage('images/ganjang.png'),
+                              Image.network(
+                                image_url,
+                                width: 80,
+                                height: 140,
                               ),
-                              // Image.network(
-                              //   imageUrls[index],
-                              //   width: 30,
-                              //   height: 30,
-                              // ),
                               SizedBox(width: 16),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(title),
-                                    SizedBox(height: 10),
+                                    SizedBox(height: 30),
+                                    Text(title,
+                                      style: TextStyle(fontSize: 23, ),
+                                    ),
+                                    SizedBox(height: 50),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        Text(dead_line),
+                                        Text(dead_line,
+                                          style: TextStyle(fontSize: 17, ),
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -178,39 +178,17 @@ class DetailPage extends StatelessWidget {
             ),
             const Padding(padding: EdgeInsets.all(10)),
             Container(
-              child: Text(
-                '$detail',
-                style: TextStyle(fontSize: 20),
+              child: Image.network(
+                image_url,
+                width: 380,
+                height: 250,
               ),
             ),
             const Padding(padding: EdgeInsets.all(10)),
-            lending_ing
-                ? Container(
-              width: 380,
-              height: 250,
-              decoration: BoxDecoration(
-                color: const Color(0xff60597B),
-                image: const DecorationImage(
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                    Color.fromRGBO(0, 0, 0, 0.2),
-                    BlendMode.dstATop,
-                  ),
-                  image: AssetImage('images/driver.png'),
-                ),
-              ),
-              child: Center(
-                child: const Text(
-                  '대여중',
-                  style: TextStyle(fontSize: 50),
-                ),
-              ),
-            ): Container(
-              width: 380,
-              height: 250,
-              child: Image.asset(
-                'images/driver.png',
-                fit: BoxFit.fill,
+            Container(
+              child: Text(
+                '$detail',
+                style: TextStyle(fontSize: 20),
               ),
             ),
             Container(

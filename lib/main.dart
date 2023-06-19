@@ -6,8 +6,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project1/user_provider.dart';
 import 'package:provider/provider.dart';
-import 'firebase_options.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 // WidgetsFlutterBinding.ensureInitialized();
 // await Firebase.initializeApp(

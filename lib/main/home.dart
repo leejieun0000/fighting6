@@ -16,8 +16,8 @@ class _MyHomeState extends State<MyHome>{
   final screens = [
     Alarm(tabIndex: 0),
     HomeButtonNavigator(tabIndex: 1),
-    // UserSetting(tabIndex: 2),
-    ItemList(tabIndex: 2,),
+    UserSetting(tabIndex: 2),
+    // ItemList(tabIndex: 2,),
   ];
 
   @override

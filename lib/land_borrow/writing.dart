@@ -400,7 +400,8 @@ class _writingWidgetState extends State<writingWidget> {
                     ),
                   ),
                 ],
-              )),
+              ),
+          ),
         ],
       ),
     );
