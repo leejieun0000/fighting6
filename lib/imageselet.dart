@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path/path.dart' as path;
 import 'package:firebase_core/firebase_core.dart';
 
 class FirebaseData {
@@ -15,6 +15,7 @@ class FirebaseData {
   final String title;
   final String userid;
   final String dead_line;
+  final String town;
 
 
   FirebaseData({
@@ -25,6 +26,7 @@ class FirebaseData {
     required this.title,
     required this.userid,
     required this.dead_line,
+    required this.town,
   });
 
   Map<String, dynamic> toMap() {
@@ -36,6 +38,7 @@ class FirebaseData {
       'title': title,
       'userid': userid,
       'dead_line': dead_line,
+      'town': town,
     };
   }
 }
@@ -45,85 +48,131 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runApp(MyApp());
+  runApp(ImageSelectionScreen());
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Image Upload Demo',
-      home: ImageSelectionScreen(),
-    );
-  }
-}
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: '글쓰기',
+//       home: ImageSelectionScreen(),
+//     );
+//   }
+// }
 
 class ImageSelectionScreen extends StatefulWidget {
+  const ImageSelectionScreen({Key? key}) : super(key: key);
+
   @override
   _ImageSelectionScreenState createState() => _ImageSelectionScreenState();
 }
 
 class _ImageSelectionScreenState extends State<ImageSelectionScreen> {
-  final FirebaseStorage _storage = FirebaseStorage.instance;
-  List<String> _imageUrls = [];
-  List<XFile> _selectedImages = [];
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _detailController = TextEditingController();
-  int Number = 0;
-  File? selectedImage;
   bool _isLending = false;
   bool _isBorrowing = false;
   bool _isGonggu = false;
-  String imagesUrl = "";
+
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _detailController = TextEditingController();
+
+  List<String> _imageUrls = [];
+  int Number = 0;
   DateTime date = DateTime.now();
+  File? _imageFile;
+  String? _uploadedImageUrl;
 
-  Future<String> uploadImageToFirebase(File file) async {
-    String fileName = DateTime.now().millisecondsSinceEpoch.toString(); // 파일명을 고유하게 생성
-    String pathName = _titleController.text;
-    Reference storageReference = FirebaseStorage.instance.ref().child('$pathName/$fileName');
-    UploadTask uploadTask = storageReference.putFile(file);
+  final picker = ImagePicker();
 
-    TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
-    String imageUrl = await taskSnapshot.ref.getDownloadURL();
+  String town = "";
+  String? selectedValue;
+  List<String> items = [
+    '궁동',
+    '죽동',
+    '봉명동',
+    '어은동',
+    '장대동',
+    '신성동',
+  ];
 
-    return imageUrl;
+  void showToast(BuildContext context, String message, IconData iconData) {
+    final overlay = Overlay.of(context);
+    OverlayEntry overlayEntry;
+
+    overlayEntry = OverlayEntry(builder: (context) => Positioned(
+      top: MediaQuery.of(context).size.height * 0.8,
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Card(
+            color: Color(0xfffd9b13),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                children: [
+                  Icon(iconData, color: Colors.white),
+                  SizedBox(width: 10),
+                  Text(message, style: TextStyle(color: Colors.white))
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    ));
+
+    overlay.insert(overlayEntry);
+
+    Future.delayed(Duration(seconds: 2)).then((value) {
+      overlayEntry.remove();
+    });
   }
 
-  Future<List<XFile>> getImagesFromGallery() async {
-    final picker = ImagePicker();
-    List<XFile> selectedImages = [];
-
-    final pickedFiles = await picker.pickMultiImage();
-
-    if (pickedFiles != null) {
-      for (XFile pickedFile in pickedFiles) {
-        selectedImages.add(pickedFile);
-      }
-    }
-
-    return selectedImages;
-  }
-
-  void _selectImages() async {
-    List<XFile> imageFiles = await getImagesFromGallery();
-    if (imageFiles.isNotEmpty) {
-      setState(() {
-        _selectedImages.addAll(imageFiles);
-      });
-    }
-  }
-
-    void _saveImages() async {
-    List<String> imageUrls = [];
-    for (XFile imageFile in _selectedImages) {
-      File file = File(imageFile.path);
-      String imageUrl = await uploadImageToFirebase(file);
-      imageUrls.add(imageUrl);
-    }
+  Future _selectImages() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
-      _imageUrls.addAll(imageUrls);
+      if (pickedFile != null) {
+        _imageFile = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
     });
+  }
+
+  Future uploadImage() async {
+    if (_imageFile == null) {
+      print('No image selected.');
+      return;
+    }
+
+    try {
+      Reference storageReference = FirebaseStorage.instance
+          .ref()
+          .child('images/${DateTime.now().millisecondsSinceEpoch}.png');
+
+      UploadTask uploadTask = storageReference.putFile(_imageFile!);
+      TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
+      String downloadUrl = await snapshot.ref.getDownloadURL();
+
+      setState(() {
+        _uploadedImageUrl = downloadUrl;
+      });
+
+      print('Image uploaded. Download URL: $_uploadedImageUrl');
+      showToast(context, '이미지 저장에 성공하였습니다!', Icons.check);
+
+      // Build the UI after uploading the image
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
+        setState(() {});
+      });
+    } catch (e) {
+      print('Error uploading image: $e');
+    }
   }
 
   String getUserId() {
@@ -138,7 +187,6 @@ class _ImageSelectionScreenState extends State<ImageSelectionScreen> {
   }
 
   Future<void> setDocument(FirebaseData data) async {
-    _saveImages();
 
     FirebaseFirestore.instance
         .collection('post')
@@ -164,43 +212,131 @@ class _ImageSelectionScreenState extends State<ImageSelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Image Upload Demo'),
+        title: const Text('글쓰기',
+          style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+        ),
         actions: [
-          IconButton(
-              // onPressed: _saveImages,
-            onPressed: () {
-              setDocument(
-                FirebaseData(
-                  category: Number,
-                  day: DateTime.now(),
-                  detail: _detailController.text,
-                  title: _titleController.text,
-                  image_url: "imagesUrl",
-                  userid: getUserId(),
-                  dead_line: "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
-                ),
-              );
-            },
-              icon: Icon(Icons.save),
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: MaterialButton(
+              minWidth: 60,
+              color: Colors.white,
+              onPressed: () {
+                setDocument(
+                  FirebaseData(
+                    category: Number,
+                    day: DateTime.now(),
+                    detail: _detailController.text,
+                    title: _titleController.text,
+                    image_url: '$_uploadedImageUrl',
+                    userid: getUserId(),
+                    dead_line: "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+                    town: town,
+                  ),
+                );
+                Navigator.pop(context);
+              },
+              child: Text('저장'),
+              shape: RoundedRectangleBorder( // 테두리를 둥글게 만들기 위한 설정
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
           ),
         ],
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.black),
+        leading: IconButton(
+          icon: Icon(Icons.navigate_before),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: _imageUrls.map((imageUrl) {
-                  return Image.network(
-                    imageUrl,
-                    height: 200,
-                  );
-                }).toList(),
-              ),
               SizedBox(height: 20),
+              Container(
+                width: 120,
+                height: 50,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton2(
+                      isExpanded: true,
+                      hint: const Row(
+                        children: [
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                            child: Text(
+                              '궁동',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                      items: items
+                          .map((item) =>
+                          DropdownMenuItem<String>(
+                            value: item,
+                            child: Text(
+                              item,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ))
+                          .toList(),
+                      value: selectedValue,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedValue = value as String;
+                          town = value;
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.arrow_forward_ios_outlined,
+                      ),
+                      iconSize: 14,
+                      iconEnabledColor: Colors.black,
+                      iconDisabledColor: Colors.grey,
+                      buttonHeight: 40,
+                      buttonWidth: 160,
+                      buttonPadding: const EdgeInsets.only(left: 14, right: 14),
+                      buttonDecoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        color: Color(0xffFFE072),
+
+                      ),
+                      itemHeight: 40,
+                      //itemWidth: 200,
+                      itemPadding: const EdgeInsets.only(left: 14, right: 14),
+                      dropdownMaxHeight: 200,
+                      dropdownPadding: null,
+                      /*dropdownBorderRadius: BorderRadius.circular(14),
+                                  dropdownBorder: null,
+                                  dropdownColor: Colors.redAccent,
+                                  elevation: 8,*/
+                      scrollbarRadius: const Radius.circular(40),
+                      scrollbarThickness: 6,
+                      scrollbarAlwaysShow: true,
+                      offset: const Offset(0, 0),
+                    ),
+                  ),
+                ),
+              ),
               Container(
                 margin: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 5.0),
                 child: Row(
@@ -273,40 +409,81 @@ class _ImageSelectionScreenState extends State<ImageSelectionScreen> {
                   ),
                 ],
               ),
-              ElevatedButton(
-                onPressed: _selectImages,
-                child: Text('Select Images'),
-              ),
-              // ElevatedButton(
-              //   onPressed: _saveImages,
-              //   child: Text('Upload Images'),
-              // ),
-              Container(
-                margin: EdgeInsets.all(10),
-                child: GridView.builder(
-                  padding: EdgeInsets.all(0),
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 1.0,
-                    mainAxisSpacing: 10.0,
-                    crossAxisSpacing: 10.0,
-                  ),
-                  itemCount: _selectedImages.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    XFile imageFile = _selectedImages[index];
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          // image: FileImage(File(_selectedImages[index].path)),
-                          image: FileImage(File(imageFile.path)),
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.fromLTRB(30.0, 15.0, 15.0, 20.0),
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(color: Colors.yellow.shade300, borderRadius: BorderRadius.circular(10),
+                      boxShadow: [BoxShadow(color:Colors.grey.withOpacity(0.5),spreadRadius: 0.5,blurRadius: 5)],
+                    ),
+
+                    child: Column(
+                      children: [
+                        IconButton(
+                            onPressed: _selectImages,
+                            icon: Icon(
+                              Icons.add_photo_alternate_outlined,
+                              size: 30,
+                              color: Colors.white,
+                            )
                         ),
-                      ),
-                    );
-                  },
-                ),
+                        Container(
+                          //padding: EdgeInsets.only(top: 50),
+                          child: Text(
+                            '이미지 추가',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(30.0, 15.0, 15.0, 20.0),
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(color: Colors.yellow.shade300, borderRadius: BorderRadius.circular(10),
+                      boxShadow: [BoxShadow(color:Colors.grey.withOpacity(0.5),spreadRadius: 0.5,blurRadius: 5)],
+                    ),
+
+                    child: Column(
+                      children: [
+                        IconButton(
+                            onPressed: uploadImage,
+                            icon: Icon(
+                              Icons.upload_file,
+                              size: 30,
+                              color: Colors.white,
+                            )
+                        ),
+                        Container(
+                          //padding: EdgeInsets.only(top: 50),
+                          child: Text(
+                            '이미지 저장',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(width: 20,),
+              _imageFile != null
+                  ? Image.file(
+                _imageFile!,
+                height: 200,
+              )
+                  : Placeholder(
+                fallbackHeight: 0,
+                // fallbackWidth: double.infinity,
               ),
               TextFormField(
                 controller: _detailController,

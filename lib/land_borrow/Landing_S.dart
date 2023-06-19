@@ -1,38 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:project1/land_borrow/lending_detail.dart';
 
-/*void main() {
-  runApp(Information());
-}
-
-class Information extends StatelessWidget {
-  const Information({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'login',
-      debugShowCheckedModeBanner: false,
-      home: LandingSetting(),
-    );
-  }
-}*/
 
 class LandingSetting extends StatefulWidget {
-  const LandingSetting({super.key, required this.tabIndex});
-  final int tabIndex;
-  //const LandingSetting({super.key});
+  // const LandingSetting({super.key, required this.tabIndex});
+  // final int tabIndex;
+  const LandingSetting({super.key});
 
   @override
-  _LandingSettingState createState() => _LandingSettingState(tabIndex: tabIndex);
+  _LandingSettingState createState() => _LandingSettingState();
 }
 
 class _LandingSettingState extends State<LandingSetting> {
-  _LandingSettingState({required this.tabIndex});
-  final int tabIndex;
   DateTime date = DateTime.now();
   DateTime date2 = DateTime.now();
-
 
   @override
   Widget build(BuildContext context) {

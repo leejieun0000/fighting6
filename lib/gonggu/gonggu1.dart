@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -25,24 +26,7 @@ class _Gonggu extends State<Gonggu> {
     '신성동',
   ];
 
-  final List<Map<String, String>> _valueList_2 = [
-    {
-      'imagePath': 'images/emart.png',
-      'title': '트레이더스 공구 하실 분 구합니다.',
-      'date': '예정일: 04/17/2023',
-    },
-    {
-      'imagePath': 'images/bokeumbop.png',
-      'title': '냉동 볶음밥 공구 하실 분 구합니다.',
-      'date': '예정일: 04/13/2023',
-    },
-    {
-      'imagePath': 'images/chicken.png',
-      'title': 'OO아파트 치킨 같이 시키실 분~!',
-      'date': '예정일: 04/12/2023',
-    }
-
-  ];
+  CollectionReference usersRef = FirebaseFirestore.instance.collection("post");
 
   void _navigateToDetailScreen() {
     Navigator.push(
@@ -162,62 +146,109 @@ class _Gonggu extends State<Gonggu> {
             color: Colors.black,  // 원하는 색상을 설정합니다.
             thickness: 1,  // 원하는 두께를 설정합니다.
           ),
-          Expanded(
-            child: ListView.separated(
-              separatorBuilder: (context, index) {
-                return Divider(
-                  height: 10 * 3,
-                  thickness: 1.5,
-                  color: Colors.grey[300],
-                  indent: 10,
-                );
-                },
-              padding: EdgeInsets.all(20),
-              itemBuilder: (context, index) { // 현재 인덱스에 해당하는 항목을 가져옵니다.
-                final item = _valueList_2[index];
-                return GestureDetector(
-                  onTap: () {
-                    _navigateToDetailScreen();
-                  },
-                child : SizedBox(
-                height: 100,
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        item['imagePath']!, // 이미지 경로를 동적으로 설정합니다.
-                        width: 110,
-                        height: 90,
-                        fit: BoxFit.cover,
-                      ),
-                      SizedBox(width: 20),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: Text(
-                                item['title']!, // 제목을 동적으로 설정합니다.
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+          StreamBuilder<QuerySnapshot>(
+            stream: usersRef.where('category', isEqualTo: 3).where('town', isEqualTo: '궁동').snapshots(),
+            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              }
+
+              return SizedBox(
+                height: 460,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        ListView.separated(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          separatorBuilder: (context, index) {
+                            return Divider(
+                              height: 15,
+                              thickness: 1,
+                              color: Colors.grey[200],
+                              indent: 5,
+                              endIndent: 5,
+                            );
+                          },
+                          // padding: EdgeInsets.all(16),
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            DocumentSnapshot document = snapshot.data!.docs[index];
+                            Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                            String title = data['title'] ?? '';
+                            int category = data['category'] ?? '';
+                            // DateTime day = data['day'] ?? '';
+                            String detail = data['detail'] ?? '';
+                            String image_url = data['image_url'] ?? '';
+                            String userid = data['userid'] ?? '';
+                            String dead_line = data['dead_line'] ?? '';
+
+                            return InkWell(
+                              onTap: () {
+                                // 상세 페이지로 이동
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DetailPage(
+                                      category: category,
+                                      // day: day,
+                                      detail: detail,
+                                      image_url: image_url,
+                                      title: title,
+                                      userid: userid,
+                                      dead_line: dead_line,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: SizedBox(
+                                height: 150,
+                                child: Row(
+                                  children: [
+                                    Image.network(
+                                      image_url,
+                                      width: 80,
+                                      height: 140,
+                                    ),
+                                    SizedBox(width: 16),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(height: 30),
+                                          Text(title,
+                                            style: TextStyle(fontSize: 23, ),
+                                          ),
+                                          SizedBox(height: 50),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              Text(dead_line,
+                                                style: TextStyle(fontSize: 17, ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                            SizedBox(height: 7),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: Text(item['date']!), // 날짜를 동적으로 설정합니다.
-                              ),
-                          ],
+                            );
+                          },
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),);
-                },
-              itemCount: _valueList_2.length, // 항목 수를 동적으로 설정합니다.
-            ),
+                ),
+              );
+            },
           ),
           Container(
             margin: EdgeInsets.all(20),
@@ -226,7 +257,7 @@ class _Gonggu extends State<Gonggu> {
               child: IconButton(
                 iconSize: 50,
                 onPressed: (){
-                  Navigator.pushNamed(context, '/GongguWrite'
+                  Navigator.pushNamed(context, '/ImageSelectionScreen'
                   );
                 },
                 icon: Image.asset(
@@ -236,6 +267,164 @@ class _Gonggu extends State<Gonggu> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class DetailPage extends StatelessWidget {
+
+  bool lending_ing = false;
+
+  final int category;
+  // final DateTime day;
+  final String detail;
+  final String image_url;
+  final String title;
+  final String userid;
+  final String dead_line;
+
+  DetailPage({
+    required this.category,
+    // required this.day,
+    required this.detail,
+    required this.image_url,
+    required this.title,
+    required this.userid,
+    required this.dead_line,
+  });
+
+  bool end = false;
+  bool delete = false;
+
+  void deleteDocument() async {
+    var docRef = FirebaseFirestore.instance.collection('post').doc('$title');
+    await docRef.delete();
+
+    print('문서가 성공적으로 삭제되었습니다.');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.black),
+        leading: IconButton(
+          icon: const Icon(Icons.navigate_before),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        actions: [
+          Container(
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                cardColor: const Color(0xffFFF0A4),
+              ),
+              child: PopupMenuButton<Text>(
+                icon: const Icon(Icons.menu),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                itemBuilder: (context) {
+                  return [
+                    PopupMenuItem(
+                      child: const Text("삭제"),
+                      onTap: () {
+                        print("삭제 버튼이 눌렸습니다.");
+                        deleteDocument();
+                        delete = true;
+                      },
+                    ),
+                    PopupMenuItem(
+                      child: const Text("마감"),
+                      onTap: () {
+                        print("마감 버튼이 눌렸습니다.");
+                        end = true;
+                      },
+                    ),
+                  ];
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: Container(
+        margin: const EdgeInsets.all(20),
+        child: ListView(
+          children: [
+            const Padding(padding: EdgeInsets.all(4)),
+            Text('$title',
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+            ),
+            const Padding(padding: EdgeInsets.all(10)),
+            Container(
+              child: Image.network(
+                image_url,
+                width: 380,
+                height: 250,
+              ),
+            ),
+            const Padding(padding: EdgeInsets.all(10)),
+            Container(
+              child: Text(
+                '$detail',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            Container(
+              child: Text(
+                '반납 날짜 : $dead_line',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            const Padding(padding: EdgeInsets.all(10)),
+            Container(
+              width: 500,
+              child: const Divider(color: Colors.yellow, thickness: 2.0),
+            ),
+            const Padding(padding: EdgeInsets.all(10)),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: Text(
+                    "qwer",
+                    style: TextStyle(fontSize: 17),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 25),
+                  child: Text(
+                    "저 필요해요!!",
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
+            TextFormField(
+              maxLines: null,
+              keyboardType: TextInputType.multiline,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: 30
+                ),
+                hintText: '댓글쓰기',
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
+          ],
+        ),
       ),
     );
   }

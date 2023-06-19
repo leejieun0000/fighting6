@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project1/imageselet.dart';
 import 'package:project1/land_borrow/Landing_S.dart';
 import 'package:project1/land_borrow/borrwoing.dart';
 import 'package:project1/gonggu/gonggu1.dart';
@@ -7,6 +8,7 @@ import 'package:project1/land_borrow/lending.dart';
 import 'package:project1/main/home_button.dart';
 import 'package:project1/information/information1.dart';
 import 'package:project1/land_borrow/writing.dart';
+
 
 class HomeButtonNavigator extends StatelessWidget{
   const HomeButtonNavigator({super.key, required this.tabIndex});
@@ -18,7 +20,6 @@ class HomeButtonNavigator extends StatelessWidget{
         tabIndex: tabIndex,
       ),
       "/LandingSetting": (context) => LandingSetting(
-        tabIndex: tabIndex,
       ),
       "/Information": (context) => Information(
         tabIndex: tabIndex,
@@ -35,6 +36,8 @@ class HomeButtonNavigator extends StatelessWidget{
       ),
       "/lending": (context) => lending(
         tabIndex: tabIndex,
+      ),
+      "/ImageSelectionScreen": (context) => ImageSelectionScreen(
       ),
 
     };
