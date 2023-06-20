@@ -192,8 +192,6 @@ class _JoinWidgetState extends State<JoinWidget> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-
-
             Padding(
               padding: const EdgeInsets.fromLTRB(30.0, 50.0, 30.0, 20.0),
               child: TextField(
@@ -221,7 +219,6 @@ class _JoinWidgetState extends State<JoinWidget> {
                 ),
               ),
             ),
-
 
             Padding(
               padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
@@ -251,7 +248,6 @@ class _JoinWidgetState extends State<JoinWidget> {
                 obscureText: true,
               ),
             ),
-
 
             Padding(
               padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
@@ -330,8 +326,6 @@ class _JoinWidgetState extends State<JoinWidget> {
               ),
             ),
 
-
-
             Padding(
               padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
               child: TextField(
@@ -360,7 +354,6 @@ class _JoinWidgetState extends State<JoinWidget> {
                 ),
               ),
             ),
-
 
             Padding(
               padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
