@@ -5,40 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:project1/land_borrow/Landing_S.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'package:firebase_auth/firebase_auth.dart';
 
-/*void main() {
-  runApp(Information());
+void createCommentsCollection(String documentId) {
+  CollectionReference commentsCollection =
+  FirebaseFirestore.instance.collection('comments_$documentId');
+  commentsCollection.doc(documentId).set({}); // 해당 게시글의 댓글 컬렉션 생성
 }
-
-class Information extends StatelessWidget {
-  const Information({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'login',
-      debugShowCheckedModeBanner: false,
-      home: Borrowing(),
-    );
-  }
-}*/
-
-// void main() {
-//   runApp(Information());
-// }
-//
-// class Information extends StatelessWidget {
-//   const Information({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return const MaterialApp(
-//       title: 'login',
-//       debugShowCheckedModeBanner: false,
-//       home: Borrowing(),
-//     );
-//   }
-// }
 
 class Borrowing extends StatefulWidget {
   const Borrowing({super.key, required this.tabIndex});
@@ -277,6 +251,7 @@ class _borrowing extends State<Borrowing> {
                                       userid: userid,
                                       dead_line: dead_line,
                                       ing: false,
+                                      documentId: document.id,
                                     ),
                                   ),
                                 );
@@ -358,6 +333,8 @@ class DetailPage extends StatelessWidget {
   bool lending_ing = false;
   bool lending_ok = false;
 
+  User? _user = FirebaseAuth.instance.currentUser;
+
   final int category;
 
   // final DateTime day;
@@ -367,6 +344,7 @@ class DetailPage extends StatelessWidget {
   final String userid;
   final String dead_line;
   final bool ing;
+  final String documentId;
 
   DetailPage({
     required this.category,
@@ -377,6 +355,7 @@ class DetailPage extends StatelessWidget {
     required this.userid,
     required this.dead_line,
     required this.ing,
+    required this.documentId,
   });
 
   void deleteDocument() async {
@@ -388,6 +367,8 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _commentController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -480,42 +461,98 @@ class DetailPage extends StatelessWidget {
               child: const Divider(color: Colors.yellow, thickness: 2.0),
             ),
             const Padding(padding: EdgeInsets.all(10)),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: Text(
-                    "qwer",
-                    style: TextStyle(fontSize: 17),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  const Padding(padding: EdgeInsets.all(10)),
+                  Container(
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection('comments_${documentId}')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Text('로딩 중...');
+                        }
+                        if (!snapshot.hasData) {
+                          return Text('데이터 없음');
+                        }
+
+                        List<QueryDocumentSnapshot> commentDocs =
+                            snapshot.data!.docs;
+                        commentDocs.sort((a, b) {
+                          Timestamp timestampA = a.get('timestamp');
+                          Timestamp timestampB = b.get('timestamp');
+                          return timestampB.compareTo(timestampA);
+                        });
+
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: commentDocs.length,
+                          itemBuilder: (context, index) {
+                            String comment = commentDocs[index].get('comment');
+                            String? userId = commentDocs[index].get('userId') as String?;
+                            String username = userId != null ? 'User ID: ${userId.split('@')[0]}' : 'Anonymous';
+                            Timestamp timestamp =
+                            commentDocs[index].get('timestamp');
+                            DateTime commentTime = timestamp.toDate();
+                            String timeAgo = timeago.format(commentTime);
+
+                            bool isCurrentUser = _user != null && _user!.email?.split('@')[0] == userId?.split('@')[0];
+
+                            return ListTile(
+                              title: Text(comment),
+                              subtitle: Text('$username • $timeAgo'),
+                              trailing: isCurrentUser || userId == null
+                                  ? IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () {
+                                  // 댓글 삭제
+                                  if (_user != null && _user!.email != null) {
+                                    FirebaseFirestore.instance
+                                        .collection('comments_${documentId}')
+                                        .doc(commentDocs[index].id)
+                                        .delete();
+                                  }
+                                },
+                              )
+                                  : null,
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 25),
-                  child: Text(
-                    "저 필요해요!!",
-                    style: TextStyle(fontSize: 15),
+                  SizedBox(height: 10),
+                  Container(
+                    child: TextField(
+                      controller: _commentController,
+                      decoration: InputDecoration(
+                        labelText: '댓글 입력',
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            String comment = _commentController.text.trim();
+                            if (comment.isNotEmpty) {
+                              FirebaseFirestore.instance
+                                  .collection('comments_${documentId}')
+                                  .add({
+                                'comment': comment,
+                                'userId': _user?.email,
+                                'timestamp': Timestamp.now(),
+                              });
+                              _commentController.clear();
+                            }
+                          },
+                          icon: Icon(Icons.send),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-            ),
-            TextFormField(
-              maxLines: null,
-              keyboardType: TextInputType.multiline,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(horizontal: 30),
-                hintText: '댓글쓰기',
-                border: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
+                ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-            ),
+
           ],
         ),
       ),
