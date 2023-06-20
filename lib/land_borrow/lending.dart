@@ -305,12 +305,9 @@ class _lendingState extends State<lending> {
   }
 }
 
-class DetailPage extends StatelessWidget {
 
-  bool lending_ing = false;
-
+class DetailPage extends StatefulWidget {
   final int category;
-  // final DateTime day;
   final String detail;
   final String image_url;
   final String title;
@@ -319,7 +316,6 @@ class DetailPage extends StatelessWidget {
 
   DetailPage({
     required this.category,
-    // required this.day,
     required this.detail,
     required this.image_url,
     required this.title,
@@ -327,8 +323,25 @@ class DetailPage extends StatelessWidget {
     required this.dead_line,
   });
 
+
   void deleteDocument() async {
     var docRef = FirebaseFirestore.instance.collection('post').doc('$title');
+    await docRef.delete();
+
+    print('문서가 성공적으로 삭제되었습니다.');
+  }
+
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  bool lendingIng = false;
+  bool lendingOk = false;
+  bool delete = false;
+
+  void deleteDocument() async {
+    var docRef = FirebaseFirestore.instance.collection('post').doc('${widget.title}');
     await docRef.delete();
 
     print('문서가 성공적으로 삭제되었습니다.');
@@ -361,26 +374,36 @@ class DetailPage extends StatelessWidget {
                   return [
                     PopupMenuItem(
                       child: const Text("삭제"),
-                    onTap: () {
-                      print("삭제 버튼이 눌렸습니다.");
-                      deleteDocument();
-                      },
+                      value: "delete",
                     ),
                     PopupMenuItem(
                       child: const Text("대여중"),
-                      onTap: () {
-                        print("대여중 버튼이 눌렸습니다.");
-                        Navigator.pushNamed(context, "/LandingSetting"
-                        );
-                      },
+                      value: "lendingIng",
                     ),
                     PopupMenuItem(
                       child: const Text("대여가능"),
-                      onTap: () {
-                        print("대여 가능 버튼이 눌렸습니다.");
-                      },
+                      value: "lendingOk",
                     ),
                   ];
+                },
+                onSelected: (value) {
+                  setState(() {
+                    if (value == "delete") {
+                      print("삭제 버튼이 눌렸습니다.");
+                      deleteDocument();
+                      delete = true;
+                    } else if (value == "lendingIng") {
+                      lendingIng = true;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LandingSetting(),
+                        ),
+                      );
+                    } else if (value == "lendingOk") {
+                      lendingOk = true;
+                    }
+                  });
                 },
               ),
             ),
@@ -392,13 +415,14 @@ class DetailPage extends StatelessWidget {
         child: ListView(
           children: [
             const Padding(padding: EdgeInsets.all(4)),
-            Text('$title',
+            Text(
+              '${widget.title}',
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
             const Padding(padding: EdgeInsets.all(10)),
             Container(
               child: Image.network(
-                image_url,
+                widget.image_url,
                 width: 380,
                 height: 250,
               ),
@@ -406,13 +430,7 @@ class DetailPage extends StatelessWidget {
             const Padding(padding: EdgeInsets.all(10)),
             Container(
               child: Text(
-                '$detail',
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-            Container(
-              child: Text(
-                '반납 날짜 : $dead_line',
+                '${widget.detail}',
                 style: TextStyle(fontSize: 20),
               ),
             ),
