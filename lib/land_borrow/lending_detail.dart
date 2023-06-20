@@ -86,7 +86,7 @@ class _LendingDetailState extends State<LendingDetail> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              LandingSetting(tabIndex: tabIndex),
+                              LandingSetting(),
                         ),
                       );
                     } else if (value == "lending_ok") {

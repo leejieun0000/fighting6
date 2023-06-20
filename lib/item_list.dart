@@ -1,44 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'package:firebase_auth/firebase_auth.dart';
 
-// void main(){
-//   runApp(const ItemList());
-// }
-
-class ItemList extends StatefulWidget {
-  final int tabIndex;
-
-  ItemList({Key? key, required this.tabIndex}) : super(key: key);
-
-  _ItemListState createState() => _ItemListState();
+void createCommentsCollection(String documentId) {
+  CollectionReference commentsCollection =
+  FirebaseFirestore.instance.collection('comments_$documentId');
+  commentsCollection.doc(documentId).set({}); // 해당 게시글의 댓글 컬렉션 생성
 }
 
-class _ItemListState extends State<ItemList> {
-  final CollectionReference usersRef = FirebaseFirestore.instance.collection("post");
+class ItemList extends StatefulWidget {
+  const ItemList({Key? key, required this.tabIndex}) : super(key: key);
+  final int tabIndex;
+
+  @override
+  _ItemList createState() => _ItemList(tabIndex: tabIndex);
+}
+
+class _ItemList extends State<ItemList> {
+  _ItemList({required this.tabIndex});
+  final int tabIndex;
+  CollectionReference usersRef = FirebaseFirestore.instance.collection("post");
   List<String> imageUrls = [];
 
-  Future<void> fetchImageUrlsByFolder(String folderName) async {
-    Reference storageReference = FirebaseStorage.instance.ref().child('images/');
-    ListResult listResult = await storageReference.listAll();
-    List<Reference> allFiles = listResult.items;
-
-    List<String> urls = [];
-    for (Reference file in allFiles) {
-      String url = await file.getDownloadURL();
-      print('Image URL: $url');
-      urls.add(url);
-
-    }
-
-    setState(() {
-      imageUrls = urls;
-    });
-  }
   @override
   void initState() {
     super.initState();
-    fetchImageUrlsByFolder('images/');
   }
 
   @override
@@ -48,7 +36,10 @@ class _ItemListState extends State<ItemList> {
         title: Text('Firestore ListView'),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: usersRef.where('category', isEqualTo: 1).snapshots(),
+        stream: usersRef
+            .where('category', isEqualTo: 1)
+            .where('town', isEqualTo: '궁동')
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
@@ -58,7 +49,7 @@ class _ItemListState extends State<ItemList> {
             return CircularProgressIndicator();
           }
 
-          List<String> documentNames = []; // 문서 이름을 저장할 리스트
+          List<DocumentSnapshot> postDocs = snapshot.data!.docs;
 
           return SingleChildScrollView(
             child: Padding(
@@ -77,10 +68,12 @@ class _ItemListState extends State<ItemList> {
                         endIndent: 5,
                       );
                     },
-                    itemCount: snapshot.data!.docs.length,
+                    itemCount: postDocs.length,
                     itemBuilder: (context, index) {
-                      DocumentSnapshot document = snapshot.data!.docs[index];
-                      Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                      DocumentSnapshot document = postDocs[index];
+                      Map<String, dynamic> data =
+                      document.data() as Map<String, dynamic>;
+                      String postId = document.id;
                       String title = data['title'] ?? '';
                       int category = data['category'] ?? '';
                       String detail = data['detail'] ?? '';
@@ -94,23 +87,51 @@ class _ItemListState extends State<ItemList> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => DetailPage(
+                                postId: postId,
                                 category: category,
                                 detail: detail,
                                 image_url: image_url,
                                 title: title,
                                 userid: userid,
                                 dead_line: dead_line,
+                                documentId: document.id,
                               ),
                             ),
                           );
                         },
-                        child: Card(
-                          child: ListTile(
-                            title: Text(title),
-                            subtitle: Text(category.toString()),
-                            leading: imageUrls.isNotEmpty && imageUrls.length > index
-                                ? Image.network(imageUrls[index])
-                                : SizedBox.shrink(),
+                        child: SizedBox(
+                          height: 150,
+                          child: Row(
+                            children: [
+                              Image.network(
+                                image_url,
+                                width: 80,
+                                height: 140,
+                              ),
+                              SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 30),
+                                    Text(
+                                      title,
+                                      style: TextStyle(fontSize: 23),
+                                    ),
+                                    SizedBox(height: 50),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          dead_line,
+                                          style: TextStyle(fontSize: 17),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       );
@@ -126,31 +147,38 @@ class _ItemListState extends State<ItemList> {
   }
 }
 
-
-class DetailPage extends StatelessWidget {
-
-  bool lending_ing = false;
-
+class DetailPage extends StatefulWidget {
+  final String postId;
   final int category;
-  // final DateTime day;
   final String detail;
   final String image_url;
   final String title;
   final String userid;
   final String dead_line;
+  final String documentId;
 
   DetailPage({
+    required this.postId,
     required this.category,
-    // required this.day,
     required this.detail,
     required this.image_url,
     required this.title,
     required this.userid,
     required this.dead_line,
+    required this.documentId,
   });
 
   @override
+  _DetailPageState createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  User? _user;
+
+  @override
   Widget build(BuildContext context) {
+    TextEditingController _commentController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Detail Page'),
@@ -160,49 +188,28 @@ class DetailPage extends StatelessWidget {
         child: ListView(
           children: [
             const Padding(padding: EdgeInsets.all(4)),
-            Text('$title',
+            Text(
+              '${widget.title}',
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
             const Padding(padding: EdgeInsets.all(10)),
             Container(
-              child: Text(
-                '$detail',
-                style: TextStyle(fontSize: 20),
+              child: Image.network(
+                widget.image_url,
+                width: 380,
+                height: 250,
               ),
             ),
             const Padding(padding: EdgeInsets.all(10)),
-            lending_ing
-                ? Container(
-              width: 380,
-              height: 250,
-              decoration: BoxDecoration(
-                color: const Color(0xff60597B),
-                image: const DecorationImage(
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                    Color.fromRGBO(0, 0, 0, 0.2),
-                    BlendMode.dstATop,
-                  ),
-                  image: AssetImage('images/driver.png'),
-                ),
-              ),
-              child: Center(
-                child: const Text(
-                  '대여중',
-                  style: TextStyle(fontSize: 50),
-                ),
-              ),
-            ): Container(
-              width: 380,
-              height: 250,
-              child: Image.asset(
-                'images/driver.png',
-                fit: BoxFit.fill,
+            Container(
+              child: Text(
+                '${widget.detail}',
+                style: TextStyle(fontSize: 20),
               ),
             ),
             Container(
               child: Text(
-                '반납 날짜 : $dead_line',
+                '반납 날짜 : ${widget.dead_line}',
                 style: TextStyle(fontSize: 20),
               ),
             ),
@@ -212,43 +219,121 @@ class DetailPage extends StatelessWidget {
               child: const Divider(color: Colors.yellow, thickness: 2.0),
             ),
             const Padding(padding: EdgeInsets.all(10)),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: Text(
-                    "qwer",
-                    style: TextStyle(fontSize: 17),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  Container(
+                    width: 500,
+                    child: const Divider(color: Colors.yellow, thickness: 2.0),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 25),
-                  child: Text(
-                    "저 필요해요!!",
-                    style: TextStyle(fontSize: 15),
+                  const Padding(padding: EdgeInsets.all(10)),
+                  Container(
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection('comments_${widget.postId}')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Text('로딩 중...');
+                        }
+                        if (!snapshot.hasData) {
+                          return Text('데이터 없음');
+                        }
+
+                        List<QueryDocumentSnapshot> commentDocs =
+                            snapshot.data!.docs;
+                        commentDocs.sort((a, b) {
+                          Timestamp timestampA = a.get('timestamp');
+                          Timestamp timestampB = b.get('timestamp');
+                          return timestampB.compareTo(timestampA);
+                        });
+
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: commentDocs.length,
+                          itemBuilder: (context, index) {
+                            String comment = commentDocs[index].get('comment');
+                            String? userId =
+                            commentDocs[index].get('userId') as String?;
+                            String username =
+                            userId != null ? 'User ID: ${userId.split('@')[0]}' : 'Anonymous';
+                            Timestamp timestamp =
+                            commentDocs[index].get('timestamp');
+                            DateTime commentTime = timestamp.toDate();
+                            String timeAgo = timeago.format(commentTime);
+
+                            bool isCurrentUser =
+                                _user != null && userId == _user!.email;
+
+                            return Container(
+                              margin: EdgeInsets.only(bottom: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    username,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    comment,
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                  Text(
+                                    timeAgo,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                                  if (isCurrentUser)
+                                    IconButton(
+                                      icon: Icon(Icons.delete),
+                                      onPressed: () {
+                                        FirebaseFirestore.instance
+                                            .collection('comments_${widget.postId}')
+                                            .doc(commentDocs[index].id)
+                                            .delete();
+                                      },
+                                    ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-            ),
-            TextFormField(
-              maxLines: null,
-              keyboardType: TextInputType.multiline,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                    horizontal: 30
-                ),
-                hintText: '댓글쓰기',
-                border: InputBorder.none,
-                enabledBorder: InputBorder.none,
-                focusedBorder: InputBorder.none,
+                  SizedBox(height: 10),
+                  Container(
+                    child: TextField(
+                      controller: _commentController,
+                      decoration: InputDecoration(
+                        labelText: '댓글 입력',
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            String comment = _commentController.text.trim();
+                            if (comment.isNotEmpty) {
+                              FirebaseFirestore.instance
+                                  .collection('comments_${widget.postId}')
+                                  .add({
+                                'comment': comment,
+                                'userId': _user?.email,
+                                'timestamp': Timestamp.now(),
+                              });
+                              _commentController.clear();
+                            }
+                          },
+                          icon: Icon(Icons.send),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 10),
             ),
           ],
         ),
