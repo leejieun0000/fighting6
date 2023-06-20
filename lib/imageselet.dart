@@ -86,6 +86,10 @@ class _ImageSelectionScreenState extends State<ImageSelectionScreen> {
     TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
     String imageUrl = await taskSnapshot.ref.getDownloadURL();
 
+    setState(() {
+      _imageUrls.add(imageUrl);
+    });
+
     return imageUrl;
   }
 

@@ -6,30 +6,43 @@ import 'package:flutter/material.dart';
 //   runApp(const ItemList());
 // }
 
-class ItemList extends StatelessWidget {
-  // const ItemList({Key? key}) : super(key: key);
+class ItemList extends StatefulWidget {
+  final int tabIndex;
 
   ItemList({Key? key, required this.tabIndex}) : super(key: key);
-  final int tabIndex;
+
+  _ItemListState createState() => _ItemListState();
+}
+
+class _ItemListState extends State<ItemList> {
   final CollectionReference usersRef = FirebaseFirestore.instance.collection("post");
   List<String> imageUrls = [];
 
   Future<void> fetchImageUrlsByFolder(String folderName) async {
-    Reference storageReference = FirebaseStorage.instance.ref().child(folderName);
+    Reference storageReference = FirebaseStorage.instance.ref().child('images/');
     ListResult listResult = await storageReference.listAll();
     List<Reference> allFiles = listResult.items;
 
     List<String> urls = [];
     for (Reference file in allFiles) {
       String url = await file.getDownloadURL();
+      print('Image URL: $url');
       urls.add(url);
+
     }
 
-    imageUrls = urls;
+    setState(() {
+      imageUrls = urls;
+    });
+  }
+  @override
+  void initState() {
+    super.initState();
+    fetchImageUrlsByFolder('images/');
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Firestore ListView'),
@@ -46,7 +59,6 @@ class ItemList extends StatelessWidget {
           }
 
           List<String> documentNames = []; // 문서 이름을 저장할 리스트
-          List<String> imageUrls = [];
 
           return SingleChildScrollView(
             child: Padding(
@@ -65,14 +77,12 @@ class ItemList extends StatelessWidget {
                         endIndent: 5,
                       );
                     },
-                    // padding: EdgeInsets.all(16),
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot document = snapshot.data!.docs[index];
                       Map<String, dynamic> data = document.data() as Map<String, dynamic>;
                       String title = data['title'] ?? '';
                       int category = data['category'] ?? '';
-                      // DateTime day = data['day'] ?? '';
                       String detail = data['detail'] ?? '';
                       String image_url = data['image_url'] ?? '';
                       String userid = data['userid'] ?? '';
@@ -80,13 +90,11 @@ class ItemList extends StatelessWidget {
 
                       return InkWell(
                         onTap: () {
-                          // 상세 페이지로 이동
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => DetailPage(
                                 category: category,
-                                // day: day,
                                 detail: detail,
                                 image_url: image_url,
                                 title: title,
@@ -96,35 +104,13 @@ class ItemList extends StatelessWidget {
                             ),
                           );
                         },
-                        child: SizedBox(
-                          height: 100,
-                          child: Row(
-                            children: [
-                              Image(
-                                image: AssetImage('images/ganjang.png'),
-                              ),
-                              // Image.network(
-                              //   imageUrls[index],
-                              //   width: 30,
-                              //   height: 30,
-                              // ),
-                              SizedBox(width: 16),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(title),
-                                    SizedBox(height: 10),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(dead_line),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                        child: Card(
+                          child: ListTile(
+                            title: Text(title),
+                            subtitle: Text(category.toString()),
+                            leading: imageUrls.isNotEmpty && imageUrls.length > index
+                                ? Image.network(imageUrls[index])
+                                : SizedBox.shrink(),
                           ),
                         ),
                       );
@@ -139,6 +125,7 @@ class ItemList extends StatelessWidget {
     );
   }
 }
+
 
 class DetailPage extends StatelessWidget {
 
