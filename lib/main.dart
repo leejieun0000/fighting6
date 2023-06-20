@@ -155,138 +155,136 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.fromLTRB(30, 50, 30, 0),
-                    child: Center(
-                      child: Image(
-                        image: AssetImage('images/mate.png'),
-                        width: 430,
-                        height: 430,
-                      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.fromLTRB(30, 50, 30, 0),
+                  child: Center(
+                    child: Image(
+                      image: AssetImage('images/mate.png'),
+                      width: 430,
+                      height: 430,
                     ),
                   ),
+                ),
 
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(30.0, 0, 30.0, 20.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: Colors.black,
-                            width: 1.0,
-                          ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(30.0, 0, 30.0, 20.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                          width: 1.0,
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: Colors.grey,
-                            width: 1.0,
-                          ),
-                        ),
-                        labelText: '이메일',
-                        //hintText: 'abcde',
-                        labelStyle: TextStyle(color: Colors.grey),
-                        isDense: true,
-                        contentPadding: EdgeInsets.all(17.0),
                       ),
-                      controller: emailController,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                          color: Colors.grey,
+                          width: 1.0,
+                        ),
+                      ),
+                      labelText: '이메일',
+                      //hintText: 'abcde',
+                      labelStyle: TextStyle(color: Colors.grey),
+                      isDense: true,
+                      contentPadding: EdgeInsets.all(17.0),
+                    ),
+                    controller: emailController,
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                          width: 1.0,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                          color: Colors.grey,
+                          width: 1.0,
+                        ),
+                      ),
+                      labelText: '비밀번호',
+                      //hintText: 'abcde',
+                      labelStyle: TextStyle(color: Colors.grey),
+                      isDense: true,
+                      contentPadding: EdgeInsets.all(17.0),
+                    ),
+                    controller: passwordController,
+                    obscureText: true,
+                  ),
+                ),
+
+
+                Container(
+                  alignment: const Alignment(0.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 10),
+                  child: ElevatedButton(
+                    onPressed: signIn,
+                    child: const Text('로그인',
+                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      backgroundColor: Color(0xffFFD76F),
+                      minimumSize: Size(400, 50),
                     ),
                   ),
+                ),
 
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: Colors.black,
-                            width: 1.0,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: Colors.grey,
-                            width: 1.0,
-                          ),
-                        ),
-                        labelText: '비밀번호',
-                        //hintText: 'abcde',
-                        labelStyle: TextStyle(color: Colors.grey),
-                        isDense: true,
-                        contentPadding: EdgeInsets.all(17.0),
-                      ),
-                      controller: passwordController,
-                      obscureText: true,
+
+                Container(
+                  alignment: const Alignment(0.0, 0.0),
+                  padding: const EdgeInsets.fromLTRB(50.0, 10.0, 50.0, 35.0),
+                  child: TextButton(
+                    child: Text(
+                      "회원가입",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const JoinWidget()),
+                      );
+                    },
+                    style: TextButton.styleFrom(
+                      primary: Colors.black,
                     ),
                   ),
-
-
-                  Container(
-                    alignment: const Alignment(0.0, 0.0),
-                    padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 10),
-                    child: ElevatedButton(
-                      onPressed: signIn,
-                      child: const Text('로그인',
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        backgroundColor: Color(0xffFFD76F),
-                        minimumSize: Size(400, 50),
-                      ),
-                    ),
-                  ),
-
-
-                  Container(
-                    alignment: const Alignment(0.0, 0.0),
-                    padding: const EdgeInsets.fromLTRB(50.0, 10.0, 50.0, 10.0),
-                    child: TextButton(
-                      child: Text(
-                        "회원가입",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const JoinWidget()),
-                        );
-                      },
-                      style: TextButton.styleFrom(
-                        primary: Colors.black,
-                      ),
-                    ),
-                  ),
-                ],
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Image.asset(
+                'images/dongnae.png',
+                fit: BoxFit.fitWidth,
+                width: MediaQuery.of(context).size.width,
               ),
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Image.asset(
-              'images/dongnae.png',
-              fit: BoxFit.fitWidth,
-              width: MediaQuery.of(context).size.width,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
 
     );
